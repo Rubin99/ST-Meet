@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "312888540992",
+    "firebase_url": "https://student-teacher-meet-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "student-teacher-meet",
+    "storage_bucket": "student-teacher-meet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312888540992:android:99f49a0525600769e0c4a5",
+        "android_client_info": {
+          "package_name": "com.example.stmeet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312888540992-phu13qbrll5l5lfm07cp32htqa2hc2mq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stmeet",
+            "certificate_hash": "dba3ba1283f5b88dca41d224ae48883a74084b5e"
+          }
+        },
+        {
+          "client_id": "312888540992-5bqp6dlbkcfi55k5g1vm60gr64uiego9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW-2olapgVd8vnnZZVEuK_j1A473Y7koM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312888540992-5bqp6dlbkcfi55k5g1vm60gr64uiego9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
