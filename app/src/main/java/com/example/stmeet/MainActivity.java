@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +28,21 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private cards cards_data[];
+    private arrayAdapter arrayAdapter;
     private int i;
 
     private FirebaseAuth mAuth;
+
+    private String currentUId;
+    private DatabaseReference usersDb;
+
+    ListView listView;
+    List<cards> rowItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        currentUId = mAuth.getCurrentUser().getUid();
+
         checkUserRole();
 
-        al = new ArrayList<>();
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.topic, R.id.helloText, al );
+
+        rowItems = new ArrayList<cards>();
+
+        arrayAdapter = new arrayAdapter(this, R.layout.topic, rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -57,20 +70,28 @@ public class MainActivity extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
+
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserRole).child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
+
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
+
+                isConnectionMatch(userId);
+
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -93,6 +114,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void isConnectionMatch(String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child(userRole).child(currentUId).child("connections").child("accepted").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Toast.makeText(MainActivity.this, "new connection", Toast.LENGTH_LONG).show();
+
+                    //have to make sure matches sub branch is within userId !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    usersDb.child(oppositeUserRole).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    usersDb.child(userRole).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            }
+        });
     }
 
     private String userRole;     //either student or teacher
@@ -157,8 +198,13 @@ public class MainActivity extends AppCompatActivity {
         oppositeRoleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    al.add(snapshot.child("name").getValue().toString());
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //if statement checks if we have already rejected or accedpted and will never show it again!!!!! WILL have to change it.
+                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId)){
+//                if (snapshot.exists()){
+                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString());
+                    rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
@@ -182,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                 if (snapshot.getKey().equals(user.getUid())){
                     userRole = "Teacher";
-                    oppositeUserRole = "User";
+                    oppositeUserRole = "Student";
                 }
             }
             @Override
@@ -205,6 +251,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ChooseLoginRegistrationActivity.class);
         startActivity(intent);
         finish();
+        return;
+    }
+
+    public void goToUserInfo(View view) {
+        Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+        intent.putExtra("userRole", userRole);
+        startActivity(intent);
         return;
     }
 }
