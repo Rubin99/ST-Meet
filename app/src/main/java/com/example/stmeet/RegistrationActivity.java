@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText mEmailRegister, mPasswordRegister, mNameRegister;
@@ -78,8 +81,18 @@ public class RegistrationActivity extends AppCompatActivity {
                             Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
                         } else {
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("name");
-                            currentUserDb.setValue(name);
+                            /*DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("name");
+                            //Setting default image
+                            Map userInformation = new HashMap<>();
+                            userInformation.put("name", name);
+                            userInformation.put("profileImageUrl", "default");
+                            */
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId);
+                            Map userInformation = new HashMap<>();
+                            userInformation.put("name", name);
+                            userInformation.put("profileImageUrl", "default");
+                            currentUserDb.updateChildren(userInformation);
+                            currentUserDb.updateChildren(userInformation);
                         }
                     }
                 });

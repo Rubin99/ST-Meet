@@ -203,7 +203,11 @@ public class MainActivity extends AppCompatActivity {
                 //if statement checks if we have already rejected or accedpted and will never show it again!!!!! WILL have to change it.
                 if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId)){
 //                if (snapshot.exists()){
-                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString());
+                    String profileImageUrl = "default";
+                    if (!snapshot.child("profileImageUrl").getValue().equals("default")){
+                        profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                    }
+                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
