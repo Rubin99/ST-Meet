@@ -1,4 +1,4 @@
-package com.example.stmeet;
+package com.example.stmeet.info;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.stmeet.R;
+import com.example.stmeet.info.cards;
 
 import java.util.List;
 

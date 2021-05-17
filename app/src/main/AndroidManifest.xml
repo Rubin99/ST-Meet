@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stmeet">
-    
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".UserInfoActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".ChooseLoginRegistrationActivity">
+        <activity android:name=".matches.MatchesActivity"></activity>
+        <activity android:name=".info.UserInfoActivity" />
+        <activity android:name=".login_registration.LoginActivity" />
+        <activity android:name=".login_registration.RegistrationActivity" />
+        <activity android:name=".login_registration.ChooseLoginRegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

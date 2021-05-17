@@ -1,4 +1,4 @@
-package com.example.stmeet;
+package com.example.stmeet.login_registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.stmeet.MainActivity;
+import com.example.stmeet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -81,15 +83,11 @@ public class RegistrationActivity extends AppCompatActivity {
                             Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
                         } else {
                             String userId = mAuth.getCurrentUser().getUid();
-                            /*DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("name");
                             //Setting default image
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
                             Map userInformation = new HashMap<>();
                             userInformation.put("name", name);
-                            userInformation.put("profileImageUrl", "default");
-                            */
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId);
-                            Map userInformation = new HashMap<>();
-                            userInformation.put("name", name);
+                            userInformation.put("role", radioButton.getText().toString());
                             userInformation.put("profileImageUrl", "default");
                             currentUserDb.updateChildren(userInformation);
                             currentUserDb.updateChildren(userInformation);

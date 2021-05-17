@@ -20,6 +20,16 @@
             android:layout_margin="8dp"
             android:id="@+id/logoutBtn"/>
 
+
+        <Button
+            android:id="@+id/matches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToMatches"
+            android:text="Matches"
+            android:layout_margin="8dp"
+            android:layout_weight="1"/>
+
         <Button
             android:id="@+id/settings"
             android:layout_width="wrap_content"

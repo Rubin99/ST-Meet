@@ -8,13 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.info.cards;
+import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.info.arrayAdapter;
+import com.example.stmeet.matches.MatchesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -33,7 +34,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private cards cards_data[];
-    private arrayAdapter arrayAdapter;
+    private com.example.stmeet.info.arrayAdapter arrayAdapter;
     private int i;
 
     private FirebaseAuth mAuth;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
-                usersDb.child(oppositeUserRole).child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
 
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
-                usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
 
                 isConnectionMatch(userId);
 
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void isConnectionMatch(String userId) {
-        DatabaseReference currentUserConnectionsDb = usersDb.child(userRole).child(currentUId).child("connections").child("accepted").child(userId);
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("accepted").child(userId);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "new connection", Toast.LENGTH_LONG).show();
 
                     //have to make sure matches sub branch is within userId !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    usersDb.child(oppositeUserRole).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
-                    usersDb.child(userRole).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
                 }
             }
 
@@ -142,49 +143,27 @@ public class MainActivity extends AppCompatActivity {
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference studentDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Student");
-        studentDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                if (snapshot.getKey().equals(user.getUid())){
-                    userRole = "Student";
-                    oppositeUserRole = "Teacher";
-                    getOppositeUserRole();
-                }
-            }
-            @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-            }
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-            }
-        });
+        DatabaseReference userDb = usersDb.child(user.getUid());
+        userDb.addListenerForSingleValueEvent(new ValueEventListener(){
 
-        DatabaseReference teacherDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Teacher");
-        teacherDb.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                if (snapshot.getKey().equals(user.getUid())){
-                    userRole = "Teacher";
-                    oppositeUserRole = "Student";
-                    getOppositeUserRole();
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    if (snapshot.child("role").getValue() != null){
+                        userRole =snapshot.child("role").getValue().toString();
+                        switch (userRole){
+                            case "Student":
+                                oppositeUserRole = "Teacher";
+                                break;
+                            case "Teacher":
+                                oppositeUserRole = "Student";
+                                break;
+                        }
+                        getOppositeUserRole();
+                    }
                 }
             }
-            @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-            }
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-            }
+
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
@@ -192,16 +171,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOppositeUserRole(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference oppositeRoleDb = FirebaseDatabase.getInstance().getReference().child("Users").child(oppositeUserRole);
-        oppositeRoleDb.addChildEventListener(new ChildEventListener() {
+        usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //if statement checks if we have already rejected or accedpted and will never show it again!!!!! WILL have to change it.
-                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId)){
+                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId) && snapshot.child("role").getValue().toString().equals(oppositeUserRole)){
 //                if (snapshot.exists()){
                     String profileImageUrl = "default";
                     if (!snapshot.child("profileImageUrl").getValue().equals("default")){
@@ -226,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference teacherDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Teacher");
+        /*DatabaseReference teacherDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Teacher");
         teacherDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
@@ -247,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
-        });
+        });*/
     }
 
     public void LogoutUser(View view) {
@@ -260,7 +238,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToUserInfo(View view) {
         Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
-        intent.putExtra("userRole", userRole);
+        startActivity(intent);
+        return;
+    }
+
+    public void goToMatches(View view) {
+        Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
         startActivity(intent);
         return;
     }

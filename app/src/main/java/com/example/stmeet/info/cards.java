@@ -1,4 +1,4 @@
-package com.example.stmeet;
+package com.example.stmeet.info;
 
 public class cards {
     private String userId;

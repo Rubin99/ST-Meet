@@ -1,4 +1,4 @@
-package com.example.stmeet;
+package com.example.stmeet.info;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.stmeet.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,9 +43,9 @@ public class UserInfoActivity extends AppCompatActivity {
     private ImageView mProfileImage;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mCustomerDatabase;
+    private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl;
+    private String userId, name, phone, profileImageUrl, userRole;
 
     private Uri resultUri;
 
@@ -53,7 +54,7 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-        String userRole = getIntent().getExtras().getString("userRole");
+        //String userRole = getIntent().getExtras().getString("userRole");
 
         mNameField = findViewById(R.id.name);
         mPhoneNoField = findViewById(R.id.phoneNo);
@@ -65,7 +66,7 @@ public class UserInfoActivity extends AppCompatActivity {
         userId = mAuth.getCurrentUser().getUid();
 
         //error re, double check
-        mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userRole).child(userId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         getUserInfo();
 
@@ -98,7 +99,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     //Litsener to check for current user info
     private void getUserInfo() {
-        mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists() && snapshot.getChildrenCount()>0){
@@ -110,6 +111,9 @@ public class UserInfoActivity extends AppCompatActivity {
                     if (map.get("phone") != null){
                         phone = map.get("phone").toString();
                         mPhoneNoField.setText(phone);
+                    }
+                    if (map.get("role") != null){
+                        userRole = map.get("role").toString();
                     }
                     if (map.get("profileImageUrl") != null){
                         profileImageUrl = map.get("profileImageUrl").toString();
@@ -140,7 +144,7 @@ public class UserInfoActivity extends AppCompatActivity {
         Map userInformation = new HashMap();
         userInformation.put("name", name);
         userInformation.put("phone", phone);
-        mCustomerDatabase.updateChildren(userInformation);
+        mUserDatabase.updateChildren(userInformation);
 
         if (resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
@@ -168,7 +172,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             Map newImage = new HashMap();
                             newImage.put("profileImageUrl", uri.toString());
-                            mCustomerDatabase.updateChildren(newImage);
+                            mUserDatabase.updateChildren(newImage);
 
                             finish();
                             return;
