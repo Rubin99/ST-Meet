@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull @org.jetbrains.annotations.NotNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MatchesActivity.class);
                     startActivity(intent);
                     finish();
                     return;

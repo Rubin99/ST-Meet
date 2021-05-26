@@ -8,15 +8,32 @@
     android:id="@+id/drawer"
     tools:context=".matches.MatchesActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="60dp">
+
+        android:layout_marginTop="56dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/midBlue"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Your Teachers"
+            android:textSize="32dp"
+            android:id="@+id/tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv"
+        android:paddingTop="44dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -27,7 +44,20 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/find_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/lightBlue"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:layout_height="match_parent"

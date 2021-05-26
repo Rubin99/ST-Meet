@@ -26,6 +26,7 @@ public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.O
         mMatchid = itemView.findViewById(R.id.matchId);
         mMatchName = itemView.findViewById(R.id.matchName);
         mMatchImage = itemView.findViewById(R.id.matchImage);
+        mMatchid.setVisibility(View.INVISIBLE); //////////////////
     }
 
     @Override

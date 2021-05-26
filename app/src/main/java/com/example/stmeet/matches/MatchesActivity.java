@@ -2,6 +2,7 @@ package com.example.stmeet.matches;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,13 +12,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.stmeet.MainActivity;
+import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.stmeet.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +51,8 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
     ActionBarDrawerToggle toggle;
     //----------------------------
 
+    private FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,20 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
 
         //--------------------------------------------------------------
 
+        //---------------------------FAB ICON----------------------------------------------------------------------------------
+        fab = findViewById(R.id.find_teacher);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MatchesActivity.this, "Find Teacher", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MatchesActivity.this, SubjectListActivity.class);
+                startActivity(intent);
+                return;
+            }
+        });
+        //---------------------------FAB ICON----------------------------------------------------------------------------------
+
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -77,6 +98,9 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         mRecyclerView.setLayoutManager(mMatchesLayoutManager);
         mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), MatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
+
+        DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
 
         getUserMatchId();
 
@@ -117,7 +141,7 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                        MatchesObject obj = new MatchesObject(userId, name, profileImageUrl);
+                        MatchesObject obj = new MatchesObject(userId, name, profileImageUrl); //
                         resultsMatches.add(obj);
 
                     mMatchesAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
