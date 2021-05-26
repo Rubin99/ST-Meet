@@ -2,11 +2,16 @@ package com.example.stmeet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,6 +21,7 @@ import com.example.stmeet.info.cards;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.info.arrayAdapter;
 import com.example.stmeet.matches.MatchesActivity;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private cards cards_data[];
     private com.example.stmeet.info.arrayAdapter arrayAdapter;
@@ -45,10 +51,32 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     List<cards> rowItems;
 
+    // For navigation sidebar
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    //----------------------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // For navigation sidebar
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navmenu);
+        navigationView.setItemIconTintList(null);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close); //?
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();
+
+        //--------------------------------------------------------------
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -251,4 +279,41 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return;
     }
+    // For navigation sidebar
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+
+            case R.id.nav_home:
+                Intent h= new Intent(MainActivity.this, MainActivity.class);
+                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(h);
+                break;
+            case R.id.nav_profile:
+                Intent p= new Intent(MainActivity.this, UserInfoActivity.class);
+                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(p);
+                break;
+            case R.id.nav_matches:
+                Intent m= new Intent(MainActivity.this, MatchesActivity.class);
+                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(m);
+                break;
+            case R.id.nav_logout:
+                mAuth.signOut();
+                Intent l= new Intent(MainActivity.this, ChooseLoginRegistrationActivity.class);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(l);
+                finish();
+                break;
+
+        }
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
+    // ----------------------------------------------
+

@@ -10,10 +10,21 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
+
+import com.example.stmeet.MainActivity;
+import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.matches.MatchesActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.stmeet.R;
@@ -36,7 +47,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserInfoActivity extends AppCompatActivity {
+public class UserInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText mNameField, mPhoneNoField;
     private Button mConfirm, mBack;
@@ -49,10 +60,33 @@ public class UserInfoActivity extends AppCompatActivity {
 
     private Uri resultUri;
 
+    // For navigation sidebar
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    //----------------------------
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        // For navigation sidebar
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navmenu);
+        navigationView.setItemIconTintList(null);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close); //?
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();
+
+        //--------------------------------------------------------------
 
         //String userRole = getIntent().getExtras().getString("userRole");
 
@@ -200,4 +234,41 @@ public class UserInfoActivity extends AppCompatActivity {
             mProfileImage.setImageURI(resultUri);
         }
     }
+
+    // sidebar
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+
+            case R.id.nav_home:
+                Intent h= new Intent(UserInfoActivity.this, MainActivity.class);
+                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(h);
+                break;
+            case R.id.nav_profile:
+                Intent p= new Intent(UserInfoActivity.this, UserInfoActivity.class);
+                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(p);
+                break;
+            case R.id.nav_matches:
+                Intent m= new Intent(UserInfoActivity.this, MatchesActivity.class);
+                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(m);
+                break;
+            case R.id.nav_logout:
+                mAuth.signOut();
+                Intent l= new Intent(UserInfoActivity.this, ChooseLoginRegistrationActivity.class);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(l);
+                finish();
+                break;
+
+        }
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    //-------------------------------------------------------------
 }

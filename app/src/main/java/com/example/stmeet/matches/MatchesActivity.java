@@ -5,7 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.stmeet.MainActivity;
+import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.google.android.material.navigation.NavigationView;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.stmeet.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchesActivity extends AppCompatActivity {
+public class MatchesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mMatchesAdapter;
@@ -28,11 +40,33 @@ public class MatchesActivity extends AppCompatActivity {
 
     private String currentUserId;
 
+    // For navigation sidebar
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    //----------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
+
+        // For navigation sidebar
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navmenu);
+        navigationView.setItemIconTintList(null);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close); //?
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();
+
+        //--------------------------------------------------------------
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -102,4 +136,41 @@ public class MatchesActivity extends AppCompatActivity {
     private List<MatchesObject> getDataSetMatches() {
         return  resultsMatches;
     }
+
+    // sidebar
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+
+            case R.id.nav_home:
+                Intent h= new Intent(MatchesActivity.this, MainActivity.class);
+                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(h);
+                break;
+            case R.id.nav_profile:
+                Intent p= new Intent(MatchesActivity.this, UserInfoActivity.class);
+                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(p);
+                break;
+            case R.id.nav_matches:
+                Intent m= new Intent(MatchesActivity.this, MatchesActivity.class);
+                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(m);
+                break;
+            case R.id.nav_logout:
+                //mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(MatchesActivity.this, ChooseLoginRegistrationActivity.class);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(l);
+                finish();
+                break;
+
+        }
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    //-------------------------------------------------------------
 }
