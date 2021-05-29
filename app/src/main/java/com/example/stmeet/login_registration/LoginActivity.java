@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,5 +80,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
+    }
+
+    public void toRegister(View view) {
+        Intent intent = new Intent(LoginActivity.this, TeacherInfoActivity.class);
+        startActivity(intent);
+        return;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent b = new Intent(LoginActivity.this, ChooseLoginRegistrationActivity.class);
+        b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(b);
+        finish();
     }
 }

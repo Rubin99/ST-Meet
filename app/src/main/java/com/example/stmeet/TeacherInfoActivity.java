@@ -10,20 +10,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SubjectListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private TextView mJava, mPhp, mDb;
+public class TeacherInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -31,14 +29,18 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
     ActionBarDrawerToggle toggle;
     //----------------------------
 
+    FirebaseAuth mAuth;
+    private String currentUId;
+    private DatabaseReference usersDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subject_list);
+        setContentView(R.layout.activity_teacher_info);
 
-        mJava = findViewById(R.id.java);
-        mPhp = findViewById(R.id.php);
-        mDb = findViewById(R.id.db);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         // For navigation sidebar
 
@@ -55,34 +57,6 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
         toggle.syncState();
 
         //--------------------------------------------------------------
-
-        mJava.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SubjectListActivity.this, "Java Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
-        mPhp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SubjectListActivity.this, "Php Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
-        mDb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SubjectListActivity.this, "Database Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
     }
 
     @Override
@@ -91,28 +65,28 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
         switch (id){
 
             case R.id.nav_subject:
-                Intent h= new Intent(SubjectListActivity.this, SubjectListActivity.class);
+                Intent h= new Intent(TeacherInfoActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
                 break;
             case R.id.nav_teacher:
-                Intent t = new Intent(SubjectListActivity.this, MainActivity.class);
+                Intent t = new Intent(TeacherInfoActivity.this, MainActivity.class);
                 t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(SubjectListActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(TeacherInfoActivity.this, UserInfoActivity.class);
                 p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(SubjectListActivity.this, MatchesActivity.class);
+                Intent m= new Intent(TeacherInfoActivity.this, MatchesActivity.class);
                 m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
                 break;
             case R.id.nav_logout:
                 //mAuth.signOut(); ///-------------------------------------
-                Intent l= new Intent(SubjectListActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(TeacherInfoActivity.this, ChooseLoginRegistrationActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

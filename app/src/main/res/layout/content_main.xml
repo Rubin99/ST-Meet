@@ -13,7 +13,7 @@
         app:title="ST MEET"
         app:titleTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/lightBlue"
+        android:background="@drawable/bg1"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

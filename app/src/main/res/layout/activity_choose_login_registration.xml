@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lighterBlue"
     tools:context=".login_registration.ChooseLoginRegistrationActivity">
 
     <View
@@ -52,9 +53,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get the help you need!"
-        android:textSize="22dp"
+        android:text="Connect with the right Teacher!"
+        android:textSize="22sp"
         android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />

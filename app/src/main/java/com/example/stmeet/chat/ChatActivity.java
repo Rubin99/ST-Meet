@@ -6,10 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.stmeet.MainActivity;
+import com.example.stmeet.SubjectListActivity;
+import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.google.android.material.navigation.NavigationView;
+
 
 import com.example.stmeet.R;
 import com.example.stmeet.matches.MatchesActivity;
@@ -30,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mChatAdapter;
@@ -43,10 +57,32 @@ public class ChatActivity extends AppCompatActivity {
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
 
+    // For navigation sidebar
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    //----------------------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        // For navigation sidebar
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navmenu);
+        navigationView.setItemIconTintList(null);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close); //?
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();
+
+        //--------------------------------------------------------------
 
         matchId = getIntent().getExtras().getString("matchId");
 
@@ -155,5 +191,45 @@ public class ChatActivity extends AppCompatActivity {
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {
         return  resultsChat;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+
+            case R.id.nav_subject:
+                Intent h= new Intent(ChatActivity.this, SubjectListActivity.class);
+                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(h);
+                break;
+            case R.id.nav_teacher:
+                Intent t = new Intent(ChatActivity.this, MainActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(t);
+                break;
+            case R.id.nav_profile:
+                Intent p= new Intent(ChatActivity.this, UserInfoActivity.class);
+                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(p);
+                break;
+            case R.id.nav_matches:
+                Intent m= new Intent(ChatActivity.this, MatchesActivity.class);
+                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(m);
+                break;
+            case R.id.nav_logout:
+                //mAuth.signOut();
+                Intent l= new Intent(ChatActivity.this, ChooseLoginRegistrationActivity.class);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(l);
+                finish();
+                break;
+
+        }
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

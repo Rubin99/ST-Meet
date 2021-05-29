@@ -81,7 +81,7 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MatchesActivity.this, "Find Teacher", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MatchesActivity.this, "Choose a Subject", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MatchesActivity.this, SubjectListActivity.class);
                 startActivity(intent);
                 return;
@@ -167,10 +167,15 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_home:
-                Intent h= new Intent(MatchesActivity.this, MainActivity.class);
+            case R.id.nav_subject:
+                Intent h= new Intent(MatchesActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
+                break;
+            case R.id.nav_teacher:
+                Intent t = new Intent(MatchesActivity.this, MainActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(MatchesActivity.this, UserInfoActivity.class);

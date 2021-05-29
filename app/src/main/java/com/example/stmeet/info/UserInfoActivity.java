@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.stmeet.SubjectListActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.stmeet.MainActivity;
@@ -49,14 +52,14 @@ import java.util.Map;
 
 public class UserInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private EditText mNameField, mPhoneNoField;
+    private EditText mNameField, mPhoneNoField, mEducationField, mSchoolField, mSubjectField, mAboutField;
     private Button mConfirm, mBack;
     private ImageView mProfileImage;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userRole;
+    private String userId, name, phone, profileImageUrl, userRole, education, school, subject, about;
 
     private Uri resultUri;
 
@@ -92,15 +95,19 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
 
         mNameField = findViewById(R.id.name);
         mPhoneNoField = findViewById(R.id.phoneNo);
+        mEducationField = findViewById(R.id.education);
+        mSchoolField = findViewById(R.id.school);
+        mSubjectField = findViewById(R.id.subject);
+        mAboutField = findViewById(R.id.about);
         mConfirm = findViewById(R.id.confirm);
         mBack = findViewById(R.id.back);
         mProfileImage = findViewById(R.id.profileImage);
 
         mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().getUid();
+        userId = mAuth.getCurrentUser().getUid(); // takes the current users id
 
         //error re, double check
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId); // getting inside the userid
 
         getUserInfo();
 
@@ -149,6 +156,22 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
                     if (map.get("role") != null){
                         userRole = map.get("role").toString();
                     }
+                    if (map.get("education") != null){
+                        education = map.get("education").toString();
+                        mEducationField.setText(education);
+                    }
+                    if (map.get("school") != null){
+                        school = map.get("school").toString();
+                        mSchoolField.setText(school);
+                    }
+                    if (map.get("subject") != null){
+                        subject = map.get("subject").toString();
+                        mSubjectField.setText(subject);
+                    }
+                    if (map.get("about") != null){
+                        about = map.get("about").toString();
+                        mAboutField.setText(about);
+                    }
                     if (map.get("profileImageUrl") != null){
                         profileImageUrl = map.get("profileImageUrl").toString();
                         switch(profileImageUrl){
@@ -169,15 +192,23 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         });
     }
 
-    //For saving the information
+    //For saving the information in the database
     private void saveUserInformation() {
         name = mNameField.getText().toString();
         phone = mPhoneNoField.getText().toString();
+        education = mEducationField.getText().toString();
+        school = mSchoolField.getText().toString();
+        subject = mSubjectField.getText().toString();
+        about = mAboutField.getText().toString();
 
         //To save it
         Map userInformation = new HashMap();
         userInformation.put("name", name);
         userInformation.put("phone", phone);
+        userInformation.put("education", education);
+        userInformation.put("school", school);
+        userInformation.put("subject", subject);
+        userInformation.put("about", about);
         mUserDatabase.updateChildren(userInformation);
 
         if (resultUri != null){
@@ -211,17 +242,20 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
                             finish();
                             return;
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
+                    });/*.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             finish();
                             return;
                         }
-                    });
+                    });*/
                 }
             });
         }else {
-            finish();
+            Intent p= new Intent(UserInfoActivity.this, UserInfoActivity.class);
+            startActivity(p);
+            //return;
+            //finish();
         }
     }
 
@@ -241,10 +275,15 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_home:
-                Intent h= new Intent(UserInfoActivity.this, MainActivity.class);
+            case R.id.nav_subject:
+                Intent h= new Intent(UserInfoActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
+                break;
+            case R.id.nav_teacher:
+                Intent t = new Intent(UserInfoActivity.this, MainActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(UserInfoActivity.this, UserInfoActivity.class);

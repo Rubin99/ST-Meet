@@ -9,10 +9,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     //----------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +142,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, TeacherInfoActivity.class);
+                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Teacher info!", Toast.LENGTH_SHORT).show();
+                return;
             }
         });
 
@@ -210,14 +216,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //if statement checks if we have already rejected or accedpted and will never show it again!!!!! WILL have to change it.
+                //if statement checks if we have already rejected or accepted and will never show it again!!!!! WILL have to change it.
                 if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId) && snapshot.child("role").getValue().toString().equals(oppositeUserRole)){
 //                if (snapshot.exists()){
                     String profileImageUrl = "default";
                     if (!snapshot.child("profileImageUrl").getValue().equals("default")){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
-                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
+                    String subject = "default2";
+                    if (!snapshot.child("subject").getValue().equals("default2")){
+                        subject = snapshot.child("subject").getValue().toString();
+                    }
+                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), subject , profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -285,10 +295,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_home:
-                Intent h= new Intent(MainActivity.this, MainActivity.class);
+            case R.id.nav_subject:
+                Intent h= new Intent(MainActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
+                break;
+            case R.id.nav_teacher:
+                Intent t = new Intent(MainActivity.this, MainActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(MainActivity.this, UserInfoActivity.class);

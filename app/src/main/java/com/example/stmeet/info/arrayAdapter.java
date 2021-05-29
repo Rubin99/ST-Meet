@@ -29,9 +29,18 @@ public class arrayAdapter extends ArrayAdapter<cards> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.topic, parent, false);
         }
         TextView name = (TextView) convertView.findViewById(R.id.name); // beccause convert view is inflating the layout
+        TextView subject = (TextView) convertView.findViewById(R.id.subject_textview);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
         name.setText(card_item.getName());
+        switch (card_item.getSubject()){
+            case "default2":
+                subject.setText("null");
+                break;
+            default:
+                subject.setText(card_item.getSubject());
+                break;
+        }
         switch(card_item.getProfileImageUrl()){
             case "default":
                 Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
@@ -40,8 +49,6 @@ public class arrayAdapter extends ArrayAdapter<cards> {
                 Glide.with(convertView.getContext()).load(card_item.getProfileImageUrl()).into(image);
                 break;
         }
-
-
         return convertView;
     }
 

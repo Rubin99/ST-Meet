@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".SubjectListActivity"></activity>
+        <activity android:name=".TeacherInfoActivity"></activity>
+        <activity android:name=".SubjectListActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".matches.MatchesActivity" />
         <activity android:name=".info.UserInfoActivity" />

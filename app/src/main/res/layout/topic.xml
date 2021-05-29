@@ -10,43 +10,93 @@
     android:paddingBottom="20sp"
     android:paddingTop="20sp"
     android:outlineProvider="bounds"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:background="@drawable/bg1">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardCornerRadius="4dp"
-        android:elevation="2dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="8dp"
         android:id="@+id/cardView">
 
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="450dp"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
             android:orientation="vertical"
+            android:background="@color/lighterBlue"
             android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="300dp"
                 android:id="@+id/image"
                 android:scaleType="centerCrop" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#c0c0c0"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:text="Name:"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@android:color/black"
+                    android:background="@android:color/transparent"/>
+
         <TextView
             android:id="@+id/name"
-            android:textSize="35sp"
+            android:textSize="25sp"
             android:textColor="@android:color/black"
             android:background="@android:color/transparent"
-            android:gravity="center"
+            android:gravity="left"
+            android:paddingLeft="8dp"
             tools:text="Check!"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|left"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:text="Subject:"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@android:color/black"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                android:id="@+id/subject_textview"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:background="@android:color/transparent"
+                android:gravity="left"
+                android:paddingLeft="8dp"
+                tools:text="Test!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"/>
+            </LinearLayout>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 </LinearLayout>

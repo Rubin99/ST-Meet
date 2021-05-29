@@ -10,5 +10,7 @@
 
     <color name="lightBlue">#01AEF0</color>
     <color name="midBlue">#015E82</color>
+    <color name="lighterBlue">#AAE4FA</color>
+
 
 </resources>
