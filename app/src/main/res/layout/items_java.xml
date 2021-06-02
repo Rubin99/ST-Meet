@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="20dp"
+    android:scrollbars="vertical"
+    android:background="@color/lighterBlue"
+    app:cardCornerRadius="20dp">
+
+   <!-- <ImageView
+        android:layout_width="75sp"
+        android:layout_height="75sp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/javaImage"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:paddingLeft="20sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Java's Name"
+            android:layout_gravity="center"
+            android:id="@+id/javaName"
+            android:paddingBottom="20sp"/>
+
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matches ID"
+            android:layout_gravity="center"
+            android:id="@+id/userIdJava"/>-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:layout_gravity="center"
+            android:id="@+id/javaSubject"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matches ID"
+            android:layout_gravity="center"
+            android:id="@+id/javaId"/>
+
+    </LinearLayout>
+
+</LinearLayout>

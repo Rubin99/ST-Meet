@@ -107,6 +107,7 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         userId = mAuth.getCurrentUser().getUid(); // takes the current users id
 
         //error re, double check
+        //mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userRole).child(userId);
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId); // getting inside the userid
 
         getUserInfo();

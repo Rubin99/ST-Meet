@@ -3,6 +3,7 @@
     package="com.example.stmeet">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".TeacherInfoActivity"></activity>
+        <activity android:name=".student_requests.StudentRequestActivity"></activity>
+        <activity android:name=".java_display.JavaDisplayActivity" />
+        <activity android:name=".TeacherInfoActivity" />
         <activity android:name=".SubjectListActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".matches.MatchesActivity" />

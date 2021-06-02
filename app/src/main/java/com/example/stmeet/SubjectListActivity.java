@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.java_display.JavaDisplayActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -60,7 +61,7 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Toast.makeText(SubjectListActivity.this, "Java Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
+                Intent intent = new Intent(SubjectListActivity.this, JavaDisplayActivity.class);
                 startActivity(intent);
                 return;
             }

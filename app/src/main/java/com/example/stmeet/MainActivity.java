@@ -23,6 +23,7 @@ import com.example.stmeet.info.cards;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.info.arrayAdapter;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
+                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
                 usersDb.child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
 
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onRightCardExit(Object dataObject) {
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
+                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
                 usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
 
                 isConnectionMatch(userId);
@@ -152,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void isConnectionMatch(String userId) {
+        //DatabaseReference currentUserConnectionsDb = usersDb.child(userRole).child(currentUId).child("connections").child("accepted").child(userId);
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("accepted").child(userId);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -163,8 +167,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //have to make sure matches sub branch is within userId !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+                    //usersDb.child(oppositeUserRole).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(true);
+                    //usersDb.child(userRole).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(true);
                     usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
-
                     usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(key);
                 }
             }
@@ -181,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        //DatabaseReference studentDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Student");
+        //studentDb.addChildEventListener(new ChildEventListener() {
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener(){
 
@@ -202,21 +209,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
 
+            /*@Override
+            public void onChild Added(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    userRole = "Student";
+                    oppositeUserRole = "Teacher";
+                    getOppositeUserRole();
+                }
+            }*/
+
+            /*@Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }*/
+
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
+       /* });
+
+        DatabaseReference teacherDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Teacher");
+        teacherDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    userRole = "Teacher";
+                    oppositeUserRole = "Student";
+                    getOppositeUserRole();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }*/
         });
     }
 
     public void getOppositeUserRole(){
         //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        //DatabaseReference oppositeRoleDb = FirebaseDatabase.getInstance().getReference().child("Users").child(oppositeUserRole);
+        //oppositeRoleDb.addChildEventListener(new ChildEventListener() {
         usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //if statement checks if we have already rejected or accepted and will never show it again!!!!! WILL have to change it.
+                //if statement checks if we have already rejected or accepted and will never show it again!!!!! WILL have to change it
+                //if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId)){
                 if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUId) && !snapshot.child("connections").child("accepted").hasChild(currentUId) && snapshot.child("role").getValue().toString().equals(oppositeUserRole)){
 //                if (snapshot.exists()){
                     String profileImageUrl = "default";
@@ -280,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void goToUserInfo(View view) {
         Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+        //intent.putExtra("userRole", userRole);
         startActivity(intent);
         return;
     }
@@ -314,6 +381,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent m= new Intent(MainActivity.this, MatchesActivity.class);
                 m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
+                break;
+            case R.id.nav_request:
+                Intent r = new Intent(MainActivity.this, StudentRequestActivity.class);
+                r.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(r);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
