@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".student_requests.StudentRequestActivity"></activity>
+        <activity android:name=".payment.PaymentDetails"></activity>
+        <activity android:name=".payment.TeacherPaymentActivity" />
+        <activity android:name=".student_requests.StudentRequestActivity" />
         <activity android:name=".java_display.JavaDisplayActivity" />
         <activity android:name=".TeacherInfoActivity" />
         <activity android:name=".SubjectListActivity" />

@@ -18,56 +18,48 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayAdapter.MyViewHolder> {
+public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayAdapter.JavaViewHolder> {
 
-    Context context;
+    private Context context;
+    private List<JavaDisplayObject> javaList;
 
-    ArrayList<JavaDisplayObject> list;
-
-    public JavaDisplayAdapter(Context context, ArrayList<JavaDisplayObject> list){
+    public JavaDisplayAdapter (Context context, List<JavaDisplayObject> javaList){
         this.context = context;
-        this.list = list;
+        this.javaList = javaList;
     }
 
+    class JavaViewHolder extends RecyclerView.ViewHolder{
 
-    @NonNull
+        TextView mName, mSubject;
+        ImageView mImage;
+
+        public JavaViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+            mName = itemView.findViewById(R.id.javaName);
+            mSubject = itemView.findViewById(R.id.javaSubject);
+            mImage = itemView.findViewById(R.id.javaImage);
+        }
+    }
+
     @NotNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
-        return new MyViewHolder(v);
+    public JavaViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
+        return new JavaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull JavaDisplayAdapter.MyViewHolder holder, int position) {
-        JavaDisplayObject javaObj = list.get(position);
-        holder.mJavaId.setText(javaObj.getJavaId());
-        holder.mJavaName.setText(javaObj.getJavaName());
-        holder.mJavaSubject.setText(javaObj.getJavaSubject());
-        /*if (!list.get(position).getJavaProfileImageUrl().equals("default")){
-            Glide.with(context).load(list.get(position).getJavaProfileImageUrl()).into(holder.mJavaProfile);
-        }*/
+    public void onBindViewHolder(@NonNull @NotNull JavaDisplayAdapter.JavaViewHolder holder, int position) {
+        JavaDisplayObject javaDisplayObject = javaList.get(position);
+        holder.mName.setText(javaDisplayObject.name);
+        holder.mSubject.setText(javaDisplayObject.subject);
+        if (!javaDisplayObject.getProfileImageUrl().equals("default")){
+            Glide.with(context).load(javaDisplayObject.getProfileImageUrl()).into(holder.mImage);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
-    }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-        TextView mJavaId, mJavaName, mJavaSubject;
-        //ImageView mJavaProfile;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            mJavaId =itemView.findViewById(R.id.javaId);
-            mJavaName = itemView.findViewById(R.id.javaName);
-            mJavaSubject = itemView.findViewById(R.id.javaSubject);
-           // mJavaProfile = itemView.findViewById(R.id.javaImage);
-            //mJavaId.setVisibility(View.INVISIBLE);
-
-        }
+        return javaList.size();
     }
 }

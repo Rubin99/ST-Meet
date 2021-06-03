@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.info.cards;
+import com.example.stmeet.java_display.JavaDisplayActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.info.arrayAdapter;
 import com.example.stmeet.matches.MatchesActivity;
@@ -289,11 +290,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (!snapshot.child("profileImageUrl").getValue().equals("default")){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
-                    String subject = "default2";
-                    if (!snapshot.child("subject").getValue().equals("default2")){
-                        subject = snapshot.child("subject").getValue().toString();
-                    }
-                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), subject , profileImageUrl);
+
+                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), snapshot.child("subject").getValue().toString() , profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -386,6 +384,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent r = new Intent(MainActivity.this, StudentRequestActivity.class);
                 r.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(r);
+                break;
+            case R.id.nav_java:
+                Intent j = new Intent(MainActivity.this, JavaDisplayActivity.class);
+                j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(j);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();

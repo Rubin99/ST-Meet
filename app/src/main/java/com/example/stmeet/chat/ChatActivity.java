@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +25,7 @@ import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.payment.TeacherPaymentActivity;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -231,5 +235,28 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.paypal:
+                Toast.makeText(this, "Paypal", Toast.LENGTH_SHORT).show();
+                Intent pay = new Intent(ChatActivity.this, TeacherPaymentActivity.class);
+                pay.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(pay);
+                break;
+            case R.id.videoCall:
+                Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

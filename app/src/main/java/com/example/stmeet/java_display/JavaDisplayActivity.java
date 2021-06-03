@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.stmeet.R;
-import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.matches.MatchesObject;
-import com.example.stmeet.student_requests.StudentRequestObject;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,12 +22,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaDisplayActivity extends AppCompatActivity {
+public class    JavaDisplayActivity extends AppCompatActivity {
 
-    private ArrayList<JavaDisplayObject> list;
+    private List<JavaDisplayObject> javaList;
     private RecyclerView mJavaRecyclerView;
     private JavaDisplayAdapter mJavaAdapter;
-    Query databaseReference;
+    private RecyclerView.LayoutManager mRequestLayoutManager;
+
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference root = db.getReference().child("Users");
+
+    DatabaseReference dbJava;
 
     private String currentUserId;
     private FirebaseAuth mAuth;
@@ -39,63 +41,48 @@ public class JavaDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_java_display);
+
         mAuth = FirebaseAuth.getInstance();
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String userId = mAuth.getCurrentUser().getUid();
 
-        mJavaRecyclerView = findViewById(R.id.recycler1);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("subject").equalTo("java");
+        mJavaRecyclerView = findViewById(R.id.javaRecycler);
+        mJavaRecyclerView.setNestedScrollingEnabled(false);
         mJavaRecyclerView.setHasFixedSize(true);
         mJavaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        list = new ArrayList<>();
-        mJavaAdapter = new JavaDisplayAdapter(JavaDisplayActivity.this, (ArrayList<JavaDisplayObject>) getDataSetRequests());
+        javaList = new ArrayList<>();
+        mJavaAdapter = new JavaDisplayAdapter(this, javaList);
         mJavaRecyclerView.setAdapter(mJavaAdapter);
 
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        FetchRequestInformation(dataSnapshot.getKey());
-                    }
-                    mJavaAdapter.notifyDataSetChanged();
+        /*dbJava = FirebaseDatabase.getInstance().getReference().child("Users");
+        dbJava.addListenerForSingleValueEvent(valueEventListener);*/
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("subject").equalTo("java");
+        query.addListenerForSingleValueEvent(valueEventListener);
+    }
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+            javaList.clear();
+            if (snapshot.exists()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    JavaDisplayObject javaDisplayObject = dataSnapshot.getValue(JavaDisplayObject.class);
+                    javaList.add(javaDisplayObject);
                 }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
+                mJavaAdapter.notifyDataSetChanged();
             }
-        });
-    }
+        }
 
-    private void FetchRequestInformation(String key) {
-        DatabaseReference javaDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
-        javaDb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String userId = snapshot.getKey();
-                    String name = "";
-                    String subject = "";
-                   /* String profileImageUrl = "";
-                    if (snapshot.child("name").getValue() != null) {
-                        name = snapshot.child("name").getValue().toString();
-                    }*/
-                    JavaDisplayObject jObj = new JavaDisplayObject(userId, name, subject);
-                    resultsJava.add(jObj);
-                }
-            }
+        @Override
+        public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+        }
+    };
 
-            }
-        });
-    }
-    private ArrayList<JavaDisplayObject> resultsJava = new ArrayList<JavaDisplayObject>();
-    private List<JavaDisplayObject> getDataSetRequests() {
-        return resultsJava;
-    }
-
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        mJavaAdapter.startListening();
+    }*/
 }
