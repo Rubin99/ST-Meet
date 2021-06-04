@@ -10,20 +10,155 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEACHER DESCRIPTION - \n WORK IN PROGRESS"
-        android:textSize="48dp"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+     <ImageView
+            android:id="@+id/otherProfileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20sp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Name:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+        <TextView
+            android:id="@+id/otherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:layout_marginStart="21dp"
+            android:layout_marginLeft="21dp"
+            android:background="@null"
+            android:hint="Name"
+            android:paddingLeft="38sp"
+            app:layout_constraintStart_toEndOf="@+id/nameTV"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+        <TextView
+            android:id="@+id/phoneTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Phone No.:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+
+
+        <TextView
+            android:id="@+id/otherPhoneNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="Phone No"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/phoneTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherName" />
+
+        <TextView
+            android:id="@+id/educationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Education:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneTV" />
+
+
+        <TextView
+            android:id="@+id/otherEducation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="Level of education"
+            android:paddingLeft="4sp"
+            app:layout_constraintStart_toEndOf="@+id/educationTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherPhoneNo" />
+
+        <TextView
+            android:id="@+id/subjectTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Subject:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/educationTV" />
+
+
+        <TextView
+            android:id="@+id/otherSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="Specialized Subject"
+            android:paddingLeft="22sp"
+            app:layout_constraintStart_toEndOf="@+id/subjectTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherEducation" />
+
+        <TextView
+            android:id="@+id/schoolTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="School:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subjectTV" />
+
+
+        <TextView
+            android:id="@+id/otherSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="Current School/Organization"
+            android:paddingLeft="26sp"
+            app:layout_constraintStart_toEndOf="@+id/schoolTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherSubject" />
+
+        <TextView
+            android:id="@+id/aboutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="About:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+
+        <TextView
+            android:id="@+id/otherAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="About Yourself"
+            android:paddingLeft="34sp"
+            app:layout_constraintStart_toEndOf="@+id/aboutTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

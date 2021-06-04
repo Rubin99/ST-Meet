@@ -3,11 +3,16 @@ package com.example.stmeet.java_display;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,10 +37,9 @@ public class    JavaDisplayActivity extends AppCompatActivity {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("Users");
 
-    DatabaseReference dbJava;
-
-    private String currentUserId;
     private FirebaseAuth mAuth;
+    private String currentUId;
+    private DatabaseReference usersDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,8 @@ public class    JavaDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_java_display);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String userId = mAuth.getCurrentUser().getUid();
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        currentUId = mAuth.getCurrentUser().getUid();
 
         mJavaRecyclerView = findViewById(R.id.javaRecycler);
         mJavaRecyclerView.setNestedScrollingEnabled(false);
@@ -54,12 +58,43 @@ public class    JavaDisplayActivity extends AppCompatActivity {
         mJavaAdapter = new JavaDisplayAdapter(this, javaList);
         mJavaRecyclerView.setAdapter(mJavaAdapter);
 
-
         /*dbJava = FirebaseDatabase.getInstance().getReference().child("Users");
         dbJava.addListenerForSingleValueEvent(valueEventListener);*/
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("subject").equalTo("java");
         query.addListenerForSingleValueEvent(valueEventListener);
+
+        ////////////////////
+
+        new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+
+                /*int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags(dragFlags, swipeFlags);*/
+            }
+
+            @Override
+            public boolean onMove(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, @NonNull @NotNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
+            }
+        }).attachToRecyclerView(mJavaRecyclerView);
+
+        ///////////////////////////
+
+
     }
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
@@ -80,6 +115,15 @@ public class    JavaDisplayActivity extends AppCompatActivity {
         }
     };
 
+    /* public void sendRequest(View view) {
+
+                JavaDisplayObject object = view;
+                String userId = JavaDisplayObject.getUserId();
+                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
+                usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
+
+                Toast.makeText(JavaDisplayActivity.this, "Request sent!", Toast.LENGTH_SHORT).show();
+            }*/
     /*@Override
     protected void onStart() {
         super.onStart();

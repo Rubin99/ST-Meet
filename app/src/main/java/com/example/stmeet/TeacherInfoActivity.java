@@ -10,6 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
@@ -32,6 +36,9 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
     FirebaseAuth mAuth;
     private String currentUId;
     private DatabaseReference usersDb;
+
+    private TextView mOtherNameField, mOtherPhoneNoField, mOtherEducationField, mOtherSchoolField, mOtherSubjectField, mOtherAboutField;
+    private ImageView mOtherProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,14 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         toggle.syncState();
 
         //--------------------------------------------------------------
+
+        mOtherNameField = findViewById(R.id.otherName);
+        mOtherPhoneNoField = findViewById(R.id.otherPhoneNo);
+        mOtherEducationField = findViewById(R.id.otherEducation);
+        mOtherSchoolField = findViewById(R.id.otherSchool);
+        mOtherSubjectField = findViewById(R.id.otherSubject);
+        mOtherAboutField = findViewById(R.id.otherAbout);
+        mOtherProfileImage = findViewById(R.id.otherProfileImage);
     }
 
     @Override
