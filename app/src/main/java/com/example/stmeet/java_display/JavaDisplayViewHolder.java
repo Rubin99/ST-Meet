@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.TeacherInfoActivity;
 import com.example.stmeet.chat.ChatActivity;
 import com.example.stmeet.info.cards;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mJavaId, mJavaName, mJavaSubject;
+    public TextView mTeacherId, mJavaName, mJavaSubject;
     public ImageView mJavaImage, mAccept, mReject;
 
     String currentUId;
@@ -35,8 +36,8 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //itemView.setOnClickListener(this);
 
-        mJavaId = itemView.findViewById(R.id.javaId);
-        mJavaId.setVisibility(View.INVISIBLE);
+        mTeacherId = itemView.findViewById(R.id.javaId);
+        mTeacherId.setVisibility(View.INVISIBLE);
         mJavaName = itemView.findViewById(R.id.javaName);
         mJavaSubject = itemView.findViewById(R.id.javaSubject);
         mJavaImage = itemView.findViewById(R.id.javaImage);
@@ -51,7 +52,7 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usersDb.child(mJavaId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
+                usersDb.child(mTeacherId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
                 mAccept.setVisibility(View.INVISIBLE);
                 mReject.setVisibility(View.INVISIBLE);
             }
@@ -59,9 +60,20 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usersDb.child(mJavaId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
+                usersDb.child(mTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
                 mReject.setVisibility(View.INVISIBLE);
                 mAccept.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        mJavaImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TeacherInfoActivity.class);
+                Bundle b = new Bundle();
+                b.putString("teacherId", mTeacherId.getText().toString());
+                intent.putExtras(b);
+                v.getContext().startActivity(intent);
             }
         });
     }

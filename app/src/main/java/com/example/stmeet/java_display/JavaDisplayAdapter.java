@@ -60,7 +60,7 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull JavaDisplayViewHolder holder, int position) {
-        holder.mJavaId.setText(javaList.get(position).getUserId());
+        holder.mTeacherId.setText(javaList.get(position).getUserId());
         holder.mJavaName.setText(javaList.get(position).getName());
         holder.mJavaSubject.setText(javaList.get(position).getSubject());
         if (!javaList.get(position).getProfileImageUrl().equals("default")){

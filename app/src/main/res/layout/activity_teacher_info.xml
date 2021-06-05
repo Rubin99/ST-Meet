@@ -30,7 +30,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/otherProfileImage" />
 
         <TextView
             android:id="@+id/otherName"
@@ -43,7 +43,7 @@
             android:hint="Name"
             android:paddingLeft="38sp"
             app:layout_constraintStart_toEndOf="@+id/nameTV"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/otherProfileImage" />
 
         <TextView
             android:id="@+id/phoneTV"

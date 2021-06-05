@@ -14,7 +14,7 @@
         android:id="@+id/studentImage"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
@@ -37,6 +37,19 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="25sp"
+        android:layout_height="50sp"
+        android:src="@drawable/ic_baseline_mobile_friendly_24"
+        android:id="@+id/requestAccept"
+        android:layout_gravity="center"/>
 
+    <ImageView
+        android:layout_width="25sp"
+        android:layout_height="50sp"
+        android:src="@drawable/ic_baseline_phonelink_erase_24"
+        android:id="@+id/requestReject"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

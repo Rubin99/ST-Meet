@@ -25,8 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Matche's Name"
             android:layout_gravity="center"
-            android:id="@+id/matchName"
-            android:paddingBottom="20sp"/>
+            android:id="@+id/matchName"/>
 
         <TextView
             android:layout_width="match_parent"
