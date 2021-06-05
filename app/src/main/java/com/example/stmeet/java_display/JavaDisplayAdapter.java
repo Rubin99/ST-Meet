@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.stmeet.R;
+import com.example.stmeet.matches.MatchesViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -29,9 +30,9 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
     private Context context;
     private List<JavaDisplayObject> javaList;
 
-    public JavaDisplayAdapter (Context context, List<JavaDisplayObject> javaList){
-        this.context = context;
+    public JavaDisplayAdapter (List<JavaDisplayObject> javaList, Context context){
         this.javaList = javaList;
+        this.context = context;
     }
 
 
@@ -39,28 +40,56 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
     @NotNull
     @Override
     public JavaDisplayViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
-        return new JavaDisplayViewHolder(view);
+        /*View view = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
+        return new JavaDisplayViewHolder(view);*/
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_java, null, false);
+        RecyclerView.LayoutParams rlp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(rlp);
+        JavaDisplayViewHolder jdv = new JavaDisplayViewHolder((view));
+
+        return jdv;
+
+/*        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(lp);
+        JavaDisplayViewHolder rcv = new JavaDisplayViewHolder((view));
+
+        return rcv;*/
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull JavaDisplayViewHolder holder, int position) {
-        JavaDisplayObject javaDisplayObject = javaList.get((Integer) position);
-        holder.mId.setText(javaDisplayObject.getUserId());
-        holder.mName.setText(javaDisplayObject.name);
-        holder.mSubject.setText(javaDisplayObject.subject);
-        if (!javaDisplayObject.getProfileImageUrl().equals("default")){
-            Glide.with(context).load(javaDisplayObject.getProfileImageUrl()).into(holder.mImage);
+        holder.mJavaId.setText(javaList.get(position).getUserId());
+        holder.mJavaName.setText(javaList.get(position).getName());
+        holder.mJavaSubject.setText(javaList.get(position).getSubject());
+        if (!javaList.get(position).getProfileImageUrl().equals("default")){
+            Glide.with(context).load(javaList.get(position).getProfileImageUrl()).into(holder.mJavaImage);
         }
+        String currentUId;
         FirebaseAuth mAuth;
+        DatabaseReference usersDb;
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
+
+        /*holder.mAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usersDb.child().child("connections").child("accepted").child(currentUId).setValue(true);
+            }
+        });
+*/
+        /*FirebaseAuth mAuth;
         String currentUId;
         DatabaseReference usersDb;
+        String javaID = javaDisplayObject.userId;
 
         mAuth = FirebaseAuth.getInstance();
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
-        currentUId = mAuth.getCurrentUser().getUid();
-       /* holder.mAccept.setOnClickListener(new View.OnClickListener() {
+        currentUId = mAuth.getCurrentUser().getUid();*/
+        /*holder.mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //long userID = getItemId(position);
@@ -70,12 +99,13 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
 
                 //String userId = JavaDisplayObject.getUserId();
                 //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-                //usersDb.child(id).child("connections").child("accepted").child(currentUId).setValue(true);
+                usersDb.child(String.valueOf(position)).child("connections").child("accepted").child(currentUId).setValue(true);
 
             }
         });*/
 
     }
+/*
 
     public interface ClickListener{
         void onItemClick(View view, int position);
@@ -84,6 +114,7 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
     public void setOnClickListener(JavaDisplayViewHolder.ClickListener clickListener){
 
     }
+*/
 
 
 

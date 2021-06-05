@@ -41,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class    MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private cards cards_data[];
     private com.example.stmeet.info.arrayAdapter arrayAdapter;

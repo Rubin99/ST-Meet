@@ -1,86 +1,77 @@
 package com.example.stmeet.java_display;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.chat.ChatActivity;
 import com.example.stmeet.info.cards;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-public class JavaDisplayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
 
-    TextView mName, mSubject, mId;
-    ImageView mImage;
-    ImageView mAccept, mReject;
 
-    private FirebaseAuth mAuth;
-    private String currentUId;
-    private DatabaseReference usersDb;
+    public TextView mJavaId, mJavaName, mJavaSubject;
+    public ImageView mJavaImage, mAccept, mReject;
 
-    View mView;
+    String currentUId;
+    FirebaseAuth mAuth;
+    DatabaseReference usersDb;
 
     public JavaDisplayViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        itemView.setOnClickListener(this);
+        //itemView.setOnClickListener(this);
 
-        mId = (TextView) itemView.findViewById(R.id.javaId);
-        mName = itemView.findViewById(R.id.javaName);
-        mSubject = itemView.findViewById(R.id.javaSubject);
-        mImage = itemView.findViewById(R.id.javaImage);
-        //mAccept = itemView.findViewById(R.id.accept);
-        //mReject = itemView.findViewById(R.id.reject);
+        mJavaId = itemView.findViewById(R.id.javaId);
+        mJavaId.setVisibility(View.INVISIBLE);
+        mJavaName = itemView.findViewById(R.id.javaName);
+        mJavaSubject = itemView.findViewById(R.id.javaSubject);
+        mJavaImage = itemView.findViewById(R.id.javaImage);
+        mAccept = itemView.findViewById(R.id.accept);
+        mReject = itemView.findViewById(R.id.reject);
+
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
-        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         currentUId = mAuth.getCurrentUser().getUid();
 
-        mView = itemView;
-
-        /*mAccept.setOnClickListener(new View.OnClickListener() {
+        mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickListener.onItemClick(v, getAdapterPosition());
-
-                //long userID = getItemId(position);
-
-
-//                String userId = JavaDisplayObject.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-                //usersDb.child().child("connections").child("accepted").child(currentUId).setValue(true);
-
+                usersDb.child(mJavaId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
+                mAccept.setVisibility(View.INVISIBLE);
+                mReject.setVisibility(View.INVISIBLE);
             }
-        });*/
-        /*//item click
-        itemView.setOnClickListener(new View.OnClickListener() {
+        });
+        mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickListener.onItemClick(v, getAdapterPosition());
+                usersDb.child(mJavaId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
+                mReject.setVisibility(View.INVISIBLE);
+                mAccept.setVisibility(View.INVISIBLE);
             }
         });
-
-        //item long click
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        });
-*/
-
     }
 
 
 
-    private JavaDisplayViewHolder.ClickListener mClickListener;
 
+
+    //private JavaDisplayViewHolder.ClickListener mClickListener;
+/*
     @Override
     public void onClick(View v) {
 
@@ -92,5 +83,5 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder implements Vi
     }
     public void setOnClickListener(JavaDisplayViewHolder.ClickListener clickListener){
         mClickListener = clickListener;
-    }
+    }*/
 }
