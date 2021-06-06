@@ -12,4 +12,9 @@
         android:icon="@drawable/ic_baseline_video_call_24"
         android:title="Video Call"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/rateTeacher"
+        android:icon="@drawable/ic_baseline_star_rate_24"
+        android:title="Rate Teacher"
+        app:showAsAction="ifRoom" />
 </menu>

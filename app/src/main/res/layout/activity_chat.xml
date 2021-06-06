@@ -11,7 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="56dp">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -49,6 +50,17 @@
     </LinearLayout>
 
     </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fragment_rate"
+        android:name="com.example.STMeet.RateTeacherFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_rate_teacher" />
 
     <include
         android:layout_height="match_parent"

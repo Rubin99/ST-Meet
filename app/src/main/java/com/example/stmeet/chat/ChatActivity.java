@@ -3,6 +3,8 @@ package com.example.stmeet.chat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -56,6 +59,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
     private EditText mSendMessageEditText;
     private Button mSendButton;
+
+    private boolean isFragmentDisplayed = false;
+    static final String STATE_FRAGMENT = "state_of_fragment";
+    private RatingBar mRate;
+    private EditText mComment;
+    private Button mSubmit;
 
     private String currentUserId, matchId, chatId;
 
@@ -114,6 +123,31 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 sendMessage();
             }
         });
+
+
+        //////////////////////////////////////Fragment////////////////////////////////////////////////
+
+        mRate = findViewById(R.id.ratingBar2);
+        mComment = findViewById(R.id.commentEditText);
+        mSubmit = findViewById(R.id.rateBtn);
+
+        if (savedInstanceState != null) {
+            isFragmentDisplayed =
+                    savedInstanceState.getBoolean(STATE_FRAGMENT);
+            if (isFragmentDisplayed) {
+
+            }
+        }
+       /* mSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFragmentDisplayed) {
+                    displayFragment();
+                } else {
+                    closeFragment();
+                }
+            }
+        });*/
     }
 
     private void sendMessage() {
@@ -256,7 +290,77 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.rateTeacher:
+                Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
+
+                Intent rate= new Intent(ChatActivity.this, RateTeacherActivity.class);
+                Bundle b = new Bundle();
+                b.putString("matchId", matchId);
+                b.putString("chatId", chatId);
+                rate.putExtras(b);
+                rate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(rate);
+
+                /*if (!isFragmentDisplayed){
+                    displayFragment();
+                }else {
+                    closeFragment();
+                }
+*/
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state of the fragment (true=open, false=closed).
+        savedInstanceState.putBoolean(STATE_FRAGMENT, isFragmentDisplayed);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void displayFragment(){
+        RateTeacherFragment rateTeacherFragment = RateTeacherFragment.newInstance();
+
+        // Get the FragmentManager and start a transaction.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Add the SimpleFragment
+        fragmentTransaction.add(R.id.fragment_rate, rateTeacherFragment).addToBackStack(null).commit();
+        // Update button text
+        // Set boolean flag to indicate fragment is open.
+        isFragmentDisplayed = true;
+
+    }
+    public void closeFragment() {
+        // Get the FragmentManager.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        // Check to see if the fragment is already showing.
+        RateTeacherFragment rateTeacherFragment = (RateTeacherFragment) fragmentManager
+                .findFragmentById(R.id.fragment_rate);
+        if (rateTeacherFragment != null) {
+            // Create and commit the transaction to remove the fragment.
+            FragmentTransaction fragmentTransaction =
+                    fragmentManager.beginTransaction();
+            fragmentTransaction.remove(rateTeacherFragment).commit();
+        }
+
+    }
+
+    public void submit(View view) {
+        if (!isFragmentDisplayed) {
+            displayFragment();
+        } else {
+            closeFragment();
+        }
+    }
+    private void RatingBarSave(){
+        mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                mDatabaseUser.setValue(rating);
+                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
+                mTeacherRatingDb.child(chatId).setValue(rating);
+            }
+        });
     }
 }

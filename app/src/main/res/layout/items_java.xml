@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:background="@color/midBlue"
+        android:background="@color/teal_200"
         android:paddingLeft="20sp">
 
 
@@ -53,7 +53,11 @@
             android:layout_gravity="center"
             android:id="@+id/javaSubject"/>
 
+
+
+
     </LinearLayout>
+
 
         <ImageView
             android:layout_width="25sp"
