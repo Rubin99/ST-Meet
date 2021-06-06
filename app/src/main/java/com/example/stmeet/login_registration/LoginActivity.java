@@ -10,9 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
-import com.example.stmeet.TeacherInfoActivity;
+import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

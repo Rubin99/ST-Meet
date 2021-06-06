@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/lighterBlue"
     android:id="@+id/drawer"
-    tools:context=".TeacherInfoActivity">
+    tools:context=".teacher_info.TeacherInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
-     <ImageView
+        android:layout_marginTop="55dp">
+
+        <ImageView
             android:id="@+id/otherProfileImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -39,34 +40,13 @@
             android:layout_margin="20sp"
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
+            android:paddingTop="4dp"
             android:background="@null"
             android:hint="Name"
             android:paddingLeft="38sp"
             app:layout_constraintStart_toEndOf="@+id/nameTV"
             app:layout_constraintTop_toBottomOf="@+id/otherProfileImage" />
 
-        <TextView
-            android:id="@+id/phoneTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20sp"
-            android:text="Phone No.:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameTV" />
-
-
-        <TextView
-            android:id="@+id/otherPhoneNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20sp"
-            android:background="@null"
-            android:hint="Phone No"
-            android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/phoneTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherName" />
 
         <TextView
             android:id="@+id/educationTV"
@@ -77,7 +57,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phoneTV" />
+            app:layout_constraintTop_toBottomOf="@+id/nameTV" />
 
 
         <TextView
@@ -86,10 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:paddingTop="4dp"
             android:hint="Level of education"
             android:paddingLeft="4sp"
             app:layout_constraintStart_toEndOf="@+id/educationTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherPhoneNo" />
+            app:layout_constraintTop_toBottomOf="@+id/otherName" />
 
         <TextView
             android:id="@+id/subjectTV"
@@ -109,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:paddingTop="4dp"
             android:hint="Specialized Subject"
             android:paddingLeft="22sp"
             app:layout_constraintStart_toEndOf="@+id/subjectTV"
@@ -133,6 +115,7 @@
             android:layout_margin="20sp"
             android:background="@null"
             android:hint="Current School/Organization"
+            android:paddingTop="4dp"
             android:paddingLeft="26sp"
             app:layout_constraintStart_toEndOf="@+id/schoolTV"
             app:layout_constraintTop_toBottomOf="@+id/otherSubject" />
@@ -153,11 +136,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="96dp"
+            android:paddingTop="4dp"
             android:background="@null"
             android:hint="About Yourself"
             android:paddingLeft="34sp"
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
             app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

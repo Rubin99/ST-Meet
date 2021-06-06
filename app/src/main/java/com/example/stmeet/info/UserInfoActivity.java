@@ -139,7 +139,7 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
 
     }
 
-    //Litsener to check for current user info
+    //Litsener to check for current user TeacherInfoObject
     private void getUserInfo() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

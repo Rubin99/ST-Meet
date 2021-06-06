@@ -5,20 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
-import com.example.stmeet.TeacherInfoActivity;
-import com.example.stmeet.chat.ChatActivity;
-import com.example.stmeet.info.cards;
+import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 

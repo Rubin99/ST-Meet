@@ -9,12 +9,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +23,7 @@ import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.info.arrayAdapter;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.student_requests.StudentRequestActivity;
+import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -148,7 +147,7 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
             public void onItemClicked(int itemPosition, Object dataObject) {
                 Intent intent = new Intent(MainActivity.this, TeacherInfoActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "Teacher info!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Teacher TeacherInfoObject!", Toast.LENGTH_SHORT).show();
                 return;
             }
         });
