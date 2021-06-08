@@ -14,6 +14,19 @@
         android:text="JAVA TEACHERS"
         android:textSize="42sp"/>
 
+    <Button
+        android:id="@+id/sortAsc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sort Asc"/>
+
+    <Button
+        android:id="@+id/sortDsc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sort Desc"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/javaRecycler"
         android:layout_width="match_parent"

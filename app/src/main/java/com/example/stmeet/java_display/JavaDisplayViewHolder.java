@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,9 @@ import org.jetbrains.annotations.NotNull;
 public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mTeacherId, mJavaName, mJavaSubject;
+    public TextView mTeacherId, mJavaName, mJavaSubject, mJavaRating;
     public ImageView mJavaImage, mAccept, mReject;
+    public RatingBar mRatingBar;
 
     String currentUId;
     FirebaseAuth mAuth;
@@ -38,6 +40,8 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mJavaImage = itemView.findViewById(R.id.javaImage);
         mAccept = itemView.findViewById(R.id.accept);
         mReject = itemView.findViewById(R.id.reject);
+        //mJavaRating = itemView.findViewById(R.id.javaRating);
+        mRatingBar = itemView.findViewById(R.id.ratingBarJava);
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 

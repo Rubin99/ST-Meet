@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".chat.RateTeacherActivity"></activity>
+        <activity android:name=".payment.PaymentEsewaActivity"></activity>
+        <activity android:name=".chat.RateTeacherActivity" />
         <activity android:name=".payment.PaymentDetails" />
         <activity android:name=".payment.TeacherPaymentActivity" />
         <activity android:name=".student_requests.StudentRequestActivity" />

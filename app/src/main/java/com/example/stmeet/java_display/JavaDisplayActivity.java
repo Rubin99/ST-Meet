@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.stmeet.MainActivity;
@@ -28,6 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -39,10 +44,20 @@ public class JavaDisplayActivity extends AppCompatActivity {
 
     private String currentUserId;
 
+    private RatingBar mRatingBar;
+
+    DatabaseReference testDb;
+
+    private Button mButtonAsc, mButtonDesc;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_java_display);
+
+        mButtonAsc = findViewById(R.id.sortAsc);
+        mButtonDesc = findViewById(R.id.sortDsc);
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -59,6 +74,7 @@ public class JavaDisplayActivity extends AppCompatActivity {
         mJavaRecyclerView.addItemDecoration(decoration);
 
         getUserJavaId();
+
 
         /*dbJava = FirebaseDatabase.getInstance().getReference().child("Users");
         dbJava.addListenerForSingleValueEvent(valueEventListener);*/
@@ -97,7 +113,28 @@ public class JavaDisplayActivity extends AppCompatActivity {
         ///////////////////////////
 
 
+        mButtonAsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(resultsJava, new Comparator<JavaDisplayObject>() {
+                    @Override
+                    public int compare(JavaDisplayObject o1, JavaDisplayObject o2) {
+                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
+                    }
+
+                });
+                mJavaAdapter.notifyDataSetChanged();
+            }
+        });
+        mButtonDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.reverse(resultsJava);
+                mJavaAdapter.notifyDataSetChanged();
+            }
+        });
     }
+
 
     private void getUserJavaId() {
         Query javaDb = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("subject").equalTo("java");
@@ -128,6 +165,7 @@ public class JavaDisplayActivity extends AppCompatActivity {
                     String name = "";
                     String subject = "";
                     String profileImageUrl = "";
+                    String rating = "";
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
                     }
@@ -137,12 +175,27 @@ public class JavaDisplayActivity extends AppCompatActivity {
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
+                    float ratingSum = 0;
+                    float ratingsTotal = 0;
+                    float ratingsAvg = 0;
+                    for (DataSnapshot child : snapshot.child("rating").getChildren()){
+                        ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
+                        ratingsTotal++;
+                    }
+                   /* if(ratingsTotal != 0){
+                        ratingsAvg = ratingSum/ratingsTotal;
+                        rating.setRating(ratingsAvg);
+                    }*/
+                    if (snapshot.child("rating").getValue() != null){
+                        rating = String.valueOf(ratingSum/ratingsTotal);
+                    }
 
-                    JavaDisplayObject obj = new JavaDisplayObject(userId, name, subject, profileImageUrl); //
+                    JavaDisplayObject obj = new JavaDisplayObject(userId, name, subject, profileImageUrl, rating); //
                     resultsJava.add(obj);
 
                     mJavaAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
 
+                    testDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
                 }
             }
 
@@ -185,4 +238,5 @@ public class JavaDisplayActivity extends AppCompatActivity {
     private List<JavaDisplayObject> getDataSetJava() {
         return  resultsJava;
     }
+    
 }

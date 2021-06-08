@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:background="@color/teal_200"
+        android:background="@color/midBlue"
         android:paddingLeft="20sp">
 
 
@@ -32,8 +32,9 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:id="@+id/javaName"
-            android:paddingBottom="10sp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/javaName"/>
 
         <TextView
             android:layout_width="1dp"
@@ -51,20 +52,44 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
             android:id="@+id/javaSubject"/>
 
+        <RatingBar
+            android:id="@+id/ratingBarJava"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1" />
 
-
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rating"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/javaRating"/>
+-->
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="25sp"
-            android:layout_height="50sp"
-            android:src="@drawable/ic_baseline_mobile_friendly_24"
-            android:id="@+id/accept"
-            android:layout_gravity="center"/>
+    <ImageView
+        android:layout_width="25sp"
+        android:layout_height="50sp"
+        android:src="@drawable/ic_baseline_mobile_friendly_24"
+        android:id="@+id/accept"
+        android:layout_marginLeft="4dp"
+        android:layout_gravity="center"/>
 
     <ImageView
         android:layout_width="25sp"
@@ -73,6 +98,8 @@
         android:id="@+id/reject"
         android:layout_gravity="center"
         android:layout_margin="10dp"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

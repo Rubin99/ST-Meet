@@ -146,6 +146,34 @@
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
             app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Rating:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutTV"/>
+
+        <RatingBar
+            android:id="@+id/ratingBarInfo"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:layout_margin="20sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="96dp"
+            android:paddingTop="4dp"
+            app:layout_constraintStart_toEndOf="@+id/aboutTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherAbout"
+            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

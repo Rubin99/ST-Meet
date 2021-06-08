@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TeacherInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class    TeacherInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -50,6 +51,7 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
 
     public TextView mTeacherId, mTeacherName, mTeacherSubject, mTeacherEducation, mTeacherSchool, mTeacherAbout;
     public ImageView mTeacherImage;
+    public RatingBar mRatingBar;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mTeacherDatabase;
@@ -81,6 +83,7 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         mTeacherSchool = findViewById(R.id.otherSchool);
         mTeacherAbout = findViewById(R.id.otherAbout);
         mTeacherImage = findViewById(R.id.otherProfileImage);
+        mRatingBar = findViewById(R.id.ratingBarInfo);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -162,6 +165,17 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
                                 Glide.with(getApplication()).load(profileImageUrl).into(mTeacherImage);
                                 break;
                         }
+                    }
+                    int ratingSum = 0;
+                    float ratingsTotal = 0;
+                    float ratingsAvg = 0;
+                    for (DataSnapshot child : snapshot.child("rating").getChildren()){
+                        ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
+                        ratingsTotal++;
+                    }
+                    if(ratingsTotal!= 0){
+                        ratingsAvg = ratingSum/ratingsTotal;
+                        mRatingBar.setRating(ratingsAvg);
                     }
                 }
             }
