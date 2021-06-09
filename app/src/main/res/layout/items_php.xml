@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@color/lightBlue"
+    android:layout_margin="16dp"
+    android:padding="8dp">
+
+
+    <ImageView
+        android:layout_width="75sp"
+        android:layout_height="75sp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/phpImage"/>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@color/midBlue"
+        android:paddingLeft="20sp">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Php Name"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/phpName"/>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:text="Student ID"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:id="@+id/phpId"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Php Subject"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/phpSubject"/>
+
+        <RatingBar
+            android:id="@+id/ratingBarPhp"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1" />
+
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rating"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/javaRating"/>
+-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25sp"
+            android:layout_height="50sp"
+            android:src="@drawable/ic_baseline_mobile_friendly_24"
+            android:id="@+id/accept"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="25sp"
+            android:layout_height="50sp"
+            android:src="@drawable/ic_baseline_phonelink_erase_24"
+            android:id="@+id/reject"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

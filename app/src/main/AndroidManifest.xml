@@ -13,12 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".payment.PaymentEsewaActivity"></activity>
+        <activity android:name=".payment.PaymentEsewaActivity" />
         <activity android:name=".chat.RateTeacherActivity" />
         <activity android:name=".payment.PaymentDetails" />
         <activity android:name=".payment.TeacherPaymentActivity" />
         <activity android:name=".student_requests.StudentRequestActivity" />
         <activity android:name=".java_display.JavaDisplayActivity" />
+        <activity android:name=".php_display.PhpDisplayActivity" />
+        <activity android:name=".db_display.DbDisplayActivity" />
         <activity android:name=".teacher_info.TeacherInfoActivity" />
         <activity android:name=".SubjectListActivity" />
         <activity android:name=".chat.ChatActivity" />

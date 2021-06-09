@@ -14,10 +14,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stmeet.db_display.DbDisplayActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.java_display.JavaDisplayActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.php_display.PhpDisplayActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +72,7 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Toast.makeText(SubjectListActivity.this, "Php Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
+                Intent intent = new Intent(SubjectListActivity.this, PhpDisplayActivity.class);
                 startActivity(intent);
                 return;
             }
@@ -79,7 +81,7 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Toast.makeText(SubjectListActivity.this, "Database Teachers", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SubjectListActivity.this, MainActivity.class);
+                Intent intent = new Intent(SubjectListActivity.this, DbDisplayActivity.class);
                 startActivity(intent);
                 return;
             }

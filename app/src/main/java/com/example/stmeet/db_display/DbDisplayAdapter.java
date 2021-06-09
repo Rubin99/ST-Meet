@@ -1,37 +1,30 @@
-package com.example.stmeet.java_display;
+package com.example.stmeet.db_display;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.stmeet.R;
-import com.example.stmeet.matches.MatchesViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHolder> {
+public class DbDisplayAdapter extends RecyclerView.Adapter<DbDisplayViewHolder> {
 
     private Context context;
-    private List<JavaDisplayObject> javaList;
+    private List<DbDisplayObject> dbList;
 
-    public JavaDisplayAdapter (List<JavaDisplayObject> javaList, Context context){
-        this.javaList = javaList;
+    public DbDisplayAdapter(List<DbDisplayObject> dbList, Context context){
+        this.dbList = dbList;
         this.context = context;
     }
 
@@ -39,34 +32,27 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
     @NonNull
     @NotNull
     @Override
-    public JavaDisplayViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public DbDisplayViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         /*View view = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
         return new PhpDisplayViewHolder(view);*/
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_java, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_db, null, false);
         RecyclerView.LayoutParams rlp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(rlp);
-        JavaDisplayViewHolder jdv = new JavaDisplayViewHolder((view));
+        DbDisplayViewHolder ddv = new DbDisplayViewHolder((view));
 
-        return jdv;
-
-/*        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
-        PhpDisplayViewHolder rcv = new PhpDisplayViewHolder((view));
-
-        return rcv;*/
-
+        return ddv;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull JavaDisplayViewHolder holder, int position) {
-        holder.mTeacherId.setText(javaList.get(position).getUserId());
-        holder.mJavaName.setText(javaList.get(position).getName());
-        holder.mJavaSubject.setText(javaList.get(position).getSubject());
+    public void onBindViewHolder(@NonNull @NotNull DbDisplayViewHolder holder, int position) {
+        holder.mDbTeacherId.setText(dbList.get(position).getUserId());
+        holder.mDbName.setText(dbList.get(position).getName());
+        holder.mDbSubject.setText(dbList.get(position).getSubject());
         //holder.mJavaRating.setText(javaList.get(position).getRating());
-        holder.mRatingBar.setRating(Float.parseFloat(javaList.get(position).getRating()));
-        if (!javaList.get(position).getProfileImageUrl().equals("default")){
-            Glide.with(context).load(javaList.get(position).getProfileImageUrl()).into(holder.mJavaImage);
+        holder.mDbRatingBar.setRating(Float.parseFloat(dbList.get(position).getRating()));
+        if (!dbList.get(position).getProfileImageUrl().equals("default")){
+            Glide.with(context).load(dbList.get(position).getProfileImageUrl()).into(holder.mDbImage);
         }
 
 
@@ -126,6 +112,6 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
 
     @Override
     public int getItemCount() {
-        return javaList.size();
+        return dbList.size();
     }
 }

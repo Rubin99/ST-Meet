@@ -1,4 +1,4 @@
-package com.example.stmeet.java_display;
+package com.example.stmeet.php_display;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,30 +18,30 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
+public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mTeacherId, mJavaName, mJavaSubject, mJavaRating;
-    public ImageView mJavaImage, mAccept, mReject;
+    public TextView mPhpTeacherId, mPhpName, mPhpSubject;
+    public ImageView mPhpImage, mAccept, mReject;
     public RatingBar mRatingBar;
 
     String currentUId;
     FirebaseAuth mAuth;
     DatabaseReference usersDb;
 
-    public JavaDisplayViewHolder(@NonNull @NotNull View itemView) {
+    public PhpDisplayViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
         //itemView.setOnClickListener(this);
 
-        mTeacherId = itemView.findViewById(R.id.javaId);
-        mTeacherId.setVisibility(View.INVISIBLE);
-        mJavaName = itemView.findViewById(R.id.javaName);
-        mJavaSubject = itemView.findViewById(R.id.javaSubject);
-        mJavaImage = itemView.findViewById(R.id.javaImage);
+        mPhpTeacherId = itemView.findViewById(R.id.phpId);
+        mPhpTeacherId.setVisibility(View.INVISIBLE);
+        mPhpName = itemView.findViewById(R.id.phpName);
+        mPhpSubject = itemView.findViewById(R.id.phpSubject);
+        mPhpImage = itemView.findViewById(R.id.phpImage);
         mAccept = itemView.findViewById(R.id.accept);
         mReject = itemView.findViewById(R.id.reject);
         //mJavaRating = itemView.findViewById(R.id.javaRating);
-        mRatingBar = itemView.findViewById(R.id.ratingBarJava);
+        mRatingBar = itemView.findViewById(R.id.ratingBarPhp);
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -51,7 +51,7 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usersDb.child(mTeacherId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
+                usersDb.child(mPhpTeacherId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
                 mAccept.setVisibility(View.INVISIBLE);
                 mReject.setVisibility(View.INVISIBLE);
             }
@@ -59,18 +59,18 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usersDb.child(mTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
+                usersDb.child(mPhpTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
                 mReject.setVisibility(View.INVISIBLE);
                 mAccept.setVisibility(View.INVISIBLE);
             }
         });
 
-        mJavaImage.setOnClickListener(new View.OnClickListener() {
+        mPhpImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TeacherInfoActivity.class);
                 Bundle b = new Bundle();
-                b.putString("teacherId", mTeacherId.getText().toString());
+                b.putString("teacherId", mPhpTeacherId.getText().toString());
                 intent.putExtras(b);
                 v.getContext().startActivity(intent);
             }

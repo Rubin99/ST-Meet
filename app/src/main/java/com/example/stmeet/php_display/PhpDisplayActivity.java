@@ -1,4 +1,11 @@
-package com.example.stmeet.java_display;
+package com.example.stmeet.php_display;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,19 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.Toast;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
@@ -27,7 +23,6 @@ import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.matches.MatchesObject;
 import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,17 +36,16 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 
-public class JavaDisplayActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PhpDisplayActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mJavaRecyclerView;
-    private RecyclerView.Adapter mJavaAdapter;
-    private RecyclerView.LayoutManager mJavaLayoutManager;
+    private RecyclerView mPhpRecyclerView;
+    private RecyclerView.Adapter mPhpAdapter;
+    private RecyclerView.LayoutManager mPhpLayoutManager;
 
     private String currentUserId;
 
@@ -73,7 +67,7 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_java_display);
+        setContentView(R.layout.activity_php_display);
 
         mButtonAsc = findViewById(R.id.sortAsc);
         mButtonDesc = findViewById(R.id.sortDsc);
@@ -82,19 +76,19 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mJavaRecyclerView = findViewById(R.id.javaRecycler);
-        mJavaRecyclerView.setNestedScrollingEnabled(false);
-        mJavaRecyclerView.setHasFixedSize(true);
-        mJavaLayoutManager = new LinearLayoutManager(JavaDisplayActivity.this);
-        mJavaRecyclerView.setLayoutManager(mJavaLayoutManager);
-        mJavaAdapter = new JavaDisplayAdapter(getDataSetJava(), JavaDisplayActivity.this);
-        mJavaRecyclerView.setAdapter(mJavaAdapter);
+        mPhpRecyclerView = findViewById(R.id.phpRecycler);
+        mPhpRecyclerView.setNestedScrollingEnabled(false);
+        mPhpRecyclerView.setHasFixedSize(true);
+        mPhpLayoutManager = new LinearLayoutManager(PhpDisplayActivity.this);
+        mPhpRecyclerView.setLayoutManager(mPhpLayoutManager);
+        mPhpAdapter = new PhpDisplayAdapter(getDataSetPhp(), PhpDisplayActivity.this);
+        mPhpRecyclerView.setAdapter(mPhpAdapter);
 
 
-        DividerItemDecoration decoration = new DividerItemDecoration(JavaDisplayActivity.this, DividerItemDecoration.VERTICAL);
-        mJavaRecyclerView.addItemDecoration(decoration);
+        DividerItemDecoration decoration = new DividerItemDecoration(PhpDisplayActivity.this, DividerItemDecoration.VERTICAL);
+        mPhpRecyclerView.addItemDecoration(decoration);
 
-        getUserJavaId();
+        getUserPhpId();
 
         // For navigation sidebar
 
@@ -115,34 +109,34 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
         mButtonAsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Collections.sort(resultsJava, new Comparator<JavaDisplayObject>() {
+                Collections.sort(resultsPhp, new Comparator<PhpDisplayObject>() {
                     @Override
-                    public int compare(JavaDisplayObject o1, JavaDisplayObject o2) {
+                    public int compare(PhpDisplayObject o1, PhpDisplayObject o2) {
                         return  o1.getRating().compareToIgnoreCase(o2.getRating());
                     }
 
                 });
-                mJavaAdapter.notifyDataSetChanged();
+                mPhpAdapter.notifyDataSetChanged();
             }
         });
         mButtonDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Collections.reverse(resultsJava);
-                mJavaAdapter.notifyDataSetChanged();
+                Collections.reverse(resultsPhp);
+                mPhpAdapter.notifyDataSetChanged();
             }
         });
     }
 
 
-    private void getUserJavaId() {
-        Query javaDb = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("subject").equalTo("java");
+    private void getUserPhpId() {
+        Query javaDb = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("subject").equalTo("php");
         javaDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    for(DataSnapshot java : snapshot.getChildren()){
-                        FetchMatchInformation(java.getKey());
+                    for(DataSnapshot php : snapshot.getChildren()){
+                        FetchMatchInformation(php.getKey());
                     }
                 }
             }
@@ -155,8 +149,8 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
     }
 
     private void FetchMatchInformation(String key) {
-        DatabaseReference userJavaDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
-        userJavaDb.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userPhpDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+        userPhpDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -189,12 +183,11 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
                         rating = String.valueOf(ratingSum/ratingsTotal);
                     }
 
-                    JavaDisplayObject obj = new JavaDisplayObject(userId, name, subject, profileImageUrl, rating); //
-                    resultsJava.add(obj);
+                    PhpDisplayObject obj = new PhpDisplayObject(userId, name, subject, profileImageUrl, rating); //
+                    resultsPhp.add(obj);
 
-                    mJavaAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
+                    mPhpAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
 
-                    testDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
                 }
             }
 
@@ -233,9 +226,9 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
 
                 Toast.makeText(PhpDisplayActivity.this, "Request sent!", Toast.LENGTH_SHORT).show();
             }*/
-   private ArrayList<JavaDisplayObject> resultsJava = new ArrayList<JavaDisplayObject>();
-    private List<JavaDisplayObject> getDataSetJava() {
-        return  resultsJava;
+   private ArrayList<PhpDisplayObject> resultsPhp = new ArrayList<PhpDisplayObject>();
+    private List<PhpDisplayObject> getDataSetPhp() {
+        return resultsPhp;
     }
 
     @Override
@@ -244,38 +237,38 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
         switch (id){
 
             case R.id.nav_subject:
-                Intent h= new Intent(JavaDisplayActivity.this, SubjectListActivity.class);
+                Intent h= new Intent(PhpDisplayActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
                 break;
             case R.id.nav_teacher:
-                Intent t = new Intent(JavaDisplayActivity.this, MainActivity.class);
+                Intent t = new Intent(PhpDisplayActivity.this, MainActivity.class);
                 t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(JavaDisplayActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(PhpDisplayActivity.this, UserInfoActivity.class);
                 p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(JavaDisplayActivity.this, MatchesActivity.class);
+                Intent m= new Intent(PhpDisplayActivity.this, MatchesActivity.class);
                 m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
                 break;
             case R.id.nav_request:
-                Intent r = new Intent(JavaDisplayActivity.this, StudentRequestActivity.class);
+                Intent r = new Intent(PhpDisplayActivity.this, StudentRequestActivity.class);
                 r.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(r);
                 break;
             case R.id.nav_java:
-                Intent j = new Intent(JavaDisplayActivity.this, JavaDisplayActivity.class);
+                Intent j = new Intent(PhpDisplayActivity.this, PhpDisplayActivity.class);
                 j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(j);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(JavaDisplayActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(PhpDisplayActivity.this, ChooseLoginRegistrationActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

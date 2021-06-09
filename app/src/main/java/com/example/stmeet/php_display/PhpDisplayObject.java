@@ -1,13 +1,13 @@
-package com.example.stmeet.java_display;
+package com.example.stmeet.php_display;
 
-public class JavaDisplayObject {
+public class PhpDisplayObject {
     private String userId;
     private String name;
     private String subject;
     private String profileImageUrl;
     private String rating;
 
-    public JavaDisplayObject(String userId, String name, String subject, String profileImageUrl, String rating){ //, RatingBar rating
+    public PhpDisplayObject(String userId, String name, String subject, String profileImageUrl, String rating){ //, RatingBar rating
         this.userId = userId;
         this.name = name;
         this.subject = subject;
