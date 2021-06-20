@@ -63,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "Sign in error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, ChooseLoginRegistrationActivity.class);
+                            //intent.putExtra("userRole", userRole);
+                            startActivity(intent);
+                            return;
                         }
                     }
                 });

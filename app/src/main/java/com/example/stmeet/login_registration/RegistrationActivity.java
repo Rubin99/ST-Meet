@@ -12,7 +12,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -82,6 +84,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+                            //intent.putExtra("userRole", userRole);
+                            startActivity(intent);
+                            return;
                         } else {
                             String userId = mAuth.getCurrentUser().getUid();
                             //Setting default image

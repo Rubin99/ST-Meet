@@ -64,7 +64,11 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
         holder.mJavaName.setText(javaList.get(position).getName());
         holder.mJavaSubject.setText(javaList.get(position).getSubject());
         //holder.mJavaRating.setText(javaList.get(position).getRating());
+        if (javaList.get(position).getRating() == ""){
+            holder.mRatingBar.setRating((float) 0.0);
+        }else {
         holder.mRatingBar.setRating(Float.parseFloat(javaList.get(position).getRating()));
+        }
         if (!javaList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(javaList.get(position).getProfileImageUrl()).into(holder.mJavaImage);
         }

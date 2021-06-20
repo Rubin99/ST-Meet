@@ -9,7 +9,7 @@
     android:padding="8dp">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="75sp"
         android:layout_height="75sp"
         android:src="@mipmap/ic_launcher"

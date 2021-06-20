@@ -76,7 +76,7 @@ public class StudentRequestActivity extends AppCompatActivity {
         userRequestDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists() && !snapshot.child("connections").child("matches").hasChild(currenrUserId)){
                     String userId = snapshot.getKey();
                     String name = "";
                     String profileImageUrl = "";

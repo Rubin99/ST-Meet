@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="ST MEET"
-        app:titleTextColor="@color/black"
+        app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/bg1"
         android:gravity="center"

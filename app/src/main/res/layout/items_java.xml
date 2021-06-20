@@ -9,7 +9,7 @@
     android:padding="8dp">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="75sp"
         android:layout_height="75sp"
         android:src="@mipmap/ic_launcher"
@@ -63,7 +63,8 @@
             android:layout_marginBottom="8dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:stepSize="0.1" />
+            android:stepSize="0.1"
+            />
 
         <!--<TextView
             android:layout_width="match_parent"

@@ -101,8 +101,8 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), MatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
 
-        DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);
+        /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);*/
 
         getUserMatchId();
 
