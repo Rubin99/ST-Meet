@@ -289,6 +289,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
+                Intent video = new Intent(ChatActivity.this, VideoActivity.class);
+                video.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(video);
                 break;
             case R.id.rateTeacher:
                 Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();

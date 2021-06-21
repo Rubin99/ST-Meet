@@ -2,10 +2,13 @@ package com.example.stmeet.php_display;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,9 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
+import com.example.stmeet.chat.ChatActivity;
+import com.example.stmeet.chat.RateTeacherActivity;
+import com.example.stmeet.chat.VideoActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.payment.TeacherPaymentActivity;
 import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,8 +76,8 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_php_display);
 
-        mButtonAsc = findViewById(R.id.sortAsc);
-        mButtonDesc = findViewById(R.id.sortDsc);
+        /*mButtonAsc = findViewById(R.id.sortAsc);
+        mButtonDesc = findViewById(R.id.sortDsc);*/
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -106,7 +113,7 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
 
         //--------------------------------------------------------------
 
-        mButtonAsc.setOnClickListener(new View.OnClickListener() {
+        /*mButtonAsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(resultsPhp, new Comparator<PhpDisplayObject>() {
@@ -125,7 +132,7 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
                 Collections.reverse(resultsPhp);
                 mPhpAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
 
@@ -279,5 +286,25 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.teacher_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.sort:
+                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+                Collections.reverse(resultsPhp);
+                mPhpAdapter.notifyDataSetChanged();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

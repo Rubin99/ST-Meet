@@ -2,10 +2,13 @@ package com.example.stmeet.db_display;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -69,8 +72,8 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_display);
 
-        mButtonAsc = findViewById(R.id.sortAsc);
-        mButtonDesc = findViewById(R.id.sortDsc);
+        /*mButtonAsc = findViewById(R.id.sortAsc);
+        mButtonDesc = findViewById(R.id.sortDsc);*/
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -106,7 +109,7 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
 
         //--------------------------------------------------------------
 
-        mButtonAsc.setOnClickListener(new View.OnClickListener() {
+        /*mButtonAsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(resultsDb, new Comparator<DbDisplayObject>() {
@@ -125,7 +128,7 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
                 Collections.reverse(resultsDb);
                 mDbAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
 
@@ -280,5 +283,25 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.teacher_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.sort:
+                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+                Collections.reverse(resultsDb);
+                mDbAdapter.notifyDataSetChanged();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

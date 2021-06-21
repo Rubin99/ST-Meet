@@ -11,11 +11,14 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -47,6 +50,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,7 +104,7 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         mSubjectField = findViewById(R.id.subject);
         mAboutField = findViewById(R.id.about);
         mConfirm = findViewById(R.id.confirm);
-        mBack = findViewById(R.id.back);
+        //mBack = findViewById(R.id.back);
         mProfileImage = findViewById(R.id.profileImage);
 
         mAuth = FirebaseAuth.getInstance();
@@ -129,13 +133,13 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        mBack.setOnClickListener(new View.OnClickListener() {
+       /* mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 return;
             }
-        });
+        });*/
 
     }
 
@@ -311,4 +315,23 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         return true;
     }
     //-------------------------------------------------------------
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.user_info_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.save:
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+                saveUserInformation();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

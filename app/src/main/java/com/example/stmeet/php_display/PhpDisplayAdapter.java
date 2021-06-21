@@ -57,7 +57,11 @@ public class PhpDisplayAdapter extends RecyclerView.Adapter<PhpDisplayViewHolder
         holder.mPhpName.setText(phpList.get(position).getName());
         holder.mPhpSubject.setText(phpList.get(position).getSubject());
         //holder.mJavaRating.setText(javaList.get(position).getRating());
-        holder.mRatingBar.setRating(Float.parseFloat(phpList.get(position).getRating()));
+        if (phpList.get(position).getRating() == ""){
+            holder.mRatingBar.setRating((float) 0.0);
+        }else {
+            holder.mRatingBar.setRating(Float.parseFloat(phpList.get(position).getRating()));
+        }
         if (!phpList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(phpList.get(position).getProfileImageUrl()).into(holder.mPhpImage);
         }

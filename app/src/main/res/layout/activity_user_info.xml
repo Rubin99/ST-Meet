@@ -6,20 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-    android:background="@color/lighterBlue"
+    android:background="@drawable/study"
     tools:context=".info.UserInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="60dp"
+        >
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20sp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="20dp"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/midBlue"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Name:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
+            android:textSize="18sp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Name"
             android:paddingLeft="38sp"
             app:layout_constraintStart_toEndOf="@+id/nameTV"
@@ -53,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Phone No.:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Phone No"
             android:inputType="number"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/phoneTV"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -76,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Education:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Level of education"
+            android:textSize="18sp"
             android:paddingLeft="4sp"
             app:layout_constraintStart_toEndOf="@+id/educationTV"
             app:layout_constraintTop_toBottomOf="@+id/phoneNo" />
@@ -99,6 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Subject:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +123,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Specialized Subject"
+            android:textSize="18sp"
             android:paddingLeft="22sp"
             app:layout_constraintStart_toEndOf="@+id/subjectTV"
             app:layout_constraintTop_toBottomOf="@+id/education" />
@@ -122,6 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="School:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +149,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Current School/Organization"
+            android:textSize="18sp"
             android:paddingLeft="26sp"
             app:layout_constraintStart_toEndOf="@+id/schoolTV"
             app:layout_constraintTop_toBottomOf="@+id/subject" />
@@ -145,6 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="About:"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,12 +170,13 @@
 
         <EditText
             android:id="@+id/about"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
             android:hint="About Yourself"
-            android:paddingLeft="34sp"
+            android:textColor="@color/black"
+            android:paddingLeft="110dp"
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
             app:layout_constraintTop_toBottomOf="@+id/school" />
 
@@ -166,15 +185,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="edit"
+            android:text="Save"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/back"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <!--<Button
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -183,7 +200,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/confirm" />
+            app:layout_constraintStart_toEndOf="@+id/confirm" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

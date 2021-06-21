@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.stmeet"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -72,6 +72,8 @@ dependencies {
     implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.+') { transitive = true }
 
 }
 

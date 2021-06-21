@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/lighterBlue"
+    android:background="@drawable/study6"
     android:id="@+id/drawer"
     tools:context=".php_display.PhpDisplayActivity">
 
@@ -19,10 +19,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="PHP TEACHERS"
-            android:textSize="42sp"/>
+            android:textSize="42sp"
+            android:textColor="@color/white"/>
 
-        <Button
+        <!--<Button
             android:id="@+id/sortAsc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +34,7 @@
             android:id="@+id/sortDsc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sort Desc"/>
+            android:text="Sort Desc"/>-->
 
 
         <androidx.recyclerview.widget.RecyclerView

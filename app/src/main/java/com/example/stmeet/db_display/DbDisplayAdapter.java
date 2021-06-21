@@ -50,7 +50,11 @@ public class DbDisplayAdapter extends RecyclerView.Adapter<DbDisplayViewHolder> 
         holder.mDbName.setText(dbList.get(position).getName());
         holder.mDbSubject.setText(dbList.get(position).getSubject());
         //holder.mJavaRating.setText(javaList.get(position).getRating());
-        holder.mDbRatingBar.setRating(Float.parseFloat(dbList.get(position).getRating()));
+        if (dbList.get(position).getRating() == ""){
+            holder.mDbRatingBar.setRating((float) 0.0);
+        }else {
+            holder.mDbRatingBar.setRating(Float.parseFloat(dbList.get(position).getRating()));
+        }
         if (!dbList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(dbList.get(position).getProfileImageUrl()).into(holder.mDbImage);
         }

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
+        <activity android:name=".chat.VideoActivity"></activity>
         <activity android:name=".payment.PaymentEsewaActivity" />
         <activity android:name=".chat.RateTeacherActivity" />
         <activity android:name=".payment.PaymentDetails" />

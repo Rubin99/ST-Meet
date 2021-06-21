@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +77,8 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_java_display);
 
-        mButtonAsc = findViewById(R.id.sortAsc);
-        mButtonDesc = findViewById(R.id.sortDsc);
+        /*mButtonAsc = findViewById(R.id.sortAsc);
+        mButtonDesc = findViewById(R.id.sortDsc);*/
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -112,7 +114,7 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
 
         //--------------------------------------------------------------
 
-        mButtonAsc.setOnClickListener(new View.OnClickListener() {
+        /*mButtonAsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(resultsJava, new Comparator<JavaDisplayObject>() {
@@ -131,7 +133,7 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
                 Collections.reverse(resultsJava);
                 mJavaAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
 
@@ -286,5 +288,25 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.teacher_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.sort:
+                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+                Collections.reverse(resultsJava);
+                mJavaAdapter.notifyDataSetChanged();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
