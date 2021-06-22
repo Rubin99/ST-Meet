@@ -177,6 +177,7 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
                         about = map.get("about").toString();
                         mAboutField.setText(about);
                     }
+                    Glide.with(mProfileImage.getContext()).clear(mProfileImage);
                     if (map.get("profileImageUrl") != null){
                         profileImageUrl = map.get("profileImageUrl").toString();
                         switch(profileImageUrl){

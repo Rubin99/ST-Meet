@@ -28,7 +28,7 @@ import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
-import com.example.stmeet.payment.TeacherPaymentActivity;
+
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -62,6 +62,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
     private boolean isFragmentDisplayed = false;
     static final String STATE_FRAGMENT = "state_of_fragment";
+
     private RatingBar mRate;
     private EditText mComment;
     private Button mSubmit;
@@ -69,6 +70,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private String currentUserId, matchId, chatId;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
+
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -80,6 +82,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
 
         // For navigation sidebar
 
@@ -128,6 +131,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         //////////////////////////////////////Fragment////////////////////////////////////////////////
 
         mRate = findViewById(R.id.ratingBar2);
+
+
         mComment = findViewById(R.id.commentEditText);
         mSubmit = findViewById(R.id.rateBtn);
 
@@ -146,6 +151,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     closeFragment();
                 }
+            }
+        });*/
+        /*mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                mDatabaseUser.setValue(rating);
+                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
+                mTeacherRatingDb.child(chatId).setValue(rating);
             }
         });*/
     }
@@ -283,14 +296,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.paypal:
                 Toast.makeText(this, "Paypal", Toast.LENGTH_SHORT).show();
-                Intent pay = new Intent(ChatActivity.this, TeacherPaymentActivity.class);
-                pay.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(pay);
                 break;
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
                 Intent video = new Intent(ChatActivity.this, VideoActivity.class);
-                video.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(video);
                 break;
             case R.id.rateTeacher:
@@ -301,7 +310,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 b.putString("matchId", matchId);
                 b.putString("chatId", chatId);
                 rate.putExtras(b);
-                rate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(rate);
 
                 /*if (!isFragmentDisplayed){
@@ -309,8 +317,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 }else {
                     closeFragment();
                 }
-*/
-                break;
+                break;*/
         }
         return super.onOptionsItemSelected(item);
     }
@@ -346,7 +353,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     fragmentManager.beginTransaction();
             fragmentTransaction.remove(rateTeacherFragment).commit();
         }
-
+        isFragmentDisplayed = false;
     }
 
     public void submit(View view) {
@@ -356,14 +363,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             closeFragment();
         }
     }
-    private void RatingBarSave(){
-        mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mDatabaseUser.setValue(rating);
-                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
-                mTeacherRatingDb.child(chatId).setValue(rating);
-            }
-        });
-    }
+
+
 }

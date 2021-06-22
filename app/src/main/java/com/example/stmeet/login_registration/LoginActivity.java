@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mEmailLogin, mPasswordLogin;
-    private Button mLogin;
+    private Button mLogin, mTeacherLogin;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailLogin = findViewById(R.id.emailLogin);
         mPasswordLogin = findViewById(R.id.passwordLogin);
         mLogin = findViewById(R.id.login);
+        mTeacherLogin = findViewById(R.id.teacherLogin);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override

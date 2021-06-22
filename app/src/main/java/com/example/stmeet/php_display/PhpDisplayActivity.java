@@ -29,7 +29,7 @@ import com.example.stmeet.chat.VideoActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.payment.TeacherPaymentActivity;
+
 import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

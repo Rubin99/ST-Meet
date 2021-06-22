@@ -71,17 +71,14 @@ public class RateTeacherFragment extends Fragment {
         final RatingBar mRatingBar = rateView.findViewById(R.id.ratingBar2);
         final EditText mCommentEditText = rateView.findViewById(R.id.commentEditText);
 
-        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        /*mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                // Get rating and show Toast with rating.
-                String myRating = "My Rating" +
-                        String.valueOf(ratingBar.getRating());
-                Toast.makeText(getContext(), myRating,
-                        Toast.LENGTH_SHORT).show();
-
+                mDatabaseUser.setValue(rating);
+                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
+                mTeacherRatingDb.child(chatId).setValue(rating);
             }
-        });
+        });*/
         return rateView;
     }
     public static RateTeacherFragment newInstance() { return new RateTeacherFragment(); }
