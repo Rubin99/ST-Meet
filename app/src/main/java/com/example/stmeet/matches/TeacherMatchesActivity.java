@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
+import com.example.stmeet.info.TeacherInfoUserActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.login_registration.ChooseRoleActivity;
@@ -85,7 +86,7 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
         mRecyclerView.setHasFixedSize(true);
         mMatchesLayoutManager = new LinearLayoutManager(TeacherMatchesActivity.this);
         mRecyclerView.setLayoutManager(mMatchesLayoutManager);
-        mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), TeacherMatchesActivity.this);
+        mMatchesAdapter = new TeacherMatchesAdapter(getDataSetMatches(), TeacherMatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
 
         /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
@@ -145,7 +146,7 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl); //
+                    TeacherMatchesObject obj = new TeacherMatchesObject(userId, name, profileImageUrl); //
                     resultsMatches.add(obj);
 
                     mMatchesAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
@@ -160,8 +161,8 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
         });
     }
 
-    private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
-    private List<MatchesObject> getDataSetMatches() {
+    private ArrayList<TeacherMatchesObject> resultsMatches = new ArrayList<TeacherMatchesObject>();
+    private List<TeacherMatchesObject> getDataSetMatches() {
         return  resultsMatches;
     }
 
@@ -176,7 +177,7 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(TeacherMatchesActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(TeacherMatchesActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:

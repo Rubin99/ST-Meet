@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
-    private List<MatchesObject> matchesList; //contains information passed through matchesObject
+public class TeacherMatchesAdapter extends RecyclerView.Adapter<TeacherMatchesViewHolder> {
+    private List<TeacherMatchesObject> matchesList; //contains information passed through matchesObject
     private Context context;
 
-    public MatchesAdapter(List<MatchesObject> matchesList, Context context) {
+    public TeacherMatchesAdapter(List<TeacherMatchesObject> matchesList, Context context) {
         this.matchesList = matchesList;
         this.context = context;
     }
@@ -27,21 +27,20 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
     @NonNull
     @NotNull
     @Override
-    public MatchesViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public TeacherMatchesViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_matches, null, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_matches_teacher, null, false);
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
-        MatchesViewHolder rcv = new MatchesViewHolder((layoutView));
+        TeacherMatchesViewHolder rcv = new TeacherMatchesViewHolder((layoutView));
 
         return rcv;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull MatchesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull TeacherMatchesViewHolder holder, int position) {
         holder.mMatchid.setText(matchesList.get(position).getUserId());
         holder.mMatchName.setText(matchesList.get(position).getName());
-        holder.mMatchSubject.setText(matchesList.get(position).getSubject());
         if (!matchesList.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
         }
@@ -52,3 +51,4 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
         return matchesList.size();
     }
 }
+

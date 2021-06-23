@@ -6,27 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
-import com.example.stmeet.SubjectListActivity;
+import com.example.stmeet.info.TeacherInfoUserActivity;
 import com.example.stmeet.info.UserInfoActivity;
-import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
-import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.matches.MatchesAdapter;
-import com.example.stmeet.matches.MatchesObject;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
+import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,11 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-public class TeacherInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class StudentInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -54,29 +47,20 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
     public RatingBar mRatingBar;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mTeacherDatabase;
+    private DatabaseReference mStudentDatabase;
 
     private String userId, name, profileImageUrl, education, school, subject, about;
 
-
-/*
-    private RecyclerView mInfoRecyclerView;
-    private RecyclerView.Adapter mInfoAdapter;
-    private  RecyclerView.LayoutManager mInfoLayoutManager;
-
-    private String currentUserId;
-*/
-
-    private String teacherId;
+    private String studentId;
     private String matchId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_info);
+        setContentView(R.layout.activity_student_info);
 
-        teacherId = getIntent().getExtras().getString("teacherId");
-        matchId = getIntent().getExtras().getString("matchId");
+        studentId = getIntent().getExtras().getString("studentId");
+
 
         mTeacherId = findViewById(R.id.infoTeacherId);
         mTeacherName = findViewById(R.id.otherName);
@@ -90,24 +74,9 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        mTeacherDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(teacherId); // getting inside the userid
+        mStudentDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(studentId); // getting inside the userid
 
-        getTeacherInfo();
-
-        /*teacherId = getIntent().getExtras().getString("teacherId");
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        mInfoRecyclerView = findViewById(R.id.recyclerViewTInfo);
-        mInfoRecyclerView.setNestedScrollingEnabled(false);
-        mInfoRecyclerView.setHasFixedSize(true);
-        mInfoLayoutManager = new LinearLayoutManager(TeacherInfoActivity.this);
-        mInfoRecyclerView.setLayoutManager(mInfoLayoutManager);
-        mInfoAdapter = new TeacherInfoAdapter(getDataSetMatches(), TeacherInfoActivity.this);
-        mInfoRecyclerView.setAdapter(mInfoAdapter);
-
-        DatabaseReference infoDb = FirebaseDatabase.getInstance().getReference().child("Users").child(teacherId);
-
-*/
+        getStudentInfo();
 
         // For navigation sidebar
 
@@ -117,7 +86,7 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         navigationView = findViewById(R.id.navmenu);
         navigationView.setItemIconTintList(null);
 
-        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close); //?
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close); //?
         drawerLayout.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
         navigationView.setNavigationItemSelectedListener(this);
@@ -127,39 +96,39 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
 
     }
 
-    private void getTeacherInfo() {
-        mTeacherDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getStudentInfo() {
+        mStudentDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.getChildrenCount()>0){
+                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-                    if (map.get("name") != null){
+                    if (map.get("name") != null) {
                         name = map.get("name").toString();
                         mTeacherName.setText(name);
                     }
-                    if (map.get("userId") != null){
+                    if (map.get("userId") != null) {
                         userId = map.get("userId").toString();
                         mTeacherId.setText(userId);
                     }
-                    if (map.get("subject") != null){
+                    if (map.get("subject") != null) {
                         subject = map.get("subject").toString();
                         mTeacherSubject.setText(subject);
                     }
-                    if (map.get("education") != null){
+                    if (map.get("education") != null) {
                         education = map.get("education").toString();
                         mTeacherEducation.setText(education);
                     }
-                    if (map.get("school") != null){
+                    if (map.get("school") != null) {
                         school = map.get("school").toString();
                         mTeacherSchool.setText(school);
                     }
-                    if (map.get("about") != null){
+                    if (map.get("about") != null) {
                         about = map.get("about").toString();
                         mTeacherAbout.setText(about);
                     }
-                    if (map.get("profileImageUrl") != null){
+                    if (map.get("profileImageUrl") != null) {
                         profileImageUrl = map.get("profileImageUrl").toString();
-                        switch(profileImageUrl){
+                        switch (profileImageUrl) {
                             case "default":
                                 Glide.with(getApplication()).load(R.mipmap.ic_launcher).into(mTeacherImage);
                                 break;
@@ -171,12 +140,12 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
                     int ratingSum = 0;
                     float ratingsTotal = 0;
                     float ratingsAvg = 0;
-                    for (DataSnapshot child : snapshot.child("rating").getChildren()){
+                    for (DataSnapshot child : snapshot.child("rating").getChildren()) {
                         ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
                         ratingsTotal++;
                     }
-                    if(ratingsTotal!= 0){
-                        ratingsAvg = ratingSum/ratingsTotal;
+                    if (ratingsTotal != 0) {
+                        ratingsAvg = ratingSum / ratingsTotal;
                         mRatingBar.setRating(ratingsAvg);
                     }
                 }
@@ -189,50 +158,30 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         });
     }
 
-   /* private ArrayList<TeacherInfoObject> resultsInfo = new ArrayList<TeacherInfoObject>();
-    private List<TeacherInfoObject> getDataSetMatches() {
-        return  resultsInfo;
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-        int id=item.getItemId();
-        switch (id){
+        int id = item.getItemId();
+        switch (id) {
 
-            case R.id.nav_subject:
-                Intent h= new Intent(TeacherInfoActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(h);
-                break;
             case R.id.nav_teacher:
-                Intent t = new Intent(TeacherInfoActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent t = new Intent(StudentInfoActivity.this, MainActivity.class);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(TeacherInfoActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent p = new Intent(StudentInfoActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(TeacherInfoActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent m = new Intent(StudentInfoActivity.this, TeacherMatchesActivity.class);
                 startActivity(m);
                 break;
+            case R.id.nav_request:
+                Intent r = new Intent(StudentInfoActivity.this, StudentRequestActivity.class);
+                startActivity(r);
+                break;
             case R.id.nav_logout:
-                //mAuth.signOut(); ///-------------------------------------
-                Intent l= new Intent(TeacherInfoActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l = new Intent(StudentInfoActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

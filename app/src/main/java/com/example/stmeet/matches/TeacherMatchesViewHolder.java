@@ -11,22 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stmeet.R;
 import com.example.stmeet.chat.ChatActivity;
+import com.example.stmeet.chat.TeacherChatActivity;
+import com.example.stmeet.teacher_info.StudentInfoActivity;
 import com.example.stmeet.teacher_info.TeacherInfoActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class TeacherMatchesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView mMatchid, mMatchName, mMatchSubject;
+    public TextView mMatchid, mMatchName;
     public ImageView mMatchImage, mMatchProfile;
 
-    public MatchesViewHolder(@NonNull @NotNull View itemView) {
+    public TeacherMatchesViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
 
         mMatchid = itemView.findViewById(R.id.matchId);
         mMatchName = itemView.findViewById(R.id.matchName);
-        mMatchSubject = itemView.findViewById(R.id.matchSubject);
         mMatchImage = itemView.findViewById(R.id.matchImage);
         mMatchid.setVisibility(View.INVISIBLE); //////////////////
         mMatchProfile = itemView.findViewById(R.id.profile);
@@ -34,9 +35,9 @@ public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.O
         mMatchProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TeacherInfoActivity.class);
+                Intent intent = new Intent(v.getContext(), StudentInfoActivity.class);
                 Bundle b = new Bundle();
-                b.putString("teacherId", mMatchid.getText().toString());
+                b.putString("studentId", mMatchid.getText().toString());
                 intent.putExtras(b);
                 v.getContext().startActivity(intent);
             }
@@ -45,7 +46,7 @@ public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(v.getContext(), ChatActivity.class);
+        Intent intent = new Intent(v.getContext(), TeacherChatActivity.class);
         Bundle b = new Bundle();
         b.putString("matchId", mMatchid.getText().toString());
         intent.putExtras(b);

@@ -1,15 +1,13 @@
 package com.example.stmeet.matches;
 
-public class MatchesObject {
+public class TeacherMatchesObject {
     private String userId;
     private String name;
-    private String subject;
     private String profileImageUrl;
 
-    public MatchesObject(String userId, String name, String subject, String profileImageUrl){ //
+    public TeacherMatchesObject(String userId, String name,  String profileImageUrl){ //
         this.userId = userId;
         this.name = name;
-        this.subject = subject;
         this.profileImageUrl = profileImageUrl;
     }
 
@@ -18,9 +16,6 @@ public class MatchesObject {
 
     public String getName(){ return name; }
     public void setName(String name){ this.name = name; }
-
-    public String getSubject(){ return subject; }
-    public void setSubject(String subject){ this.subject = subject; }
 
     public String getProfileImageUrl(){ return profileImageUrl; }
     public void setProfileImageUrl(String profileImageUrl){ this.profileImageUrl = profileImageUrl; }

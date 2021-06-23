@@ -10,14 +10,14 @@
     tools:context=".login_registration.ChooseRoleActivity">
 
     <Button
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/midBlue"
         android:text="Student"
         android:id="@+id/roleStudent"
         android:layout_margin="20sp"/>
     <Button
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/midBlue"
         android:text="Teacher"

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/study6"
+    android:id="@+id/drawer"
+    tools:context=".teacher_info.StudentInfoActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/otherProfileImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="20sp"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/midBlue"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Name:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otherProfileImage" />
+
+        <TextView
+            android:id="@+id/otherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:background="@null"
+            android:paddingLeft="38sp"
+            app:layout_constraintStart_toEndOf="@+id/nameTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherProfileImage" />
+
+
+        <TextView
+            android:id="@+id/educationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Education:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+
+
+        <TextView
+            android:id="@+id/otherEducation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:hint="Education Level"
+            android:paddingLeft="4sp"
+            app:layout_constraintStart_toEndOf="@+id/educationTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherName" />
+
+        <TextView
+            android:id="@+id/subjectTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Subject:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/educationTV" />
+
+
+        <TextView
+            android:id="@+id/otherSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:hint="Specialized Subject"
+            android:paddingLeft="22sp"
+            app:layout_constraintStart_toEndOf="@+id/subjectTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherEducation" />
+
+        <TextView
+            android:id="@+id/schoolTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="School:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subjectTV" />
+
+
+        <TextView
+            android:id="@+id/otherSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:background="@null"
+            android:hint="Current School/Organization"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:paddingLeft="26sp"
+            app:layout_constraintStart_toEndOf="@+id/schoolTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherSubject" />
+
+        <TextView
+            android:id="@+id/aboutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="About:"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+
+        <TextView
+            android:id="@+id/otherAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:textSize="18sp"
+            android:background="@null"
+            android:hint="About Yourself"
+            android:textColor="@color/white"
+            android:paddingLeft="34sp"
+            app:layout_constraintStart_toEndOf="@+id/aboutTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Rating:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutTV"/>
+
+        <RatingBar
+            android:id="@+id/ratingBarInfo"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="50dp"
+            app:layout_constraintStart_toEndOf="@+id/aboutTV"
+            app:layout_constraintTop_toBottomOf="@+id/otherAbout"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/content_main"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/navmenu"
+        app:menu="@menu/teacher_menu"
+        app:headerLayout="@layout/drawer_header"
+        android:layout_gravity="start"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

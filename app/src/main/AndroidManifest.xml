@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".login_registration.ChooseTeacherLoginRegistrationActivity"></activity>
+        <activity android:name=".chat.TeacherChatActivity"></activity>
+        <activity android:name=".info.TeacherInfoUserActivity" />
+        <activity android:name=".teacher_info.StudentInfoActivity" />
+        <activity android:name=".login_registration.ChooseTeacherLoginRegistrationActivity" />
         <activity android:name=".login_registration.ChooseRoleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +40,7 @@
         <activity android:name=".info.UserInfoActivity" />
         <activity android:name=".login_registration.LoginActivity" />
         <activity android:name=".login_registration.RegistrationActivity" />
-        <activity android:name=".login_registration.ChooseLoginRegistrationActivity"/>
+        <activity android:name=".login_registration.ChooseLoginRegistrationActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

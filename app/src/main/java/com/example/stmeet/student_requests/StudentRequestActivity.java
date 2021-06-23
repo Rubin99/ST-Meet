@@ -16,8 +16,10 @@ import android.view.MenuItem;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.info.TeacherInfoUserActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.matches.MatchesObject;
 import com.example.stmeet.matches.TeacherMatchesActivity;
@@ -42,6 +44,8 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
 
     private String currenrUserId;
 
+    private FirebaseAuth mAuth;
+
     // For navigation sidebar
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -54,6 +58,7 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         setContentView(R.layout.activity_student_request_list);
 
         currenrUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mAuth = FirebaseAuth.getInstance();
 
         mRequestRecyclerView =findViewById(R.id.recyclerViewSR);
         mRequestRecyclerView.setNestedScrollingEnabled(false);
@@ -150,7 +155,7 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(StudentRequestActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(StudentRequestActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
@@ -162,8 +167,8 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
                 startActivity(r);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
-                Intent l= new Intent(StudentRequestActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(StudentRequestActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

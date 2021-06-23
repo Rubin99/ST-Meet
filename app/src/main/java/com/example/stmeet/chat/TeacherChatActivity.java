@@ -2,9 +2,11 @@ package com.example.stmeet.chat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,23 +21,13 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.example.stmeet.MainActivity;
-import com.example.stmeet.SubjectListActivity;
-import com.example.stmeet.info.UserInfoActivity;
-import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
-
-import com.google.android.material.navigation.NavigationView;
-
-
 import com.example.stmeet.R;
-import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.matches.MatchesAdapter;
-import com.example.stmeet.matches.MatchesObject;
+import com.example.stmeet.info.TeacherInfoUserActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
+import com.example.stmeet.student_requests.StudentRequestActivity;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TeacherChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mChatAdapter;
@@ -60,6 +52,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private EditText mSendMessageEditText;
     private Button mSendButton;
 
+    private boolean isFragmentDisplayed = false;
+    static final String STATE_FRAGMENT = "state_of_fragment";
+
     private RatingBar mRate;
     private EditText mComment;
     private Button mSubmit;
@@ -67,6 +62,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private String currentUserId, matchId, chatId;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
+
+    private FirebaseAuth mAuth;
 
 
     // For navigation sidebar
@@ -78,8 +75,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_teacher_chat);
 
+        mAuth = FirebaseAuth.getInstance();
 
         // For navigation sidebar
 
@@ -109,9 +107,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(false);
-        mChatLayoutManager = new LinearLayoutManager(ChatActivity.this);
+        mChatLayoutManager = new LinearLayoutManager(TeacherChatActivity.this);
         mRecyclerView.setLayoutManager(mChatLayoutManager);
-        mChatAdapter = new ChatAdapter(getDataSetChat(), ChatActivity.this);
+        mChatAdapter = new ChatAdapter(getDataSetChat(), TeacherChatActivity.this);
         mRecyclerView.setAdapter(mChatAdapter);
 
         mSendMessageEditText = findViewById(R.id.message);
@@ -123,41 +121,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 sendMessage();
             }
         });
-
-
-        //////////////////////////////////////Fragment////////////////////////////////////////////////
-
-        /*mRate = findViewById(R.id.ratingBar2);
-
-
-        mComment = findViewById(R.id.commentEditText);
-        mSubmit = findViewById(R.id.rateBtn);
-
-        if (savedInstanceState != null) {
-            isFragmentDisplayed =
-                    savedInstanceState.getBoolean(STATE_FRAGMENT);
-            if (isFragmentDisplayed) {
-
-            }
-        }*/
-       /* mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isFragmentDisplayed) {
-                    displayFragment();
-                } else {
-                    closeFragment();
-                }
-            }
-        });*/
-        /*mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mDatabaseUser.setValue(rating);
-                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
-                mTeacherRatingDb.child(chatId).setValue(rating);
-            }
-        });*/
     }
 
     private void sendMessage() {
@@ -246,29 +209,25 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_subject:
-                Intent h= new Intent(ChatActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(h);
-                break;
             case R.id.nav_teacher:
-                Intent t = new Intent(ChatActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent t = new Intent(TeacherChatActivity.this, MainActivity.class);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(ChatActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent p= new Intent(TeacherChatActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(ChatActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent m= new Intent(TeacherChatActivity.this, TeacherMatchesActivity.class);
                 startActivity(m);
                 break;
+            case R.id.nav_request:
+                Intent r= new Intent(TeacherChatActivity.this, StudentRequestActivity.class);
+                startActivity(r);
+                break;
             case R.id.nav_logout:
-                //mAuth.signOut();
-                Intent l= new Intent(ChatActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(TeacherChatActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();
@@ -280,6 +239,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -296,13 +256,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
-                Intent video = new Intent(ChatActivity.this, VideoActivity.class);
+                Intent video = new Intent(TeacherChatActivity.this, VideoActivity.class);
                 startActivity(video);
                 break;
             case R.id.rateTeacher:
                 Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
 
-                Intent rate= new Intent(ChatActivity.this, RateTeacherActivity.class);
+                Intent rate= new Intent(TeacherChatActivity.this, RateTeacherActivity.class);
                 Bundle b = new Bundle();
                 b.putString("matchId", matchId);
                 b.putString("chatId", chatId);
@@ -318,6 +278,5 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

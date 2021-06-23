@@ -16,6 +16,7 @@ import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.java_display.JavaDisplayObject;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -47,6 +48,8 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
 
     private String currentUserId;
 
+    private FirebaseAuth mAuth;
+
     // For navigation sidebar
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -60,6 +63,8 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // For navigation sidebar
 
@@ -135,15 +140,19 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                 if (snapshot.exists()){
                     String userId = snapshot.getKey();
                     String name = "";
+                    String subject = "";
                     String profileImageUrl = "";
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
+                    }
+                    if (snapshot.child("subject").getValue() != null){
+                        subject = snapshot.child("subject").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                        MatchesObject obj = new MatchesObject(userId, name, profileImageUrl); //
+                        MatchesObject obj = new MatchesObject(userId, name, subject, profileImageUrl); //
                         resultsMatches.add(obj);
 
                     mMatchesAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
@@ -190,8 +199,8 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                 startActivity(m);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
-                Intent l= new Intent(MatchesActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(MatchesActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

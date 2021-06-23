@@ -2,40 +2,14 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="170dp"
     android:orientation="vertical"
     android:background="@drawable/bg1">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo4"/>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="left"
-            android:src="@drawable/student"
-            android:paddingLeft="16dp"
-            android:paddingTop="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:layout_gravity="left"
-        android:text="Name"
-        android:fontFamily="sans-serif"
-        android:paddingLeft="16dp"
-        android:paddingTop="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_gravity="left"
-        android:text="email@email.com"
-        android:fontFamily="sans-serif"
-        android:paddingLeft="16dp"
-        android:paddingTop="8dp"
-        android:layout_marginBottom="4dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
