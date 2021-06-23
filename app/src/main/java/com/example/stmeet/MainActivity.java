@@ -21,6 +21,7 @@ import com.example.stmeet.info.cards;
 import com.example.stmeet.java_display.JavaDisplayActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.info.arrayAdapter;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.example.stmeet.teacher_info.TeacherInfoActivity;
@@ -391,7 +392,7 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(MainActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(MainActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

@@ -9,31 +9,31 @@ import android.widget.Button;
 
 import com.example.stmeet.R;
 
-public class ChooseLoginRegistrationActivity extends AppCompatActivity {
+public class ChooseTeacherLoginRegistrationActivity extends AppCompatActivity {
 
-    private Button mLogin, mRegister, mTeacherLogin, mTeacherRegister;
+    private Button mTeacherLogin, mTeacherRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_login_registration);
+        setContentView(R.layout.activity_choose_teacher_login_registration);
 
-        mLogin = findViewById(R.id.login);
-        mRegister = findViewById(R.id.register);
+        mTeacherLogin = findViewById(R.id.loginTeacher);
+        mTeacherRegister = findViewById(R.id.registerTeacher);
 
-        mLogin.setOnClickListener(new View.OnClickListener() {
+        mTeacherLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseLoginRegistrationActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ChooseTeacherLoginRegistrationActivity.this, TeacherLoginActivity.class);
                 startActivity(intent);
                 finish();
                 return;
             }
         });
-        mRegister.setOnClickListener(new View.OnClickListener() {
+        mTeacherRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseLoginRegistrationActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(ChooseTeacherLoginRegistrationActivity.this, TeacherRegistrationActivity.class);
                 startActivity(intent);
                 finish();
                 return;

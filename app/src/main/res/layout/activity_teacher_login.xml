@@ -2,27 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/study8"
-    tools:context=".login_registration.RegistrationActivity">
+    tools:context=".login_registration.LoginActivity">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="125dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Register"
+        android:layout_marginTop="72dp"
+        android:text="Teacher Log In"
         android:textColor="@color/black"
         android:textSize="22dp"
         android:textStyle="bold"
@@ -30,80 +28,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-
     <EditText
-        android:id="@+id/nameRegister"
+        android:id="@+id/emailLoginTeacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameRegister">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Teacher"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="182dp" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Student"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="134dp" />
-
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/emailRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/passwordRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
-
-    <Button
-        android:id="@+id/register"
+        android:id="@+id/passwordLoginTeacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -111,11 +51,25 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Register"
+        android:hint="Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailLoginTeacher" />
+
+    <Button
+        android:id="@+id/loginTeacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Login"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLoginTeacher" />
 
     <TextView
         android:id="@+id/textView4"
@@ -123,30 +77,31 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="8dp"
-        android:text="Already have an account?"
+        android:text="Don't have an account?"
         android:textSize="16dp"
         android:textColor="@color/black"
         android:fontFamily="sans-serif"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
+        app:layout_constraintTop_toBottomOf="@+id/loginTeacher" />
 
     <TextView
-        android:id="@+id/toLogin"
+        android:id="@+id/toRegisterTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Login here!"
+        android:text="Register here!"
         android:textSize="16dp"
         android:layout_marginLeft="4dp"
         android:textColor="@color/lightBlue"
         android:fontFamily="sans-serif"
-        android:onClick="toLogin"
+        android:onClick="toRegister"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
+        app:layout_constraintTop_toBottomOf="@+id/loginTeacher" />
+
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="125dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

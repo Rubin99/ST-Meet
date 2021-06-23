@@ -21,30 +21,30 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="Your Teachers"
-            android:textColor="@color/black"
+            android:text="Your Students"
             android:textSize="32dp"
+            android:textColor="@color/black"
             android:id="@+id/tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv"
-        android:paddingTop="44dp">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv"
+            android:paddingTop="44dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerView"
-        android:scrollbars="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerView"
+                android:scrollbars="vertical">
+            </androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/find_teacher"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/navmenu"
-        app:menu="@menu/iconmenu"
+        app:menu="@menu/teacher_menu"
         app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"/>
 

@@ -2,22 +2,28 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="10sp">
+    android:background="@color/lightBlue"
+    android:layout_margin="16dp"
+    android:padding="8dp">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="75sp"
         android:layout_height="75sp"
         android:src="@mipmap/ic_launcher"
-        android:id="@+id/studentImage"/>
+        android:id="@+id/studentImage"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/midBlue"/>
 
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
+        android:background="@color/midBlue"
         android:paddingLeft="20sp">
 
         <TextView
@@ -25,13 +31,18 @@
             android:layout_height="wrap_content"
             android:text="Student Name"
             android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:id="@+id/studentName"
+            android:paddingTop="20sp"
             android:paddingBottom="20sp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Student ID"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:id="@+id/studentId"/>
 
@@ -53,3 +64,4 @@
         android:layout_margin="10dp"/>
 
 </LinearLayout>
+

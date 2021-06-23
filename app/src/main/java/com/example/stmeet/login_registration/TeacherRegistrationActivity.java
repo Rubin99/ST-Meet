@@ -12,11 +12,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
-import com.example.stmeet.info.UserInfoActivity;
-import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,9 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class TeacherRegistrationActivity extends AppCompatActivity {
 
-    private EditText mEmailRegister, mPasswordRegister, mNameRegister;
+    private EditText mEmailRegister, mPasswordRegister, mNameRegister, mSubjectRegister;
     private Button mRegister;
     private RadioGroup mRadioGroup;
 
@@ -42,7 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_teacher_registration);
 
         //States of user (Login logout)
         mAuth = FirebaseAuth.getInstance();
@@ -51,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull @org.jetbrains.annotations.NotNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(RegistrationActivity.this, MatchesActivity.class);
+                    Intent intent = new Intent(TeacherRegistrationActivity.this, TeacherMatchesActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -65,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mNameRegister = findViewById(R.id.nameRegister);
         mRadioGroup = findViewById(R.id.radioGroup);
+        mSubjectRegister = findViewById(R.id.subjectRegister);
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +78,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String email = mEmailRegister.getText().toString();
                 final String password = mPasswordRegister.getText().toString();
                 final String name = mNameRegister.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                final String subject = mSubjectRegister.getText().toString();
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(TeacherRegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
-                            Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+                            Toast.makeText(TeacherRegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(TeacherRegistrationActivity.this, ChooseLoginRegistrationActivity.class);
                             //intent.putExtra("userRole", userRole);
                             startActivity(intent);
                             return;
@@ -96,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             userInformation.put("name", name);
                             userInformation.put("role", radioButton.getText().toString());
                             userInformation.put("profileImageUrl", "default");
+                            userInformation.put("subject", subject);
                             currentUserDb.updateChildren(userInformation);
                             currentUserDb.updateChildren(userInformation);
                         }
@@ -118,16 +119,17 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void toLogin(View view) {
-        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+        Intent intent = new Intent(TeacherRegistrationActivity.this, TeacherLoginActivity.class);
         startActivity(intent);
         return;
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent b = new Intent(RegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+        Intent b = new Intent(TeacherRegistrationActivity.this, ChooseLoginRegistrationActivity.class);
         b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(b);
         finish();
     }
+
 }

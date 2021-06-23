@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lighterBlue"
+    android:background="@drawable/study8"
     tools:context=".login_registration.LoginActivity">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:background="@drawable/header_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:text="Log In"
+        android:text="Student Log In"
         android:textColor="@color/black"
         android:textSize="22dp"
         android:textStyle="bold"
@@ -100,12 +99,12 @@
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
 
-    <View
+   <!-- <View
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:background="@drawable/bottom_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

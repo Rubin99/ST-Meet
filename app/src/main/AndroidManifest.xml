@@ -13,11 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".chat.VideoActivity"></activity>
-        <activity android:name=".payment.PaymentEsewaActivity" />
+        <activity android:name=".login_registration.ChooseTeacherLoginRegistrationActivity"></activity>
+        <activity android:name=".login_registration.ChooseRoleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".matches.TeacherMatchesActivity" />
+        <activity android:name=".login_registration.TeacherLoginActivity" />
+        <activity android:name=".login_registration.TeacherRegistrationActivity" />
+        <activity android:name=".chat.VideoActivity" />
         <activity android:name=".chat.RateTeacherActivity" />
-        <activity android:name=".payment.PaymentDetails" />
-        <activity android:name=".payment.TeacherPaymentActivity" />
         <activity android:name=".student_requests.StudentRequestActivity" />
         <activity android:name=".java_display.JavaDisplayActivity" />
         <activity android:name=".php_display.PhpDisplayActivity" />
@@ -29,13 +37,7 @@
         <activity android:name=".info.UserInfoActivity" />
         <activity android:name=".login_registration.LoginActivity" />
         <activity android:name=".login_registration.RegistrationActivity" />
-        <activity android:name=".login_registration.ChooseLoginRegistrationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".login_registration.ChooseLoginRegistrationActivity"/>
         <activity android:name=".MainActivity" />
     </application>
 

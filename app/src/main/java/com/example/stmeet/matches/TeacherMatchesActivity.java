@@ -1,4 +1,4 @@
-package com.example.stmeet.student_requests;
+package com.example.stmeet.matches;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -6,21 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
+import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
-import com.example.stmeet.matches.MatchesActivity;
-import com.example.stmeet.matches.MatchesObject;
-import com.example.stmeet.matches.TeacherMatchesActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
+import com.example.stmeet.student_requests.StudentRequestActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,13 +36,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentRequestActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TeacherMatchesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mRequestRecyclerView;
-    private RecyclerView.Adapter mRequestAdapter;
-    private RecyclerView.LayoutManager mRequestLayoutManager;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mMatchesAdapter;
+    private RecyclerView.LayoutManager mMatchesLayoutManager;
 
-    private String currenrUserId;
+    private String currentUserId;
+
+    private FirebaseAuth mAuth;
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -48,25 +52,15 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
     ActionBarDrawerToggle toggle;
     //----------------------------
 
+    private FloatingActionButton fab;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_request_list);
+        setContentView(R.layout.activity_teacher_matches);
 
-        currenrUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        mRequestRecyclerView =findViewById(R.id.recyclerViewSR);
-        mRequestRecyclerView.setNestedScrollingEnabled(false);
-        mRequestRecyclerView.setHasFixedSize(true);
-        mRequestLayoutManager = new LinearLayoutManager(StudentRequestActivity.this);
-        mRequestRecyclerView.setLayoutManager(mRequestLayoutManager);
-        mRequestAdapter = new StudentRequestAdapter(getDataSetRequests(), StudentRequestActivity.this);
-        mRequestRecyclerView.setAdapter(mRequestAdapter);
-
-        DividerItemDecoration decoration = new DividerItemDecoration(StudentRequestActivity.this, DividerItemDecoration.VERTICAL);
-        mRequestRecyclerView.addItemDecoration(decoration);
-        
-        getUserRequestId();
+        mAuth = FirebaseAuth.getInstance();
 
         // For navigation sidebar -------------------------------------------------------------------------------------
 
@@ -83,16 +77,47 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         toggle.syncState();
 
         //--------------------------------------------------------------
+
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(true);
+        mMatchesLayoutManager = new LinearLayoutManager(TeacherMatchesActivity.this);
+        mRecyclerView.setLayoutManager(mMatchesLayoutManager);
+        mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), TeacherMatchesActivity.this);
+        mRecyclerView.setAdapter(mMatchesAdapter);
+
+        /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);*/
+
+        getUserMatchId();
+
+        //---------------------------FAB ICON----------------------------------------------------------------------------------
+        fab = findViewById(R.id.find_teacher);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TeacherMatchesActivity.this, "List of Requests", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TeacherMatchesActivity.this, StudentRequestActivity.class);
+                startActivity(intent);
+                return;
+            }
+        });
+        //---------------------------FAB ICON----------------------------------------------------------------------------------
+
+
     }
 
-    private void getUserRequestId() {
-        DatabaseReference requestDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currenrUserId).child("connections").child("accepted");
-        requestDb.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getUserMatchId() {
+        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("connections").child("matches");
+        matchDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot request : snapshot.getChildren()) {
-                        FetchRequestInformation(request.getKey());
+                if (snapshot.exists()){
+                    for(DataSnapshot match : snapshot.getChildren()){
+                        FetchMatchInformation(match.getKey());
                     }
                 }
             }
@@ -104,12 +129,12 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         });
     }
 
-    private void FetchRequestInformation(String key) {
-        DatabaseReference userRequestDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
-        userRequestDb.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void FetchMatchInformation(String key) {
+        DatabaseReference userMatchDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+        userMatchDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists() && !snapshot.child("connections").child("matches").hasChild(currenrUserId)){
+                if (snapshot.exists()){
                     String userId = snapshot.getKey();
                     String name = "";
                     String profileImageUrl = "";
@@ -120,10 +145,10 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    StudentRequestObject objSR = new StudentRequestObject(userId, name, profileImageUrl); //
-                    resultsRequests.add(objSR);
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl); //
+                    resultsMatches.add(obj);
 
-                    mRequestAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
+                    mMatchesAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
 
                 }
             }
@@ -135,10 +160,11 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         });
     }
 
-    private ArrayList<StudentRequestObject> resultsRequests = new ArrayList<StudentRequestObject>();
-    private List<StudentRequestObject> getDataSetRequests() {
-        return resultsRequests;
+    private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
+    private List<MatchesObject> getDataSetMatches() {
+        return  resultsMatches;
     }
+
     // sidebar
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
@@ -146,24 +172,24 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         switch (id){
 
             case R.id.nav_teacher:
-                Intent t = new Intent(StudentRequestActivity.this, MainActivity.class);
+                Intent t = new Intent(TeacherMatchesActivity.this, MainActivity.class);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(StudentRequestActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(TeacherMatchesActivity.this, UserInfoActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(StudentRequestActivity.this, TeacherMatchesActivity.class);
+                Intent m= new Intent(TeacherMatchesActivity.this, TeacherMatchesActivity.class);
                 startActivity(m);
                 break;
             case R.id.nav_request:
-                Intent r= new Intent(StudentRequestActivity.this, StudentRequestActivity.class);
+                Intent r= new Intent(TeacherMatchesActivity.this, StudentRequestActivity.class);
                 startActivity(r);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
-                Intent l= new Intent(StudentRequestActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(TeacherMatchesActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

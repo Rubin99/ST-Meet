@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.stmeet.R;
-import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
+import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LoginActivity extends AppCompatActivity {
+public class TeacherLoginActivity extends AppCompatActivity {
 
     private EditText mEmailLogin, mPasswordLogin;
     private Button mLogin;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_teacher_login);
 
         //States of user (Login logout)
         mAuth = FirebaseAuth.getInstance();
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull @org.jetbrains.annotations.NotNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(LoginActivity.this, MatchesActivity.class);
+                    Intent intent = new Intent(TeacherLoginActivity.this, TeacherMatchesActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -49,21 +50,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        mEmailLogin = findViewById(R.id.emailLogin);
-        mPasswordLogin = findViewById(R.id.passwordLogin);
-        mLogin = findViewById(R.id.login);
+        mEmailLogin = findViewById(R.id.emailLoginTeacher);
+        mPasswordLogin = findViewById(R.id.passwordLoginTeacher);
+        mLogin = findViewById(R.id.loginTeacher);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String email = mEmailLogin.getText().toString();
                 final String password = mPasswordLogin.getText().toString();
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(TeacherLoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "Sign in error", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, ChooseLoginRegistrationActivity.class);
+                            Toast.makeText(TeacherLoginActivity.this, "Sign in error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(TeacherLoginActivity.this, ChooseLoginRegistrationActivity.class);
                             //intent.putExtra("userRole", userRole);
                             startActivity(intent);
                             return;
@@ -86,14 +87,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void toRegister(View view) {
-        Intent intent = new Intent(LoginActivity.this, TeacherInfoActivity.class);
+        Intent intent = new Intent(TeacherLoginActivity.this, TeacherInfoActivity.class);
         startActivity(intent);
         return;
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent b = new Intent(LoginActivity.this, ChooseLoginRegistrationActivity.class);
+        Intent b = new Intent(TeacherLoginActivity.this, ChooseLoginRegistrationActivity.class);
         b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(b);
         finish();
