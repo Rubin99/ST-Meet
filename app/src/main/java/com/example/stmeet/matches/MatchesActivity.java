@@ -11,12 +11,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.java_display.JavaDisplayObject;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 import com.example.stmeet.login_registration.ChooseRoleActivity;
+import com.example.stmeet.php_display.PhpDisplayActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -106,6 +108,9 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), MatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
 
+        DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
+
         /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(decoration);*/
 
@@ -180,23 +185,23 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
 
             case R.id.nav_subject:
                 Intent h= new Intent(MatchesActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
                 break;
             case R.id.nav_teacher:
                 Intent t = new Intent(MatchesActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(MatchesActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
                 Intent m= new Intent(MatchesActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(MatchesActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth

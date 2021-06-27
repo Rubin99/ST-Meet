@@ -30,9 +30,9 @@ import java.util.Map;
 
 public class TeacherRegistrationActivity extends AppCompatActivity {
 
-    private EditText mEmailRegister, mPasswordRegister, mNameRegister, mSubjectRegister;
+    private EditText mEmailRegister, mPasswordRegister, mNameRegister;
     private Button mRegister;
-    private RadioGroup mRadioGroup;
+    private RadioGroup mRadioGroup, mRadioGroup2;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -63,7 +63,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
 
         mNameRegister = findViewById(R.id.nameRegister);
         mRadioGroup = findViewById(R.id.radioGroup);
-        mSubjectRegister = findViewById(R.id.subjectRegister);
+        mRadioGroup2 = findViewById(R.id.radioGroup2);
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,12 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                 final String email = mEmailRegister.getText().toString();
                 final String password = mPasswordRegister.getText().toString();
                 final String name = mNameRegister.getText().toString();
-                final String subject = mSubjectRegister.getText().toString();
+
+                int subjectId = mRadioGroup2.getCheckedRadioButtonId();
+                final RadioButton radioButton2 = findViewById(subjectId);
+                if (radioButton2.getText() == null){
+                    return;
+                }
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(TeacherRegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
@@ -96,7 +101,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                             userInformation.put("name", name);
                             userInformation.put("role", radioButton.getText().toString());
                             userInformation.put("profileImageUrl", "default");
-                            userInformation.put("subject", subject);
+                            userInformation.put("subject", radioButton2.getText().toString().toLowerCase());
                             currentUserDb.updateChildren(userInformation);
                             currentUserDb.updateChildren(userInformation);
                         }
@@ -126,7 +131,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent b = new Intent(TeacherRegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+        Intent b = new Intent(TeacherRegistrationActivity.this, ChooseTeacherLoginRegistrationActivity.class);
         b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(b);
         finish();

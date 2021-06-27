@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
@@ -89,23 +90,23 @@ public class VideoActivity extends AppCompatActivity implements  NavigationView.
 
             case R.id.nav_subject:
                 Intent h= new Intent(VideoActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
                 break;
             case R.id.nav_teacher:
                 Intent t = new Intent(VideoActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(VideoActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
                 Intent m= new Intent(VideoActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(VideoActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 //mAuth.signOut();

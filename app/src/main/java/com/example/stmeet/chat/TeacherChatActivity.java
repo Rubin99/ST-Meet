@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.info.TeacherInfoUserActivity;
@@ -225,6 +226,10 @@ public class TeacherChatActivity extends AppCompatActivity implements Navigation
                 Intent r= new Intent(TeacherChatActivity.this, StudentRequestActivity.class);
                 startActivity(r);
                 break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(TeacherChatActivity.this, AboutUsActivity.class);
+                startActivity(a);
+                break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
                 Intent l= new Intent(TeacherChatActivity.this, ChooseRoleActivity.class);
@@ -262,7 +267,7 @@ public class TeacherChatActivity extends AppCompatActivity implements Navigation
             case R.id.rateTeacher:
                 Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
 
-                Intent rate= new Intent(TeacherChatActivity.this, RateTeacherActivity.class);
+                Intent rate= new Intent(TeacherChatActivity.this, RateStudentActivity.class);
                 Bundle b = new Bundle();
                 b.putString("matchId", matchId);
                 b.putString("chatId", chatId);

@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -283,23 +284,23 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
 
             case R.id.nav_subject:
                 Intent h= new Intent(UserInfoActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
                 break;
             case R.id.nav_teacher:
                 Intent t = new Intent(UserInfoActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(UserInfoActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
                 Intent m= new Intent(UserInfoActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(UserInfoActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();

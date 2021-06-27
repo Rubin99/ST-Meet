@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
@@ -89,8 +91,8 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
         mMatchesAdapter = new TeacherMatchesAdapter(getDataSetMatches(), TeacherMatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
 
-        /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);*/
+        DividerItemDecoration decoration = new DividerItemDecoration(TeacherMatchesActivity.this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
 
         getUserMatchId();
 
@@ -187,6 +189,10 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
             case R.id.nav_request:
                 Intent r= new Intent(TeacherMatchesActivity.this, StudentRequestActivity.class);
                 startActivity(r);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(TeacherMatchesActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth

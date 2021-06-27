@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.login_registration.ChooseRoleActivity;
@@ -289,6 +290,10 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
             case R.id.nav_request:
                 Intent r= new Intent(TeacherInfoUserActivity.this, StudentRequestActivity.class);
                 startActivity(r);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(TeacherInfoUserActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth

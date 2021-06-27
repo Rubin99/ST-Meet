@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.info.TeacherInfoUserActivity;
@@ -178,6 +179,10 @@ public class StudentInfoActivity extends AppCompatActivity implements Navigation
             case R.id.nav_request:
                 Intent r = new Intent(StudentInfoActivity.this, StudentRequestActivity.class);
                 startActivity(r);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(StudentInfoActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth

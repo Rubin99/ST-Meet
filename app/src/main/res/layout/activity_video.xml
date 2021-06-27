@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-    android:background="@color/lighterBlue"
+    android:background="@drawable/study3"
     tools:context=".chat.VideoActivity">
     
     <LinearLayout
@@ -26,13 +26,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:text="Enter your Code:"
+            android:gravity="center"
+            android:textSize="24sp"/>
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Room Id"
         android:layout_gravity="center"
-        android:layout_marginTop="190sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
         android:id="@+id/videoId"
         />
 
@@ -40,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Video Call"
+        android:layout_margin="20sp"
         android:onClick="videoCall"/>
 
     </LinearLayout>

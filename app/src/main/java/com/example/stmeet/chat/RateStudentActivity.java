@@ -18,10 +18,10 @@ import android.widget.RatingBar;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
-import com.example.stmeet.SubjectListActivity;
-import com.example.stmeet.info.UserInfoActivity;
-import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
-import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.info.TeacherInfoUserActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
+import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-public class RateTeacherActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class RateStudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RatingBar mRate;
     private EditText mComment;
@@ -39,6 +39,8 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
 
     private String currentUserId;
 
+    private FirebaseAuth mAuth;
+
     DatabaseReference mDatabaseUser, mDatabaseChat;
 
     // For navigation sidebar
@@ -47,12 +49,10 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
     ActionBarDrawerToggle toggle;
     //----------------------------
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rate_teacher);
+        setContentView(R.layout.activity_rate_student);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -87,8 +87,8 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 mDatabaseUser.setValue(rating);
-                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(mMatchId).child("rating");
-                mTeacherRatingDb.child(mChatId).setValue(rating);
+                DatabaseReference mStudentRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(mMatchId).child("rating");
+                mStudentRatingDb.child(mChatId).setValue(rating);
             }
         });
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -106,29 +106,29 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_subject:
-                Intent h= new Intent(RateTeacherActivity.this, SubjectListActivity.class);
-                startActivity(h);
-                break;
             case R.id.nav_teacher:
-                Intent t = new Intent(RateTeacherActivity.this, MainActivity.class);
+                Intent t = new Intent(RateStudentActivity.this, MainActivity.class);
                 startActivity(t);
                 break;
             case R.id.nav_profile:
-                Intent p= new Intent(RateTeacherActivity.this, UserInfoActivity.class);
+                Intent p= new Intent(RateStudentActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
-                Intent m= new Intent(RateTeacherActivity.this, MatchesActivity.class);
+                Intent m= new Intent(RateStudentActivity.this, TeacherMatchesActivity.class);
                 startActivity(m);
                 break;
+            case R.id.nav_request:
+                Intent r= new Intent(RateStudentActivity.this, StudentRequestActivity.class);
+                startActivity(r);
+                break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(RateTeacherActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(RateStudentActivity.this, AboutUsActivity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
-                mAuth.signOut();
-                Intent l= new Intent(RateTeacherActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                Intent l= new Intent(RateStudentActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

@@ -14,6 +14,7 @@ import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.chat.ChatActivity;
 import com.example.stmeet.matches.MatchesActivity;
+import com.example.stmeet.matches.TeacherMatchesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +56,7 @@ public class StudentRequestHolder extends RecyclerView.ViewHolder {
                 mRequestAccept.setVisibility(View.INVISIBLE);
                 mRequestReject.setVisibility(View.INVISIBLE);
 
-                Intent intent = new Intent(v.getContext(), MatchesActivity.class);
+                Intent intent = new Intent(v.getContext(), TeacherMatchesActivity.class);
                 v.getContext().startActivity(intent);
 
                 isConnectionMatch(mStudentId);

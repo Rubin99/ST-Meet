@@ -385,11 +385,6 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
                 r.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(r);
                 break;
-            case R.id.nav_java:
-                Intent j = new Intent(MainActivity.this, JavaDisplayActivity.class);
-                j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(j);
-                break;
             case R.id.nav_logout:
                 mAuth.signOut();
                 Intent l= new Intent(MainActivity.this, ChooseRoleActivity.class);

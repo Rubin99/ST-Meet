@@ -21,7 +21,6 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Teacher Register"
         android:textColor="@color/black"
         android:textSize="22dp"
@@ -62,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Teacher"
+            android:buttonTint="@color/midBlue"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="182dp" />
 
@@ -69,13 +69,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Student"
+            android:buttonTint="@color/midBlue"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="134dp" />
 
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/subjectRegister"
+    <RadioGroup
+        android:id="@+id/radioGroup2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -83,10 +84,32 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:hint="Subject"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/midBlue"
+            android:text="Java"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Php"
+            android:buttonTint="@color/midBlue"
+            android:layout_marginLeft="62dp"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Database"
+            android:buttonTint="@color/midBlue"
+            android:layout_marginLeft="62dp"/>
+
+    </RadioGroup>
 
     <EditText
         android:id="@+id/emailRegister"
@@ -100,7 +123,7 @@
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subjectRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <EditText
         android:id="@+id/passwordRegister"
@@ -112,9 +135,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I agree to the Terms and Conditions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:buttonTint="@color/midBlue"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister"/>
 
     <Button
         android:id="@+id/register"
@@ -129,7 +163,7 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox" />
 
     <TextView
         android:id="@+id/textView4"
@@ -152,7 +186,8 @@
         android:text="Login here!"
         android:textSize="16dp"
         android:layout_marginLeft="4dp"
-        android:textColor="@color/lightBlue"
+        android:textColor="@color/midBlue"
+        android:textStyle="bold"
         android:fontFamily="sans-serif"
         android:onClick="toLogin"
         app:layout_constraintStart_toEndOf="@+id/textView4"

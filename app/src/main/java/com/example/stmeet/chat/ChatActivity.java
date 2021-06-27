@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
@@ -266,6 +269,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
                 break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(ChatActivity.this, AboutUsActivity.class);
+                startActivity(a);
+                break;
             case R.id.nav_logout:
                 //mAuth.signOut();
                 Intent l= new Intent(ChatActivity.this, ChooseLoginRegistrationActivity.class);
@@ -293,6 +300,18 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.paypal:
                 Toast.makeText(this, "Paypal", Toast.LENGTH_SHORT).show();
+
+                /*Uri webpage = Uri.parse("https://esewa.com.np/#/home");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);*/
+                /*goToUrl("https://esewa.com.np/#/home");*/
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://esewa.com.np/#/home" + getPackageName())));
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://esewa.com.np/#/home" + getPackageName())));
+                }
                 break;
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
@@ -317,6 +336,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 break;*/
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToUrl(String s) {
+        Uri uri = Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
 

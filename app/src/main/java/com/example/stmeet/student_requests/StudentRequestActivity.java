@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.info.TeacherInfoUserActivity;
@@ -165,6 +166,10 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
             case R.id.nav_request:
                 Intent r= new Intent(StudentRequestActivity.this, StudentRequestActivity.class);
                 startActivity(r);
+                break;
+            case R.id.nav_aboutUs:
+                Intent a= new Intent(StudentRequestActivity.this, AboutUsActivity.class);
+                startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth

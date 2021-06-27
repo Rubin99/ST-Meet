@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.STMeet">
-        <activity android:name=".chat.TeacherChatActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".chat.RateStudentActivity" />
+        <activity android:name=".chat.TeacherChatActivity" />
         <activity android:name=".info.TeacherInfoUserActivity" />
         <activity android:name=".teacher_info.StudentInfoActivity" />
         <activity android:name=".login_registration.ChooseTeacherLoginRegistrationActivity" />

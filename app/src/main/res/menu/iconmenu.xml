@@ -15,11 +15,8 @@
         android:id="@+id/nav_teacher"
         android:title="Teacher List" />
     <item
-        android:id="@+id/nav_request"
-        android:title="Request List" />
-    <item
-        android:id="@+id/nav_java"
-        android:title="Java Teachers" />
+        android:id="@+id/nav_aboutUs"
+        android:title="About Us" />
     <item
         android:id="@+id/nav_logout"
         android:title="Logout" />

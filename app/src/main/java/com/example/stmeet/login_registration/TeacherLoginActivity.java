@@ -94,7 +94,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent b = new Intent(TeacherLoginActivity.this, ChooseLoginRegistrationActivity.class);
+        Intent b = new Intent(TeacherLoginActivity.this, ChooseTeacherLoginRegistrationActivity.class);
         b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(b);
         finish();

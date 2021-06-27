@@ -46,7 +46,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect with the right Teacher!"
+        android:text="Connect with the right Student!"
         android:textSize="22sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-condensed"
