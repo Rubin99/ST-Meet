@@ -13,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -43,17 +45,6 @@ public class VideoActivity extends AppCompatActivity implements  NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-
-        try {
-            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                    .setServerURL(new URL(""))
-                    .setWelcomePageEnabled(false)
-                    .build();
-            //JitsiMeet.setDefaultConferenceOptions(options);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
         // For navigation sidebar
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,6 +60,17 @@ public class VideoActivity extends AppCompatActivity implements  NavigationView.
         toggle.syncState();
 
         //--------------------------------------------------------------
+
+        try {
+            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+                    .setServerURL(new URL(""))
+                    .setWelcomePageEnabled(false)
+                    .build();
+            //JitsiMeet.setDefaultConferenceOptions(options);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void videoCall(View view) {
@@ -92,10 +94,6 @@ public class VideoActivity extends AppCompatActivity implements  NavigationView.
                 Intent h= new Intent(VideoActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(VideoActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(VideoActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -105,12 +103,12 @@ public class VideoActivity extends AppCompatActivity implements  NavigationView.
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(VideoActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(VideoActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 //mAuth.signOut();
-                Intent l= new Intent(VideoActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(VideoActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

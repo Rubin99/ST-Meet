@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/study6"
+    android:background="@drawable/school"
     android:id="@+id/drawer"
     tools:context=".java_display.JavaDisplayActivity">
 
@@ -19,10 +19,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="JAVA TEACHERS"
-        android:textColor="@color/white"
+        android:text="Java Teachers"
+        android:textColor="@color/black"
         android:gravity="center"
-        android:textSize="42sp"/>
+        android:textSize="42sp"
+        android:fontFamily="sans-serif"/>
 
    <!-- <Button
         android:id="@+id/sortAsc"

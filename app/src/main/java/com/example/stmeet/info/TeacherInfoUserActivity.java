@@ -52,14 +52,14 @@ import java.util.Map;
 
 public class TeacherInfoUserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
-    private EditText mNameField, mPhoneNoField, mEducationField, mSchoolField, mSubjectField, mAboutField;
+    private EditText mNameField, mPhoneNoField, mEducationField, mSchoolField, mSubjectField, mAboutField, mHourlyRate;
     private Button mConfirm, mBack;
     private ImageView mProfileImage;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userRole, education, school, subject, about;
+    private String userId, name, phone, profileImageUrl, userRole, education, school, subject, about, hourlyRate;
 
     private Uri resultUri;
 
@@ -98,9 +98,9 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
         mSchoolField = findViewById(R.id.school);
         mSubjectField = findViewById(R.id.subject);
         mAboutField = findViewById(R.id.about);
-        mConfirm = findViewById(R.id.confirm);
-        //mBack = findViewById(R.id.back);
+        //mConfirm = findViewById(R.id.confirm);
         mProfileImage = findViewById(R.id.profileImage);
+        mHourlyRate = findViewById(R.id.userHourlyRate);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid(); // takes the current users id
@@ -121,12 +121,12 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
             }
         });
 
-        mConfirm.setOnClickListener(new View.OnClickListener() {
+        /*mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserInformation();
             }
-        });
+        });*/
 
        /* mBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +168,10 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
                         subject = map.get("subject").toString();
                         mSubjectField.setText(subject);
                     }
+                    if (map.get("hourlyRate") != null){
+                        hourlyRate = map.get("hourlyRate").toString();
+                        mHourlyRate.setText(hourlyRate);
+                    }
                     if (map.get("about") != null){
                         about = map.get("about").toString();
                         mAboutField.setText(about);
@@ -201,6 +205,7 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
         school = mSchoolField.getText().toString();
         subject = mSubjectField.getText().toString();
         about = mAboutField.getText().toString();
+        hourlyRate = mHourlyRate.getText().toString();
 
         //To save it
         Map userInformation = new HashMap();
@@ -210,6 +215,7 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
         userInformation.put("school", school);
         userInformation.put("subject", subject);
         userInformation.put("about", about);
+        userInformation.put("hourlyRate", hourlyRate);
         mUserDatabase.updateChildren(userInformation);
 
         if (resultUri != null){
@@ -253,7 +259,7 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
                 }
             });
         }else {
-            Intent p= new Intent(TeacherInfoUserActivity.this, UserInfoActivity.class);
+            Intent p= new Intent(TeacherInfoUserActivity.this, TeacherInfoUserActivity.class);
             startActivity(p);
             //return;
             //finish();
@@ -275,10 +281,6 @@ public class TeacherInfoUserActivity extends AppCompatActivity implements Naviga
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(TeacherInfoUserActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(TeacherInfoUserActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);

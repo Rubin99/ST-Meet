@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/study8"
+    android:background="@drawable/school"
     tools:context=".login_registration.RegistrationActivity">
 
     <View
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Register"
+        android:text="Student Registration"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="28dp"
+        android:fontFamily="sans-serif"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,14 +62,6 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Teacher"
-            android:buttonTint="@color/midBlue"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="182dp" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Student"
             android:buttonTint="@color/midBlue"
             tools:layout_editor_absoluteX="10dp"
@@ -100,6 +93,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailRegister" />

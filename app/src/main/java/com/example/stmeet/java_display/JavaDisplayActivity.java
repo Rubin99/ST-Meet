@@ -23,12 +23,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.matches.MatchesObject;
 import com.example.stmeet.student_requests.StudentRequestActivity;
@@ -162,42 +164,35 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
         userJavaDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUserId)){
                     String userId = snapshot.getKey();
                     String name = "";
-                    String subject = "";
                     String profileImageUrl = "";
                     String rating = "";
+                    String hourlyRate = "";
+                    final int[] count = {0};
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
-                    }
-                    if (snapshot.child("subject").getValue() != null){
-                        subject = snapshot.child("subject").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
+                    if (snapshot.child("hourlyRate").getValue() != null){
+                        hourlyRate = snapshot.child("hourlyRate").getValue().toString();
+                    }
                     float ratingSum = 0;
                     float ratingsTotal = 0;
-                    float ratingsAvg = 0;
                     for (DataSnapshot child : snapshot.child("rating").getChildren()){
                         ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
                         ratingsTotal++;
                     }
-                   /* if(ratingsTotal != 0){
-                        ratingsAvg = ratingSum/ratingsTotal;
-                        rating.setRating(ratingsAvg);
-                    }*/
                     if (snapshot.child("rating").getValue() != null){
                         rating = String.valueOf(ratingSum/ratingsTotal);
+
                     }
-
-                    JavaDisplayObject obj = new JavaDisplayObject(userId, name, subject, profileImageUrl, rating); //
+                    JavaDisplayObject obj = new JavaDisplayObject(userId, name, profileImageUrl, rating, hourlyRate); //
                     resultsJava.add(obj);
-
                     mJavaAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
-
-                    testDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
                 }
             }
 
@@ -250,10 +245,6 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
                 Intent h= new Intent(JavaDisplayActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(JavaDisplayActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(JavaDisplayActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -262,17 +253,13 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
                 Intent m= new Intent(JavaDisplayActivity.this, MatchesActivity.class);
                 startActivity(m);
                 break;
-            case R.id.nav_request:
-                Intent r = new Intent(JavaDisplayActivity.this, StudentRequestActivity.class);
-                startActivity(r);
-                break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(JavaDisplayActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(JavaDisplayActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(JavaDisplayActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(JavaDisplayActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();
@@ -295,12 +282,23 @@ public class JavaDisplayActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.sort:
-                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+
+            case R.id.high:
+                Toast.makeText(this, "Sort by Highest Rated to Lowest", Toast.LENGTH_SHORT).show();
                 Collections.reverse(resultsJava);
                 mJavaAdapter.notifyDataSetChanged();
                 break;
 
+            case R.id.low:
+                Toast.makeText(this, "Sort by Lowest to Highest", Toast.LENGTH_SHORT).show();
+                Collections.sort(resultsJava, new Comparator<JavaDisplayObject>() {
+                    @Override
+                    public int compare(JavaDisplayObject o1, JavaDisplayObject o2) {
+                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
+                    }
+                });
+                mJavaAdapter.notifyDataSetChanged();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

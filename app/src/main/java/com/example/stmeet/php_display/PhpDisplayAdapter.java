@@ -33,8 +33,6 @@ public class PhpDisplayAdapter extends RecyclerView.Adapter<PhpDisplayViewHolder
     @NotNull
     @Override
     public PhpDisplayViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        /*View view = LayoutInflater.from(context).inflate(R.layout.items_java, parent, false);
-        return new PhpDisplayViewHolder(view);*/
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_php, null, false);
         RecyclerView.LayoutParams rlp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -43,19 +41,13 @@ public class PhpDisplayAdapter extends RecyclerView.Adapter<PhpDisplayViewHolder
 
         return pdv;
 
-/*        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
-        PhpDisplayViewHolder rcv = new PhpDisplayViewHolder((view));
-
-        return rcv;*/
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PhpDisplayViewHolder holder, int position) {
         holder.mPhpTeacherId.setText(phpList.get(position).getUserId());
         holder.mPhpName.setText(phpList.get(position).getName());
-        holder.mPhpSubject.setText(phpList.get(position).getSubject());
+        holder.mHourlyRate.setText(phpList.get(position).getHourlyRate());
         //holder.mJavaRating.setText(javaList.get(position).getRating());
         if (phpList.get(position).getRating() == ""){
             holder.mRatingBar.setRating((float) 0.0);

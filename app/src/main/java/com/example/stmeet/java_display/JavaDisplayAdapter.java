@@ -50,20 +50,13 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
 
         return jdv;
 
-/*        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
-        PhpDisplayViewHolder rcv = new PhpDisplayViewHolder((view));
-
-        return rcv;*/
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull JavaDisplayViewHolder holder, int position) {
         holder.mTeacherId.setText(javaList.get(position).getUserId());
         holder.mJavaName.setText(javaList.get(position).getName());
-        holder.mJavaSubject.setText(javaList.get(position).getSubject());
-        //holder.mJavaRating.setText(javaList.get(position).getRating());
+        holder.mHourlyRate.setText(javaList.get(position).getHourlyRate());
         if (javaList.get(position).getRating() == ""){
             holder.mRatingBar.setRating((float) 0.0);
         }else {
@@ -73,60 +66,7 @@ public class JavaDisplayAdapter extends RecyclerView.Adapter<JavaDisplayViewHold
             Glide.with(context).load(javaList.get(position).getProfileImageUrl()).into(holder.mJavaImage);
         }
 
-
-
-
-        String currentUId;
-        FirebaseAuth mAuth;
-        DatabaseReference usersDb;
-        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUId = mAuth.getCurrentUser().getUid();
-
-        /*holder.mAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usersDb.child().child("connections").child("accepted").child(currentUId).setValue(true);
-            }
-        });
-*/
-        /*FirebaseAuth mAuth;
-        String currentUId;
-        DatabaseReference usersDb;
-        String javaID = javaDisplayObject.userId;
-
-        mAuth = FirebaseAuth.getInstance();
-        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
-        currentUId = mAuth.getCurrentUser().getUid();*/
-        /*holder.mAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //long userID = getItemId(position);
-
-                //PhpDisplayObject obj = (PhpDisplayObject) position;
-                //String id = obj.getUserId();
-
-                //String userId = PhpDisplayObject.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-                usersDb.child(String.valueOf(position)).child("connections").child("accepted").child(currentUId).setValue(true);
-
-            }
-        });*/
-
     }
-/*
-
-    public interface ClickListener{
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view, int position);
-    }
-    public void setOnClickListener(PhpDisplayViewHolder.ClickListener clickListener){
-
-    }
-*/
-
-
 
     @Override
     public int getItemCount() {

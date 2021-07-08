@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/study"
+        android:background="@drawable/study6"
         android:layout_marginTop="56dp">
 
 
@@ -22,8 +22,8 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Your Students"
-            android:textSize="32dp"
-            android:textColor="@color/black"
+            android:textSize="42dp"
+            android:textColor="@color/white"
             android:id="@+id/tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv"
-            android:paddingTop="44dp">
+            android:layout_marginTop="55dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

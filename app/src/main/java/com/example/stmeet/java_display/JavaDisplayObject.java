@@ -3,16 +3,16 @@ package com.example.stmeet.java_display;
 public class JavaDisplayObject {
     private String userId;
     private String name;
-    private String subject;
     private String profileImageUrl;
     private String rating;
+    private String hourlyRate;
 
-    public JavaDisplayObject(String userId, String name, String subject, String profileImageUrl, String rating){ //, RatingBar rating
+    public JavaDisplayObject(String userId, String name, String profileImageUrl, String rating, String hourlyRate){ //, RatingBar rating
         this.userId = userId;
         this.name = name;
-        this.subject = subject;
         this.profileImageUrl = profileImageUrl;
         this.rating = rating;
+        this.hourlyRate = hourlyRate;
     }
 
     public String getUserId(){ return userId; }
@@ -21,12 +21,12 @@ public class JavaDisplayObject {
     public String getName(){ return name; }
     public void setName(String name){ this.name = name; }
 
-    public String getSubject(){ return subject; }
-    public void setSubject(String subject){ this.subject = subject; }
-
     public String getProfileImageUrl(){ return profileImageUrl; }
     public void setProfileImageUrl(String profileImageUrl){ this.profileImageUrl = profileImageUrl; }
 
     public String getRating(){ return rating; }
     public void setRating(String rating){ this.rating = rating; }
+
+    public String getHourlyRate(){ return hourlyRate; }
+    public void setHourlyRate(String hourlyRate){ this.hourlyRate = hourlyRate; }
 }

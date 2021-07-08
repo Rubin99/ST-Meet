@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView mMatchid, mMatchName, mMatchSubject;
+    public TextView mMatchid, mMatchName, mMatchSubject, mHourlyRate;
     public ImageView mMatchImage, mMatchProfile;
 
     public MatchesViewHolder(@NonNull @NotNull View itemView) {
@@ -28,6 +28,7 @@ public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.O
         mMatchName = itemView.findViewById(R.id.matchName);
         mMatchSubject = itemView.findViewById(R.id.matchSubject);
         mMatchImage = itemView.findViewById(R.id.matchImage);
+        mHourlyRate = itemView.findViewById(R.id.matchesHourlyRate);
         mMatchid.setVisibility(View.INVISIBLE); //////////////////
         mMatchProfile = itemView.findViewById(R.id.profile);
 

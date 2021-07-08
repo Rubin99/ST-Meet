@@ -3,7 +3,7 @@
     <style name="Theme.STMeet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/lightBlue</item>
-        <item name="colorPrimaryVariant">@color/lightBlue</item>
+        <item name="colorPrimaryVariant">@color/midBlue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:itemBackground">@color/lighterBlue</item>
+        <item name="android:itemBackground">@drawable/bg1</item>
 
     </style>
 </resources>

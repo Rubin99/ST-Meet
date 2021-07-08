@@ -15,12 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,7 +88,7 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
         mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mDatabaseUser.setValue(rating);
+
                 DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(mMatchId).child("rating");
                 mTeacherRatingDb.child(mChatId).setValue(rating);
             }
@@ -110,10 +112,6 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
                 Intent h= new Intent(RateTeacherActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(RateTeacherActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(RateTeacherActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -123,12 +121,12 @@ public class RateTeacherActivity extends AppCompatActivity implements Navigation
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(RateTeacherActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(RateTeacherActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(RateTeacherActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(RateTeacherActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

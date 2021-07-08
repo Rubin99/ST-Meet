@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
@@ -28,7 +29,9 @@ import com.example.stmeet.chat.ChatActivity;
 import com.example.stmeet.chat.RateTeacherActivity;
 import com.example.stmeet.chat.VideoActivity;
 import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.java_display.JavaDisplayObject;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 
 import com.example.stmeet.student_requests.StudentRequestActivity;
@@ -114,26 +117,6 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
 
         //--------------------------------------------------------------
 
-        /*mButtonAsc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.sort(resultsPhp, new Comparator<PhpDisplayObject>() {
-                    @Override
-                    public int compare(PhpDisplayObject o1, PhpDisplayObject o2) {
-                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
-                    }
-
-                });
-                mPhpAdapter.notifyDataSetChanged();
-            }
-        });
-        mButtonDesc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.reverse(resultsPhp);
-                mPhpAdapter.notifyDataSetChanged();
-            }
-        });*/
     }
 
 
@@ -161,17 +144,17 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
         userPhpDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUserId)){
                     String userId = snapshot.getKey();
                     String name = "";
-                    String subject = "";
+                    String hourlyRate = "";
                     String profileImageUrl = "";
                     String rating = "";
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
                     }
-                    if (snapshot.child("subject").getValue() != null){
-                        subject = snapshot.child("subject").getValue().toString();
+                    if (snapshot.child("hourlyRate").getValue() != null){
+                        hourlyRate = snapshot.child("hourlyRate").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
@@ -191,7 +174,7 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
                         rating = String.valueOf(ratingSum/ratingsTotal);
                     }
 
-                    PhpDisplayObject obj = new PhpDisplayObject(userId, name, subject, profileImageUrl, rating); //
+                    PhpDisplayObject obj = new PhpDisplayObject(userId, name, hourlyRate, profileImageUrl, rating); //
                     resultsPhp.add(obj);
 
                     mPhpAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
@@ -205,35 +188,6 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
             }
         });
     }
-
-    /* ValueEventListener valueEventListener = new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-             javaList.clear();
-             if (snapshot.exists()){
-                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                     PhpDisplayObject javaDisplayObject = dataSnapshot.getValue(PhpDisplayObject.class);
-                     javaList.add(javaDisplayObject);
-                 }
-                 mJavaAdapter.notifyDataSetChanged();
-             }
-         }
- 
-         @Override
-         public void onCancelled(@NonNull @NotNull DatabaseError error) {
- 
-         }
-     };
- */
-    /* public void sendRequest(View view) {
-
-                PhpDisplayObject object = view;
-                String userId = PhpDisplayObject.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-                usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-
-                Toast.makeText(PhpDisplayActivity.this, "Request sent!", Toast.LENGTH_SHORT).show();
-            }*/
    private ArrayList<PhpDisplayObject> resultsPhp = new ArrayList<PhpDisplayObject>();
     private List<PhpDisplayObject> getDataSetPhp() {
         return resultsPhp;
@@ -248,10 +202,6 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
                 Intent h= new Intent(PhpDisplayActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(PhpDisplayActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(PhpDisplayActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -265,12 +215,12 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
                 startActivity(r);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(PhpDisplayActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(PhpDisplayActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(PhpDisplayActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(PhpDisplayActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();
@@ -293,12 +243,23 @@ public class PhpDisplayActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.sort:
-                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+
+            case R.id.high:
+                Toast.makeText(this, "Sort by Highest Rated to Lowest", Toast.LENGTH_SHORT).show();
                 Collections.reverse(resultsPhp);
                 mPhpAdapter.notifyDataSetChanged();
                 break;
 
+            case R.id.low:
+                Toast.makeText(this, "Sort by Lowest to Highest", Toast.LENGTH_SHORT).show();
+                Collections.sort(resultsPhp, new Comparator<PhpDisplayObject>() {
+                    @Override
+                    public int compare(PhpDisplayObject o1, PhpDisplayObject o2) {
+                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
+                    }
+                });
+                mPhpAdapter.notifyDataSetChanged();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

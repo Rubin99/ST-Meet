@@ -18,9 +18,11 @@ import com.example.stmeet.db_display.DbDisplayActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.java_display.JavaDisplayActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.php_display.PhpDisplayActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,10 +36,14 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
     ActionBarDrawerToggle toggle;
     //----------------------------
 
+    FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_list);
+
+        mAuth = FirebaseAuth.getInstance();
 
         mJava = findViewById(R.id.java);
         mPhp = findViewById(R.id.php);
@@ -97,10 +103,6 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
                 Intent h= new Intent(SubjectListActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(SubjectListActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(SubjectListActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -110,12 +112,12 @@ public class SubjectListActivity extends AppCompatActivity implements Navigation
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(SubjectListActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(SubjectListActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut(); ///-------------------------------------
-                Intent l= new Intent(SubjectListActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); ///-------------------------------------
+                Intent l= new Intent(SubjectListActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

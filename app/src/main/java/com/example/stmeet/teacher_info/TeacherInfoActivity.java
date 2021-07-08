@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
@@ -26,6 +27,7 @@ import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.TeacherInfoUserActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.matches.MatchesAdapter;
 import com.example.stmeet.matches.MatchesObject;
@@ -51,23 +53,15 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
     ActionBarDrawerToggle toggle;
     //----------------------------
 
-    public TextView mTeacherId, mTeacherName, mTeacherSubject, mTeacherEducation, mTeacherSchool, mTeacherAbout;
+    public TextView mTeacherId, mTeacherName, mTeacherSubject, mTeacherEducation, mTeacherSchool, mTeacherAbout, mTeacherHourlyRate;
     public ImageView mTeacherImage;
     public RatingBar mRatingBar;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mTeacherDatabase;
+    private DatabaseReference mTeacherDatabase, mRatingCount;
 
-    private String userId, name, profileImageUrl, education, school, subject, about;
+    private String userId, name, profileImageUrl, education, school, subject, about, hourlyRate;
 
-
-/*
-    private RecyclerView mInfoRecyclerView;
-    private RecyclerView.Adapter mInfoAdapter;
-    private  RecyclerView.LayoutManager mInfoLayoutManager;
-
-    private String currentUserId;
-*/
 
     private String teacherId;
     private String matchId;
@@ -88,6 +82,7 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         mTeacherAbout = findViewById(R.id.otherAbout);
         mTeacherImage = findViewById(R.id.otherProfileImage);
         mRatingBar = findViewById(R.id.ratingBarInfo);
+        mTeacherHourlyRate = findViewById(R.id.hourlyRate);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -95,21 +90,6 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         mTeacherDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(teacherId); // getting inside the userid
 
         getTeacherInfo();
-
-        /*teacherId = getIntent().getExtras().getString("teacherId");
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        mInfoRecyclerView = findViewById(R.id.recyclerViewTInfo);
-        mInfoRecyclerView.setNestedScrollingEnabled(false);
-        mInfoRecyclerView.setHasFixedSize(true);
-        mInfoLayoutManager = new LinearLayoutManager(TeacherInfoActivity.this);
-        mInfoRecyclerView.setLayoutManager(mInfoLayoutManager);
-        mInfoAdapter = new TeacherInfoAdapter(getDataSetMatches(), TeacherInfoActivity.this);
-        mInfoRecyclerView.setAdapter(mInfoAdapter);
-
-        DatabaseReference infoDb = FirebaseDatabase.getInstance().getReference().child("Users").child(teacherId);
-
-*/
 
         // For navigation sidebar
 
@@ -159,6 +139,10 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
                         about = map.get("about").toString();
                         mTeacherAbout.setText(about);
                     }
+                    if (map.get("hourlyRate") != null){
+                        hourlyRate = map.get("hourlyRate").toString();
+                        mTeacherHourlyRate.setText(hourlyRate);
+                    }
                     if (map.get("profileImageUrl") != null){
                         profileImageUrl = map.get("profileImageUrl").toString();
                         switch(profileImageUrl){
@@ -191,22 +175,6 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
         });
     }
 
-   /* private ArrayList<TeacherInfoObject> resultsInfo = new ArrayList<TeacherInfoObject>();
-    private List<TeacherInfoObject> getDataSetMatches() {
-        return  resultsInfo;
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
         int id=item.getItemId();
@@ -215,10 +183,6 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
             case R.id.nav_subject:
                 Intent h= new Intent(TeacherInfoActivity.this, SubjectListActivity.class);
                 startActivity(h);
-                break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(TeacherInfoActivity.this, MainActivity.class);
-                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(TeacherInfoActivity.this, UserInfoActivity.class);
@@ -229,12 +193,12 @@ public class TeacherInfoActivity extends AppCompatActivity implements Navigation
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(TeacherInfoActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(TeacherInfoActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut(); ///-------------------------------------
-                Intent l= new Intent(TeacherInfoActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut(); ///-------------------------------------
+                Intent l= new Intent(TeacherInfoActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

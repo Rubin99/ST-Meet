@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/study6"
+    android:background="@drawable/school"
     android:id="@+id/drawer"
     tools:context=".teacher_info.StudentInfoActivity">
 
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Name:"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:background="@null"
             android:paddingLeft="38sp"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Education:"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:hint="Education Level"
             android:paddingLeft="4sp"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Subject:"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
             android:layout_margin="20sp"
             android:background="@null"
             android:textSize="18sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:hint="Specialized Subject"
             android:paddingLeft="22sp"
             app:layout_constraintStart_toEndOf="@+id/subjectTV"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="School:"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
             android:layout_margin="20sp"
             android:background="@null"
             android:hint="Current School/Organization"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:paddingLeft="26sp"
             app:layout_constraintStart_toEndOf="@+id/schoolTV"
@@ -134,12 +134,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:text="About:"
+            android:text="Bio:"
             android:textSize="18sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingTv" />
 
         <TextView
             android:id="@+id/otherAbout"
@@ -149,21 +149,22 @@
             android:textSize="18sp"
             android:background="@null"
             android:hint="About Yourself"
-            android:textColor="@color/white"
-            android:paddingLeft="34sp"
+            android:textColor="@color/black"
+            android:paddingLeft="55sp"
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarInfo" />
 
         <TextView
+            android:id="@+id/ratingTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Rating:"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutTV"/>
+            app:layout_constraintTop_toBottomOf="@+id/schoolTV"/>
 
         <RatingBar
             android:id="@+id/ratingBarInfo"
@@ -176,8 +177,8 @@
             android:stepSize="0.1"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="50dp"
-            app:layout_constraintStart_toEndOf="@+id/aboutTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherAbout"
+            app:layout_constraintStart_toEndOf="@+id/ratingTv"
+            app:layout_constraintTop_toBottomOf="@+id/otherSchool"
             />
 
 

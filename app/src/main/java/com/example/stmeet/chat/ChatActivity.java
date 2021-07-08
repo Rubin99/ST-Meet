@@ -26,12 +26,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
 
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -71,6 +73,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
 
+    private FirebaseAuth mAuth;
+
 
     // For navigation sidebar
     DrawerLayout drawerLayout;
@@ -84,6 +88,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_chat);
 
 
+        mAuth = FirebaseAuth.getInstance();
         // For navigation sidebar
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -127,40 +132,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
-        //////////////////////////////////////Fragment////////////////////////////////////////////////
-
-        /*mRate = findViewById(R.id.ratingBar2);
-
-
-        mComment = findViewById(R.id.commentEditText);
-        mSubmit = findViewById(R.id.rateBtn);
-
-        if (savedInstanceState != null) {
-            isFragmentDisplayed =
-                    savedInstanceState.getBoolean(STATE_FRAGMENT);
-            if (isFragmentDisplayed) {
-
-            }
-        }*/
-       /* mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isFragmentDisplayed) {
-                    displayFragment();
-                } else {
-                    closeFragment();
-                }
-            }
-        });*/
-        /*mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mDatabaseUser.setValue(rating);
-                DatabaseReference mTeacherRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("rating");
-                mTeacherRatingDb.child(chatId).setValue(rating);
-            }
-        });*/
     }
 
     private void sendMessage() {
@@ -204,14 +175,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 if(snapshot.exists()){
                     String message = null;
                     String createdByUser = null;
-
                     if(snapshot.child("text").getValue()!=null){
                         message = snapshot.child("text").getValue().toString();
                     }
                     if(snapshot.child("createdByUser").getValue()!=null){
                         createdByUser = snapshot.child("createdByUser").getValue().toString();
                     }
-
                     if(message!=null && createdByUser!=null){
                         Boolean currentUserBoolean = false;
                         if(createdByUser.equals(currentUserId)){
@@ -251,31 +220,23 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_subject:
                 Intent h= new Intent(ChatActivity.this, SubjectListActivity.class);
-                h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
-                break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(ChatActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(ChatActivity.this, UserInfoActivity.class);
-                p.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
                 break;
             case R.id.nav_matches:
                 Intent m= new Intent(ChatActivity.this, MatchesActivity.class);
-                m.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(ChatActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(ChatActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
-                //mAuth.signOut();
-                Intent l= new Intent(ChatActivity.this, ChooseLoginRegistrationActivity.class);
+                mAuth.signOut();
+                Intent l= new Intent(ChatActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();
@@ -301,10 +262,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             case R.id.paypal:
                 Toast.makeText(this, "Paypal", Toast.LENGTH_SHORT).show();
 
-                /*Uri webpage = Uri.parse("https://esewa.com.np/#/home");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-                startActivity(webIntent);*/
-                /*goToUrl("https://esewa.com.np/#/home");*/
                 try {
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("https://esewa.com.np/#/home" + getPackageName())));
@@ -328,12 +285,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 rate.putExtras(b);
                 startActivity(rate);
 
-                /*if (!isFragmentDisplayed){
-                    displayFragment();
-                }else {
-                    closeFragment();
-                }
-                break;*/
         }
         return super.onOptionsItemSelected(item);
     }

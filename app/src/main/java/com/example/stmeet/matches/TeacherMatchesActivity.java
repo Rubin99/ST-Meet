@@ -174,10 +174,6 @@ public class TeacherMatchesActivity extends AppCompatActivity implements Navigat
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(TeacherMatchesActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(TeacherMatchesActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);

@@ -15,9 +15,18 @@
         android:orientation="vertical"
         android:layout_marginTop="60dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subject List"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/black"
+            android:textSize="42sp"
+            android:gravity="center"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="125dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
@@ -28,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg1"
+                android:gravity="center"
                 android:orientation="vertical">
 
 
@@ -37,8 +47,6 @@
                         android:text="Java"
                         android:textColor="@color/white"
                         android:textSize="48sp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="40dp"
                         android:id="@+id/java"
                         />
 
@@ -49,7 +57,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="125dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
@@ -60,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg1"
+                android:gravity="center"
                 android:orientation="vertical">
 
 
@@ -69,8 +78,6 @@
                     android:text="PHP"
                     android:textSize="48sp"
                     android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
                     android:id="@+id/php"
                     />
 
@@ -81,7 +88,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="125dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
@@ -92,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg1"
+                android:gravity="center"
                 android:orientation="vertical">
 
 
@@ -101,8 +109,6 @@
                     android:text="Database"
                     android:textSize="48sp"
                     android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
                     android:id="@+id/db"
                     />
 

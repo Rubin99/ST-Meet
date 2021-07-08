@@ -210,10 +210,6 @@ public class TeacherChatActivity extends AppCompatActivity implements Navigation
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(TeacherChatActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(TeacherChatActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
@@ -249,19 +245,16 @@ public class TeacherChatActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
+        menuInflater.inflate(R.menu.teacher_chat_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.paypal:
-                Toast.makeText(this, "Paypal", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.videoCall:
                 Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
-                Intent video = new Intent(TeacherChatActivity.this, VideoActivity.class);
+                Intent video = new Intent(TeacherChatActivity.this, TeacherVideoActivity.class);
                 startActivity(video);
                 break;
             case R.id.rateTeacher:
@@ -274,12 +267,6 @@ public class TeacherChatActivity extends AppCompatActivity implements Navigation
                 rate.putExtras(b);
                 startActivity(rate);
 
-                /*if (!isFragmentDisplayed){
-                    displayFragment();
-                }else {
-                    closeFragment();
-                }
-                break;*/
         }
         return super.onOptionsItemSelected(item);
     }

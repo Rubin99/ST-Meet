@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.stmeet.R;
+import com.example.stmeet.matches.TeacherMatchesActivity;
 import com.example.stmeet.teacher_info.TeacherInfoActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +47,58 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull @org.jetbrains.annotations.NotNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
+
+                    /*String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference uidRef = rootRef.child("Users").child(uid);
+
+                    ValueEventListener valueEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            if (snapshot.child("role").getValue().toString() == "Student"){
+                                Intent intent = new Intent(LoginActivity.this, MatchesActivity.class);
+                                startActivity(intent);
+                                finish();
+                                return;
+                            } else if (snapshot.child("role").getValue().toString() == "Teacher"){
+                                Intent intent = new Intent(LoginActivity.this, TeacherMatchesActivity.class);
+                                startActivity(intent);
+                                finish();
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    };*/
+                    /*String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUserId);
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                               String role = dataSnapshot.child("role").getValue().toString();
+                               if (role.equals("Student")){
+                                   Intent intent = new Intent(LoginActivity.this, MatchesActivity.class);
+                                   startActivity(intent);
+                                   finish();
+                                   return;
+                               }
+                               if (role.equals("Teacher")){
+
+                               }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });*/
+
+
                     Intent intent = new Intent(LoginActivity.this, MatchesActivity.class);
                     startActivity(intent);
                     finish();
@@ -86,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void toRegister(View view) {
-        Intent intent = new Intent(LoginActivity.this, TeacherInfoActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
         return;
     }

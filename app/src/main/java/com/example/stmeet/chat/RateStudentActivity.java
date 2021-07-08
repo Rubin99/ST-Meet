@@ -86,7 +86,7 @@ public class RateStudentActivity extends AppCompatActivity implements Navigation
         mRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mDatabaseUser.setValue(rating);
+
                 DatabaseReference mStudentRatingDb = FirebaseDatabase.getInstance().getReference().child("Users").child(mMatchId).child("rating");
                 mStudentRatingDb.child(mChatId).setValue(rating);
             }
@@ -106,10 +106,6 @@ public class RateStudentActivity extends AppCompatActivity implements Navigation
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(RateStudentActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(RateStudentActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);

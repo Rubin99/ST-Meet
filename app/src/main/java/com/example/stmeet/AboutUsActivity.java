@@ -61,10 +61,6 @@ public class AboutUsActivity extends AppCompatActivity implements NavigationView
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(AboutUsActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(AboutUsActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
@@ -82,7 +78,7 @@ public class AboutUsActivity extends AppCompatActivity implements NavigationView
                 startActivity(a);
                 break;
             case R.id.nav_logout:
-                mAuth.signOut(); //!!!!!!!!!!!!!!!!!!!!!!! Need to add mAuth
+                mAuth.signOut();
                 Intent l= new Intent(AboutUsActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);

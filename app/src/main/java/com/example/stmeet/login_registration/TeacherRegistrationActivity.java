@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class TeacherRegistrationActivity extends AppCompatActivity {
 
-    private EditText mEmailRegister, mPasswordRegister, mNameRegister;
+    private EditText mEmailRegister, mPasswordRegister, mNameRegister, mHourlyRate;
     private Button mRegister;
     private RadioGroup mRadioGroup, mRadioGroup2;
 
@@ -60,6 +60,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         mEmailRegister = findViewById(R.id.emailRegister);
         mPasswordRegister = findViewById(R.id.passwordRegister);
         mRegister = findViewById(R.id.register);
+        mHourlyRate = findViewById(R.id.hourlyRate);
 
         mNameRegister = findViewById(R.id.nameRegister);
         mRadioGroup = findViewById(R.id.radioGroup);
@@ -78,6 +79,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                 final String email = mEmailRegister.getText().toString();
                 final String password = mPasswordRegister.getText().toString();
                 final String name = mNameRegister.getText().toString();
+                final String hourlyRate = mHourlyRate.getText().toString();
 
                 int subjectId = mRadioGroup2.getCheckedRadioButtonId();
                 final RadioButton radioButton2 = findViewById(subjectId);
@@ -89,7 +91,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(TeacherRegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(TeacherRegistrationActivity.this, ChooseLoginRegistrationActivity.class);
+                            Intent intent = new Intent(TeacherRegistrationActivity.this, ChooseTeacherLoginRegistrationActivity.class);
                             //intent.putExtra("userRole", userRole);
                             startActivity(intent);
                             return;
@@ -102,6 +104,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                             userInformation.put("role", radioButton.getText().toString());
                             userInformation.put("profileImageUrl", "default");
                             userInformation.put("subject", radioButton2.getText().toString().toLowerCase());
+                            userInformation.put("hourlyRate", hourlyRate);
                             currentUserDb.updateChildren(userInformation);
                             currentUserDb.updateChildren(userInformation);
                         }

@@ -33,8 +33,6 @@
                     android:text="Matche's Name"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:paddingLeft="20sp"
                     android:paddingTop="20sp"
                     android:paddingBottom="20sp"
                     android:id="@+id/matchName"/>

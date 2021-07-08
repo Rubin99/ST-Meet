@@ -110,24 +110,17 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
                 usersDb.child(userId).child("connections").child("rejected").child(currentUId).setValue(true);
-
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onRightCardExit(Object dataObject) {
                 cards obj = (cards) dataObject;
                 String userId = obj.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
                 usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-
                 isConnectionMatch(userId);
-
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -364,11 +357,6 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
                 Intent h= new Intent(MainActivity.this, SubjectListActivity.class);
                 h.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(h);
-                break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(MainActivity.this, MainActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(t);
                 break;
             case R.id.nav_profile:
                 Intent p= new Intent(MainActivity.this, UserInfoActivity.class);

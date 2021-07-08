@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class DbDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mDbTeacherId, mDbName, mDbSubject;
+    public TextView mDbTeacherId, mDbName, mHourlyRate;
     public ImageView mDbImage, mAccept, mReject;
     public RatingBar mDbRatingBar;
 
@@ -31,17 +32,15 @@ public class DbDisplayViewHolder extends RecyclerView.ViewHolder {
 
     public DbDisplayViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        //itemView.setOnClickListener(this);
 
         mDbTeacherId = itemView.findViewById(R.id.dbId);
         mDbTeacherId.setVisibility(View.INVISIBLE);
         mDbName = itemView.findViewById(R.id.dbName);
-        mDbSubject = itemView.findViewById(R.id.dbSubject);
         mDbImage = itemView.findViewById(R.id.dbImage);
         mAccept = itemView.findViewById(R.id.accept);
         mReject = itemView.findViewById(R.id.reject);
-        //mJavaRating = itemView.findViewById(R.id.javaRating);
         mDbRatingBar = itemView.findViewById(R.id.ratingBarDb);
+        mHourlyRate =itemView.findViewById(R.id.dbHourlyRate);
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -59,6 +58,7 @@ public class DbDisplayViewHolder extends RecyclerView.ViewHolder {
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Request sent", Toast.LENGTH_LONG).show();
                 usersDb.child(mDbTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
                 mReject.setVisibility(View.INVISIBLE);
                 mAccept.setVisibility(View.INVISIBLE);
@@ -68,6 +68,7 @@ public class DbDisplayViewHolder extends RecyclerView.ViewHolder {
         mDbImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Teacher Rejected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(), TeacherInfoActivity.class);
                 Bundle b = new Bundle();
                 b.putString("teacherId", mDbTeacherId.getText().toString());
@@ -77,22 +78,4 @@ public class DbDisplayViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-
-
-
-
-    //private PhpDisplayViewHolder.ClickListener mClickListener;
-/*
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    public interface ClickListener{
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view, int position);
-    }
-    public void setOnClickListener(PhpDisplayViewHolder.ClickListener clickListener){
-        mClickListener = clickListener;
-    }*/
 }

@@ -56,6 +56,44 @@
             android:layout_marginBottom="4dp"
             android:id="@+id/matchSubject"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs."
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hourly Rate"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:id="@+id/matchesHourlyRate"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/Hour"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

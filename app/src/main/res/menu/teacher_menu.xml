@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_profile"
-        android:title="User Profile"/>
-
+<group
+    android:id="@+id/group1">
     <item
         android:id="@+id/nav_matches"
-        android:title="Matches" />
-    <item
-        android:id="@+id/nav_teacher"
-        android:title="Teacher List" />
+        android:title="Matches"
+        android:icon="@drawable/ic_baseline_supervisor_account_24"/>
     <item
         android:id="@+id/nav_request"
-        android:title="Request List" />
+        android:title="Request List"
+        android:icon="@drawable/ic_baseline_person_add_alt_1_24"/>
+</group>
+    <group
+        android:id="@+id/group2">
+    <item
+        android:id="@+id/nav_profile"
+        android:title="User Profile"
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
     <item
         android:id="@+id/nav_aboutUs"
-        android:title="About Us" />
+        android:title="About Us"
+        android:icon="@drawable/ic_baseline_assignment_24"/>
+    </group>
     <item
         android:id="@+id/nav_logout"
-        android:title="Logout" />
+        android:title="Logout"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"/>
 </menu>

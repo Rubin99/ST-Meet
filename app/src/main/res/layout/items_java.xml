@@ -47,15 +47,44 @@
             android:layout_gravity="center"
             android:id="@+id/javaId"/>
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Java Subject"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs."
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hourly Rate"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:id="@+id/javaSubject"/>
+            android:layout_marginLeft="2dp"
+            android:id="@+id/javaHourlyRate"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/Hour"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+
+        </LinearLayout>
 
         <RatingBar
             android:id="@+id/ratingBarJava"
@@ -67,7 +96,6 @@
             android:numStars="5"
             android:stepSize="0.1"
             />
-
         <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,20 +115,20 @@
         android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="25sp"
-        android:layout_height="50sp"
-        android:src="@drawable/ic_baseline_mobile_friendly_24"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_request"
         android:id="@+id/accept"
         android:layout_marginLeft="4dp"
         android:layout_gravity="center"/>
 
     <ImageView
-        android:layout_width="25sp"
-        android:layout_height="50sp"
-        android:src="@drawable/ic_baseline_phonelink_erase_24"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_person_remove_alt_1_24"
         android:id="@+id/reject"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_marginLeft="6dp"/>
 
     </LinearLayout>
 

@@ -164,10 +164,6 @@ public class StudentInfoActivity extends AppCompatActivity implements Navigation
         int id = item.getItemId();
         switch (id) {
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(StudentInfoActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p = new Intent(StudentInfoActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);

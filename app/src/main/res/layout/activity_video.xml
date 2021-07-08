@@ -20,8 +20,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Video Call"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="42sp"
+            android:fontFamily="sans-serif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +34,7 @@
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:text="Enter your Code:"
+            android:textColor="@color/white"
             android:gravity="center"
             android:textSize="24sp"/>
 
@@ -42,6 +44,7 @@
         android:layout_height="wrap_content"
         android:hint="Enter Room Id"
         android:layout_gravity="center"
+        android:textColor="@color/white"
         android:layout_marginTop="20sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"

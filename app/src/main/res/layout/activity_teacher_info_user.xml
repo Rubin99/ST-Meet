@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-    android:background="@drawable/study"
+    android:background="@drawable/study6"
     tools:context=".info.TeacherInfoUserActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:src="@mipmap/ic_launcher"
             android:layout_marginTop="20dp"
             app:civ_border_width="4dp"
-            app:civ_border_color="@color/midBlue"
+            app:civ_border_color="@color/lightBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,9 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Name:"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
@@ -45,7 +44,7 @@
             android:layout_margin="20sp"
             android:textSize="18sp"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Name"
             android:paddingLeft="38sp"
             app:layout_constraintStart_toEndOf="@+id/nameTV"
@@ -57,9 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Phone No.:"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameTV" />
 
@@ -70,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Phone No"
             android:inputType="number"
             android:textSize="18sp"
@@ -83,9 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Education:"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phoneTV" />
 
@@ -96,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Level of education"
             android:textSize="18sp"
             android:paddingLeft="4sp"
@@ -109,9 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="Subject:"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/educationTV" />
 
@@ -122,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Specialized Subject"
             android:textSize="18sp"
             android:paddingLeft="22sp"
@@ -135,9 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:text="School:"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subjectTV" />
 
@@ -148,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Current School/Organization"
             android:textSize="18sp"
             android:paddingLeft="26sp"
@@ -156,16 +151,53 @@
             app:layout_constraintTop_toBottomOf="@+id/subject" />
 
         <TextView
+            android:id="@+id/hourlyRateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Hourly Rate:"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+
+        <TextView
+            android:id="@+id/rs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="6dp"
+            android:background="@null"
+            android:text="Rs."
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
+            app:layout_constraintTop_toBottomOf="@+id/school" />
+
+
+        <EditText
+            android:id="@+id/userHourlyRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="4dp"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:hint="Hourly Rate (Rs)"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/rs"
+            app:layout_constraintTop_toBottomOf="@+id/school" />
+
+        <TextView
             android:id="@+id/aboutTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:text="About:"
-            android:textColor="@color/black"
+            android:text="Bio:"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRateTv" />
 
         <EditText
             android:id="@+id/about"
@@ -174,21 +206,10 @@
             android:layout_margin="20sp"
             android:background="@null"
             android:hint="About Yourself"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:paddingLeft="110dp"
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
-            app:layout_constraintTop_toBottomOf="@+id/school" />
-
-        <Button
-            android:id="@+id/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20sp"
-            android:text="Save"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/userHourlyRate" />
 
         <!--<Button
             android:id="@+id/back"

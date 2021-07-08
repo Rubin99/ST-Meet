@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mPhpTeacherId, mPhpName, mPhpSubject;
+    public TextView mPhpTeacherId, mPhpName, mHourlyRate;
     public ImageView mPhpImage, mAccept, mReject;
     public RatingBar mRatingBar;
 
@@ -36,7 +37,7 @@ public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
         mPhpTeacherId = itemView.findViewById(R.id.phpId);
         mPhpTeacherId.setVisibility(View.INVISIBLE);
         mPhpName = itemView.findViewById(R.id.phpName);
-        mPhpSubject = itemView.findViewById(R.id.phpSubject);
+        mHourlyRate = itemView.findViewById(R.id.phpHourlyRate);
         mPhpImage = itemView.findViewById(R.id.phpImage);
         mAccept = itemView.findViewById(R.id.accept);
         mReject = itemView.findViewById(R.id.reject);
@@ -51,6 +52,7 @@ public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
         mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Request sent", Toast.LENGTH_LONG).show();
                 usersDb.child(mPhpTeacherId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
                 mAccept.setVisibility(View.INVISIBLE);
                 mReject.setVisibility(View.INVISIBLE);
@@ -59,6 +61,7 @@ public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Teacher Rejected sent", Toast.LENGTH_LONG).show();
                 usersDb.child(mPhpTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
                 mReject.setVisibility(View.INVISIBLE);
                 mAccept.setVisibility(View.INVISIBLE);
@@ -77,22 +80,4 @@ public class PhpDisplayViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-
-
-
-
-    //private PhpDisplayViewHolder.ClickListener mClickListener;
-/*
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    public interface ClickListener{
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view, int position);
-    }
-    public void setOnClickListener(PhpDisplayViewHolder.ClickListener clickListener){
-        mClickListener = clickListener;
-    }*/
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/study8"
+    android:background="@drawable/study6"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".login_registration.LoginActivity">
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Teacher Log In"
-        android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textColor="@color/white"
+        android:textSize="28dp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -39,6 +40,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Email"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -53,6 +55,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Password"
+        android:textColor="@color/white"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailLoginTeacher" />
@@ -67,7 +71,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Login"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLoginTeacher" />
@@ -83,7 +87,7 @@
         android:layout_marginTop="8dp"
         android:text="Don't have an account?"
         android:textSize="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:fontFamily="sans-serif"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTeacher" />
@@ -97,7 +101,7 @@
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginLeft="4dp"
-        android:textColor="@color/midBlue"
+        android:textColor="@color/lighterBlue"
         android:fontFamily="sans-serif"
         android:onClick="toRegister"
         app:layout_constraintStart_toEndOf="@+id/textView4"

@@ -19,7 +19,7 @@
             android:layout_height="150dp"
             android:layout_margin="20sp"
             app:civ_border_width="4dp"
-            app:civ_border_color="@color/midBlue"
+            app:civ_border_color="@color/lightBlue"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,12 +133,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
-            android:text="About:"
+            android:text="Bio:"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schoolTV" />
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRateTv" />
 
         <TextView
             android:id="@+id/otherAbout"
@@ -151,9 +151,50 @@
             android:textColor="@color/white"
             android:paddingLeft="34sp"
             app:layout_constraintStart_toEndOf="@+id/aboutTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherSchool" />
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRate" />
 
         <TextView
+            android:id="@+id/hourlyRateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:text="Hourly Rate:"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTv" />
+
+        <TextView
+            android:id="@+id/rs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:paddingTop="4dp"
+            android:layout_marginLeft="6dp"
+            android:background="@null"
+            android:text="Rs."
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/hourlyRateTv"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarInfo" />
+
+        <TextView
+            android:id="@+id/hourlyRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="4dp"
+            android:textSize="18sp"
+            android:paddingTop="4dp"
+            android:background="@null"
+            android:hint="Hourly Rate (Rs.)"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/rs"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarInfo" />
+
+        <TextView
+            android:id="@+id/ratingTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
@@ -162,7 +203,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutTV"/>
+            app:layout_constraintTop_toBottomOf="@+id/schoolTV"/>
 
         <RatingBar
             android:id="@+id/ratingBarInfo"
@@ -175,8 +216,8 @@
             android:stepSize="0.1"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="50dp"
-            app:layout_constraintStart_toEndOf="@+id/aboutTV"
-            app:layout_constraintTop_toBottomOf="@+id/otherAbout"
+            app:layout_constraintStart_toEndOf="@+id/ratingTv"
+            app:layout_constraintTop_toBottomOf="@+id/otherSchool"
             />
 
 

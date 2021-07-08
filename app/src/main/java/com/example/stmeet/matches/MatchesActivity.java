@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.SubjectListActivity;
@@ -111,9 +112,6 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
         DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
 
-        /*DividerItemDecoration decoration = new DividerItemDecoration(MatchesActivity.this, DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);*/
-
         getUserMatchId();
 
     }
@@ -147,17 +145,21 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                     String name = "";
                     String subject = "";
                     String profileImageUrl = "";
+                    String hourlyRate = "";
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
                     }
                     if (snapshot.child("subject").getValue() != null){
                         subject = snapshot.child("subject").getValue().toString();
                     }
+                    if (snapshot.child("hourlyRate").getValue() != null){
+                        hourlyRate = snapshot.child("hourlyRate").getValue().toString();
+                    }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                        MatchesObject obj = new MatchesObject(userId, name, subject, profileImageUrl); //
+                        MatchesObject obj = new MatchesObject(userId, name, subject, profileImageUrl, hourlyRate); //
                         resultsMatches.add(obj);
 
                     mMatchesAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
@@ -187,10 +189,6 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                 Intent h= new Intent(MatchesActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(MatchesActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(MatchesActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -200,7 +198,7 @@ public class MatchesActivity extends AppCompatActivity implements NavigationView
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(MatchesActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(MatchesActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:

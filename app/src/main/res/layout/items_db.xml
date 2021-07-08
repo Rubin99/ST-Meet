@@ -47,15 +47,42 @@
             android:layout_gravity="center"
             android:id="@+id/dbId"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Db Subject"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:id="@+id/dbSubject"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs."
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hourly Rate"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:id="@+id/dbHourlyRate"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/Hour"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
 
         <RatingBar
             android:id="@+id/ratingBarDb"
@@ -86,20 +113,20 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="25sp"
+            android:layout_width="30dp"
             android:layout_height="50sp"
-            android:src="@drawable/ic_baseline_mobile_friendly_24"
+            android:src="@drawable/ic_baseline_request"
             android:id="@+id/accept"
             android:layout_marginLeft="4dp"
             android:layout_gravity="center"/>
 
         <ImageView
-            android:layout_width="25sp"
+            android:layout_width="30dp"
             android:layout_height="50sp"
-            android:src="@drawable/ic_baseline_phonelink_erase_24"
+            android:src="@drawable/ic_baseline_person_remove_alt_1_24"
             android:id="@+id/reject"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_marginLeft="6dp"/>
 
     </LinearLayout>
 

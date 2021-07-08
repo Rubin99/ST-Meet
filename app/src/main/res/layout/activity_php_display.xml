@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/study6"
+    android:background="@drawable/school"
     android:id="@+id/drawer"
     tools:context=".php_display.PhpDisplayActivity">
 
@@ -20,9 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="PHP TEACHERS"
+            android:text="Php Teachers"
             android:textSize="42sp"
-            android:textColor="@color/white"/>
+            android:fontFamily="sans-serif"
+            android:textColor="@color/black"/>
 
         <!--<Button
             android:id="@+id/sortAsc"

@@ -49,19 +49,20 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="25sp"
-        android:layout_height="50sp"
-        android:src="@drawable/ic_baseline_mobile_friendly_24"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_request"
         android:id="@+id/requestAccept"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"/>
 
     <ImageView
-        android:layout_width="25sp"
-        android:layout_height="50sp"
-        android:src="@drawable/ic_baseline_phonelink_erase_24"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_person_remove_alt_1_24"
         android:id="@+id/requestReject"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_marginLeft="6dp"/>
 
 </LinearLayout>
 

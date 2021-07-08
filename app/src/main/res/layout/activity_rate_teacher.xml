@@ -21,22 +21,20 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Rate Your Teacher"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="42sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="150sp"
             android:layout_marginLeft="40sp"
             android:layout_marginRight="40sp"
-            android:elevation="100sp"
-            app:cardCornerRadius="24sp"
+            android:layout_marginTop="125dp"
+            app:cardCornerRadius="8sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5">

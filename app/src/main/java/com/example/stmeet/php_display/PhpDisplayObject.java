@@ -3,14 +3,14 @@ package com.example.stmeet.php_display;
 public class PhpDisplayObject {
     private String userId;
     private String name;
-    private String subject;
+    private String hourlyRate;
     private String profileImageUrl;
     private String rating;
 
-    public PhpDisplayObject(String userId, String name, String subject, String profileImageUrl, String rating){ //, RatingBar rating
+    public PhpDisplayObject(String userId, String name, String hourlyRate, String profileImageUrl, String rating){ //, RatingBar rating
         this.userId = userId;
         this.name = name;
-        this.subject = subject;
+        this.hourlyRate = hourlyRate;
         this.profileImageUrl = profileImageUrl;
         this.rating = rating;
     }
@@ -21,8 +21,8 @@ public class PhpDisplayObject {
     public String getName(){ return name; }
     public void setName(String name){ this.name = name; }
 
-    public String getSubject(){ return subject; }
-    public void setSubject(String subject){ this.subject = subject; }
+    public String getHourlyRate(){ return hourlyRate; }
+    public void setHourlyRate(String hourlyRate){ this.hourlyRate = hourlyRate; }
 
     public String getProfileImageUrl(){ return profileImageUrl; }
     public void setProfileImageUrl(String profileImageUrl){ this.profileImageUrl = profileImageUrl; }

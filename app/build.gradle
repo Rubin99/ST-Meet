@@ -49,19 +49,12 @@ dependencies {
     //For swiprcards
     implementation 'com.lorentzos.swipecards:library:1.0.9'
 
-
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.6.0')
-
-    implementation 'com.google.firebase:firebase-analytics'
-
-    // Declare the dependency for the Realtime Database library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database'
-
     implementation 'com.google.firebase:firebase-auth'
-
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-analytics'
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'

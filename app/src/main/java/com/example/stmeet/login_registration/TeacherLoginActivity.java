@@ -87,7 +87,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
     }
 
     public void toRegister(View view) {
-        Intent intent = new Intent(TeacherLoginActivity.this, TeacherInfoActivity.class);
+        Intent intent = new Intent(TeacherLoginActivity.this, TeacherRegistrationActivity.class);
         startActivity(intent);
         return;
     }

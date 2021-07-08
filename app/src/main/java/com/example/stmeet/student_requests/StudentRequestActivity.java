@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
@@ -151,10 +152,6 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
         int id=item.getItemId();
         switch (id){
 
-            case R.id.nav_teacher:
-                Intent t = new Intent(StudentRequestActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(StudentRequestActivity.this, TeacherInfoUserActivity.class);
                 startActivity(p);
@@ -168,7 +165,7 @@ public class StudentRequestActivity extends AppCompatActivity implements Navigat
                 startActivity(r);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(StudentRequestActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(StudentRequestActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:

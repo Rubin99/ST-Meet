@@ -25,8 +25,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.SubjectListActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.stmeet.MainActivity;
@@ -104,8 +106,7 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
         mSchoolField = findViewById(R.id.school);
         mSubjectField = findViewById(R.id.subject);
         mAboutField = findViewById(R.id.about);
-        mConfirm = findViewById(R.id.confirm);
-        //mBack = findViewById(R.id.back);
+        //mConfirm = findViewById(R.id.confirm);
         mProfileImage = findViewById(R.id.profileImage);
 
         mAuth = FirebaseAuth.getInstance();
@@ -127,22 +128,13 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        mConfirm.setOnClickListener(new View.OnClickListener() {
+/*        mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserInformation();
             }
-        });
-
-       /* mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                return;
-            }
         });*/
-
-    }
+  }
 
     //Litsener to check for current user TeacherInfoObject
     private void getUserInfo() {
@@ -286,10 +278,6 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
                 Intent h= new Intent(UserInfoActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(UserInfoActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(UserInfoActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -299,12 +287,12 @@ public class UserInfoActivity extends AppCompatActivity implements NavigationVie
                 startActivity(m);
                 break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(UserInfoActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(UserInfoActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(UserInfoActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(UserInfoActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();

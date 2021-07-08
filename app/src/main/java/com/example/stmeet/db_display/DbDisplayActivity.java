@@ -20,12 +20,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.stmeet.AboutUs2Activity;
 import com.example.stmeet.AboutUsActivity;
 import com.example.stmeet.MainActivity;
 import com.example.stmeet.R;
 import com.example.stmeet.SubjectListActivity;
 import com.example.stmeet.info.UserInfoActivity;
+import com.example.stmeet.java_display.JavaDisplayObject;
 import com.example.stmeet.login_registration.ChooseLoginRegistrationActivity;
+import com.example.stmeet.login_registration.ChooseRoleActivity;
 import com.example.stmeet.matches.MatchesActivity;
 import com.example.stmeet.student_requests.StudentRequestActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -110,26 +113,6 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
 
         //--------------------------------------------------------------
 
-        /*mButtonAsc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.sort(resultsDb, new Comparator<DbDisplayObject>() {
-                    @Override
-                    public int compare(DbDisplayObject o1, DbDisplayObject o2) {
-                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
-                    }
-
-                });
-                mDbAdapter.notifyDataSetChanged();
-            }
-        });
-        mButtonDesc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.reverse(resultsDb);
-                mDbAdapter.notifyDataSetChanged();
-            }
-        });*/
     }
 
 
@@ -157,17 +140,17 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
         userDbDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists() && !snapshot.child("connections").child("rejected").hasChild(currentUserId)){
                     String userId = snapshot.getKey();
                     String name = "";
-                    String subject = "";
+                    String hourlyRate = "";
                     String profileImageUrl = "";
                     String rating = "";
                     if (snapshot.child("name").getValue() != null){
                         name = snapshot.child("name").getValue().toString();
                     }
-                    if (snapshot.child("subject").getValue() != null){
-                        subject = snapshot.child("subject").getValue().toString();
+                    if (snapshot.child("hourlyRate").getValue() != null){
+                        hourlyRate = snapshot.child("hourlyRate").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
@@ -179,15 +162,12 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
                         ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
                         ratingsTotal++;
                     }
-                   /* if(ratingsTotal != 0){
-                        ratingsAvg = ratingSum/ratingsTotal;
-                        rating.setRating(ratingsAvg);
-                    }*/
+
                     if (snapshot.child("rating").getValue() != null){
                         rating = String.valueOf(ratingSum/ratingsTotal);
                     }
 
-                    DbDisplayObject obj = new DbDisplayObject(userId, name, subject, profileImageUrl, rating); //
+                    DbDisplayObject obj = new DbDisplayObject(userId, name, hourlyRate, profileImageUrl, rating); //
                     resultsDb.add(obj);
 
                     mDbAdapter.notifyDataSetChanged(); // IMP as recyclerView can start again and look for things that change
@@ -203,34 +183,6 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
         });
     }
 
-    /* ValueEventListener valueEventListener = new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-             javaList.clear();
-             if (snapshot.exists()){
-                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                     PhpDisplayObject javaDisplayObject = dataSnapshot.getValue(PhpDisplayObject.class);
-                     javaList.add(javaDisplayObject);
-                 }
-                 mJavaAdapter.notifyDataSetChanged();
-             }
-         }
- 
-         @Override
-         public void onCancelled(@NonNull @NotNull DatabaseError error) {
- 
-         }
-     };
- */
-    /* public void sendRequest(View view) {
-
-                PhpDisplayObject object = view;
-                String userId = PhpDisplayObject.getUserId();
-                //usersDb.child(oppositeUserRole).child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-                usersDb.child(userId).child("connections").child("accepted").child(currentUId).setValue(true);
-
-                Toast.makeText(PhpDisplayActivity.this, "Request sent!", Toast.LENGTH_SHORT).show();
-            }*/
    private ArrayList<DbDisplayObject> resultsDb = new ArrayList<DbDisplayObject>();
     private List<DbDisplayObject> getDataSetDb() {
         return resultsDb;
@@ -245,10 +197,6 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
                 Intent h= new Intent(DbDisplayActivity.this, SubjectListActivity.class);
                 startActivity(h);
                 break;
-            case R.id.nav_teacher:
-                Intent t = new Intent(DbDisplayActivity.this, MainActivity.class);
-                startActivity(t);
-                break;
             case R.id.nav_profile:
                 Intent p= new Intent(DbDisplayActivity.this, UserInfoActivity.class);
                 startActivity(p);
@@ -257,17 +205,13 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
                 Intent m= new Intent(DbDisplayActivity.this, MatchesActivity.class);
                 startActivity(m);
                 break;
-            case R.id.nav_request:
-                Intent r = new Intent(DbDisplayActivity.this, StudentRequestActivity.class);
-                startActivity(r);
-                break;
             case R.id.nav_aboutUs:
-                Intent a= new Intent(DbDisplayActivity.this, AboutUsActivity.class);
+                Intent a= new Intent(DbDisplayActivity.this, AboutUs2Activity.class);
                 startActivity(a);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent l= new Intent(DbDisplayActivity.this, ChooseLoginRegistrationActivity.class);
+                Intent l= new Intent(DbDisplayActivity.this, ChooseRoleActivity.class);
                 l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 finish();
@@ -290,12 +234,23 @@ public class DbDisplayActivity extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.sort:
-                Toast.makeText(this, "Sort by Highest Rated", Toast.LENGTH_SHORT).show();
+
+            case R.id.high:
+                Toast.makeText(this, "Sort by Highest Rated to Lowest", Toast.LENGTH_SHORT).show();
                 Collections.reverse(resultsDb);
                 mDbAdapter.notifyDataSetChanged();
                 break;
 
+            case R.id.low:
+                Toast.makeText(this, "Sort by Lowest to Highest", Toast.LENGTH_SHORT).show();
+                Collections.sort(resultsDb, new Comparator<DbDisplayObject>() {
+                    @Override
+                    public int compare(DbDisplayObject o1, DbDisplayObject o2) {
+                        return  o1.getRating().compareToIgnoreCase(o2.getRating());
+                    }
+                });
+                mDbAdapter.notifyDataSetChanged();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

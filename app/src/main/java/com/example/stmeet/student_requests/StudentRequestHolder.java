@@ -35,7 +35,6 @@ public class StudentRequestHolder extends RecyclerView.ViewHolder {
 
     public StudentRequestHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        //itemView.setOnClickListener(this);
 
         mStudentId = itemView.findViewById(R.id.studentId);
         mStudentName = itemView.findViewById(R.id.studentName);
@@ -81,11 +80,6 @@ public class StudentRequestHolder extends RecyclerView.ViewHolder {
                     Toast.makeText(itemView.getContext(), "matched", Toast.LENGTH_LONG).show();
 
                     String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
-
-                    //have to make sure matches sub branch is within userId !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-                    //usersDb.child(oppositeUserRole).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(true);
-                    //usersDb.child(userRole).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(true);
                     usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUId).child("ChatId").setValue(key);
                     usersDb.child(currentUId).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(key);
                 }

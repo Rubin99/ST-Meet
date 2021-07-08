@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView mTeacherId, mJavaName, mJavaSubject, mJavaRating;
+    public TextView mTeacherId, mJavaName, mHourlyRate, mCount;
     public ImageView mJavaImage, mAccept, mReject;
     public RatingBar mRatingBar;
 
@@ -31,17 +32,15 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
 
     public JavaDisplayViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        //itemView.setOnClickListener(this);
 
         mTeacherId = itemView.findViewById(R.id.javaId);
         mTeacherId.setVisibility(View.INVISIBLE);
         mJavaName = itemView.findViewById(R.id.javaName);
-        mJavaSubject = itemView.findViewById(R.id.javaSubject);
         mJavaImage = itemView.findViewById(R.id.javaImage);
         mAccept = itemView.findViewById(R.id.accept);
         mReject = itemView.findViewById(R.id.reject);
-        //mJavaRating = itemView.findViewById(R.id.javaRating);
         mRatingBar = itemView.findViewById(R.id.ratingBarJava);
+        mHourlyRate = itemView.findViewById(R.id.javaHourlyRate);
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -51,7 +50,9 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 usersDb.child(mTeacherId.getText().toString()).child("connections").child("accepted").child(currentUId).setValue(true);
+                Toast.makeText(itemView.getContext(), "Request sent", Toast.LENGTH_LONG).show();
                 mAccept.setVisibility(View.INVISIBLE);
                 mReject.setVisibility(View.INVISIBLE);
             }
@@ -59,6 +60,7 @@ public class JavaDisplayViewHolder extends RecyclerView.ViewHolder {
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Teacher rejected", Toast.LENGTH_LONG).show();
                 usersDb.child(mTeacherId.getText().toString()).child("connections").child("rejected").child(currentUId).setValue(true);
                 mReject.setVisibility(View.INVISIBLE);
                 mAccept.setVisibility(View.INVISIBLE);
